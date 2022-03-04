@@ -4,6 +4,7 @@ import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-n
 
 export function MainScreen() {
   const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState(undefined);
 
   const search =
     async () => {
@@ -16,8 +17,8 @@ export function MainScreen() {
       })
       .then(response => response.json())
       .then(json => {
-        console.log("success");
         console.log(json);
+        setSearchResults(json);
       }).catch((error) => {
         console.log(`There was an error -> ${error}`);
       });
@@ -27,26 +28,32 @@ export function MainScreen() {
     search();
   }
 
-
-  return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          onChangeText={text => setSearchText(text)}
-          defaultValue={searchText}
-        />
-        <Button
-          title="Search"
-          accessibilityLabel="Search for cocktails"
-          onPress={executeSearch}
-        />
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </View>
-
-  );
+  if(searchResults === undefined){
+    return (
+      <View style={styles.container}>
+        <SafeAreaView>
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search"
+            onChangeText={text => setSearchText(text)}
+            defaultValue={searchText}
+          />
+          <Button
+            title="Search"
+            accessibilityLabel="Search for cocktails"
+            onPress={executeSearch}
+          />
+          <StatusBar style="auto" />
+        </SafeAreaView>
+      </View>
+    );
+  } else {
+    return (
+      <Text>
+        {JSON.stringify(searchResults)}
+      </Text>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
