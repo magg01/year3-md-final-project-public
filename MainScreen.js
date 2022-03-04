@@ -42,7 +42,7 @@ export function MainScreen() {
           <Button
             title="Search"
             accessibilityLabel="Search for cocktails"
-            onPress={executeSearch}
+            onPress={search}
           />
           <StatusBar style="auto" />
         </SafeAreaView>
@@ -66,7 +66,7 @@ export function MainScreen() {
         <Button
           title="Search"
           accessibilityLabel="Search for cocktails"
-          onPress={executeSearch}
+          onPress={search}
         />
         <SafeAreaView>
           {searchResults.drinks.map((drink) => (
