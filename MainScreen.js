@@ -54,6 +54,7 @@ export function MainScreen() {
         {searchResults.drinks.map((drink) => (
           <CocktailTile
             title={drink["strDrink"]}
+            image={drink["strDrinkThumb"]}
             onPress={() => alert('pressed!')}
           />
         ))}
