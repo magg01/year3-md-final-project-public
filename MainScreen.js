@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
 import CocktailTile from './CocktailTile';
 
 export function MainScreen({navigation}) {
@@ -65,29 +65,31 @@ export function MainScreen({navigation}) {
     )
   } else {
     return (
-      <View>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          onChangeText={text => setSearchText(text)}
-          defaultValue={searchText}
-        />
-        <Button
-          title="Search"
-          accessibilityLabel="Search for cocktails"
-          onPress={search}
-        />
-        <SafeAreaView>
-          {searchResults.drinks.map((drink) => (
-            <CocktailTile
-              key={drink["idDrink"]}
-              title={drink["strDrink"]}
-              image={drink["strDrinkThumb"]+"/preview"}
-              onPress={() => {navigation.navigate("CocktailDetail", {drink})}}
-            />
-          ))}
-        </SafeAreaView>
-      </View>
+      <SafeAreaView>
+        <View>
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search"
+            onChangeText={text => setSearchText(text)}
+            defaultValue={searchText}
+          />
+          <Button
+            title="Search"
+            accessibilityLabel="Search for cocktails"
+            onPress={search}
+          />
+          <ScrollView contentContainerStyle={{ paddingBottom: 1000 }}>
+            {searchResults.drinks.map((drink) => (
+              <CocktailTile
+                key={drink["idDrink"]}
+                title={drink["strDrink"]}
+                image={drink["strDrinkThumb"]+"/preview"}
+                onPress={() => {navigation.navigate("CocktailDetail", {drink})}}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     )
   }
 }
