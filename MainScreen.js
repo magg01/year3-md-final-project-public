@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import CocktailTile from './CocktailTile';
 
 export function MainScreen() {
   const [searchText, setSearchText] = useState('');
@@ -49,9 +50,14 @@ export function MainScreen() {
     );
   } else {
     return (
-      <Text>
-        {JSON.stringify(searchResults)}
-      </Text>
+      <View>
+        {searchResults.drinks.map((drink) => (
+          <CocktailTile
+            title={drink["strDrink"]}
+            onPress={() => alert('pressed!')}
+          />
+        ))}
+      </View>
     )
   }
 }
