@@ -13,6 +13,11 @@ export function CocktailDetail({navigation, route}){
       />
       <Text>
         {route.params.drink["strAlcoholic"]}
+        {"\n"}
+        Glass: {route.params.drink["strGlass"]}
+        {"\n"}
+        Instructions: {route.params.drink["strInstructions"]}
+
       </Text>
     </View>
   );
