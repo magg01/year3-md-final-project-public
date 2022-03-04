@@ -46,9 +46,22 @@ export function MainScreen({navigation}) {
     );
   } else if (searchResults.drinks === null){
     return (
-      <Text>
-        No results found
-      </Text>
+      <View>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search"
+          onChangeText={text => setSearchText(text)}
+          defaultValue={searchText}
+        />
+        <Button
+          title="Search"
+          accessibilityLabel="Search for cocktails"
+          onPress={search}
+        />
+        <Text>
+          No results found
+        </Text>
+      </View>
     )
   } else {
     return (
