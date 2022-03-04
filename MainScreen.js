@@ -57,14 +57,27 @@ export function MainScreen() {
   } else {
     return (
       <View>
-        {searchResults.drinks.map((drink) => (
-          <CocktailTile
-            key={drink["idDrink"]}
-            title={drink["strDrink"]}
-            image={drink["strDrinkThumb"]}
-            onPress={() => alert('pressed!')}
-          />
-        ))}
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search"
+          onChangeText={text => setSearchText(text)}
+          defaultValue={searchText}
+        />
+        <Button
+          title="Search"
+          accessibilityLabel="Search for cocktails"
+          onPress={executeSearch}
+        />
+        <SafeAreaView>
+          {searchResults.drinks.map((drink) => (
+            <CocktailTile
+              key={drink["idDrink"]}
+              title={drink["strDrink"]}
+              image={drink["strDrinkThumb"]}
+              onPress={() => alert('pressed!')}
+            />
+          ))}
+        </SafeAreaView>
       </View>
     )
   }
