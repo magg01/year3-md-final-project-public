@@ -48,6 +48,12 @@ export function MainScreen() {
         </SafeAreaView>
       </View>
     );
+  } else if (searchResults.drinks === null){
+    return (
+      <Text>
+        No results found
+      </Text>
+    )
   } else {
     return (
       <View>
