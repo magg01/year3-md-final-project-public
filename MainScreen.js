@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import CocktailTile from './CocktailTile';
 
-export function MainScreen() {
+export function MainScreen({navigation}) {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState(undefined);
 
@@ -24,10 +24,6 @@ export function MainScreen() {
         console.log(`There was an error -> ${error}`);
       });
     };
-
-  const executeSearch = () => {
-    search();
-  }
 
   if(searchResults === undefined){
     return (
@@ -73,8 +69,8 @@ export function MainScreen() {
             <CocktailTile
               key={drink["idDrink"]}
               title={drink["strDrink"]}
-              image={drink["strDrinkThumb"]}
-              onPress={() => alert('pressed!')}
+              image={drink["strDrinkThumb"]+"/preview"}
+              onPress={() => {navigation.navigate("CocktailDetail", {drink})}}
             />
           ))}
         </SafeAreaView>
