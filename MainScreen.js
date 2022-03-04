@@ -5,8 +5,26 @@ import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-n
 export function MainScreen() {
   const [searchText, setSearchText] = useState('');
 
+  const search =
+    async () => {
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.log("success");
+        console.log(json);
+      }).catch((error) => {
+        console.log(`There was an error -> ${error}`);
+      });
+    };
+
   const executeSearch = () => {
-    alert(searchText);
+    search();
   }
 
 
