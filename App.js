@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetail } from './CocktailDetail';
 import { SearchScreen } from './SearchScreen';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -12,9 +13,34 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="MainScreen" component={MainScreen} />
-        <Stack.Screen name="SearchScreen" component={SearchScreen} />
-        <Stack.Screen name="CocktailDetail" component={CocktailDetail} />
+        <Stack.Screen
+          name="MainScreen"
+          component={MainScreen}
+          options= {{ title: "Home"}}
+        />
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options= {{ title: "Search results"}}
+        />
+        <Stack.Screen
+          name="CocktailDetail"
+          component={CocktailDetail}
+          options= {
+            ({route}) => ({
+              title: route.params.drink["strDrink"],
+              headerRight: () => (
+                <TouchableOpacity
+                  style={{paddingRight: 10}}
+                  onPress={() => alert('pressed!')}
+                >
+                  <Ionicons name="book-outline" size={28}/>
+                  <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
+                </TouchableOpacity>
+              )
+            })
+          }
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

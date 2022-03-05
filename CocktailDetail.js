@@ -4,9 +4,6 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 export function CocktailDetail({navigation, route}){
   return(
     <View>
-      <Text>
-        {route.params.drink["strDrink"]}
-      </Text>
       <Image
         style={styles.tileImage}
         source={{uri:route.params.drink["strDrinkThumb"]}}
