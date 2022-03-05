@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetail } from './CocktailDetail';
 import { SearchScreen } from './SearchScreen';
+import { RecipeBookScreen } from './RecipeBookScreen';
 import { saveToRecipeBook } from './RecipeBook';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -42,6 +43,11 @@ export default function App() {
               )
             })
           }
+        />
+        <Stack.Screen
+          name="RecipeBookScreen"
+          component={RecipeBookScreen}
+          options={{title: "Recipe book"}}
         />
       </Stack.Navigator>
     </NavigationContainer>
