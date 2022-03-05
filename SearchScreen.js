@@ -43,8 +43,8 @@ export function SearchScreen({navigation, route}) {
   useEffect(() => {
     (async () => {
       //below for simulating network delay - REMOVE BEFORE SUBMISSION
-      //fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
-      fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+      fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+      //fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
         method: 'GET',
         headers: {
           Accept: 'application/json',
