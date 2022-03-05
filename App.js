@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
-import { CocktailDetail } from './CocktailDetail';
+import { CocktailDetail, saveToRecipeBook } from './CocktailDetail';
 import { SearchScreen } from './SearchScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -32,7 +33,7 @@ export default function App() {
               headerRight: () => (
                 <TouchableOpacity
                   style={{paddingRight: 10}}
-                  onPress={() => alert('pressed!')}
+                  onPress={() => saveToRecipeBook(route.params.drink)}
                 >
                   <Ionicons name="book-outline" size={28}/>
                   <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
