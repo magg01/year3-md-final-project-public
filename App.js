@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
-import { CocktailDetail, saveToRecipeBook } from './CocktailDetail';
+import { CocktailDetail } from './CocktailDetail';
 import { SearchScreen } from './SearchScreen';
+import { saveToRecipeBook } from './RecipeBook';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
