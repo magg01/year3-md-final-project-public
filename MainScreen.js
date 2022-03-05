@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
-import CocktailTile from './CocktailTile';
+import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 export function MainScreen({navigation}) {
   const [searchText, setSearchText] = useState('');
@@ -19,6 +18,11 @@ export function MainScreen({navigation}) {
           title="Search"
           accessibilityLabel="Search for cocktails"
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
+        />
+        <Button
+          title="Recipe book"
+          accessibilityLabel="Open the recipe book"
+          onPress={() => navigation.navigate("RecipeBookScreen")}
         />
         <StatusBar style="auto" />
       </SafeAreaView>
