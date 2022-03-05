@@ -35,7 +35,7 @@ async function getFromRecipeBook(id){
 async function getAllRecipes(){
   let recipes = [];
   try{
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       AsyncStorage.getAllKeys()
       .then((keys) => {
         try {
@@ -49,14 +49,14 @@ async function getAllRecipes(){
             resolve(recipeBook);
           });
         } catch (e) {
-          reject("error");
           console.log("getAllRecipes: error occured -> " + e);
-          alert("An error occurred retreiving your recipe book");
+          resolve("error");
         }
       });
     });
   } catch (e) {
     console.log("getAllRecipes: an error occurred -> " + e);
+    resolve("error");
   }
 }
 
