@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetail } from './CocktailDetail';
+import { SearchScreen } from './SearchScreen';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -12,6 +13,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="MainScreen" component={MainScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
         <Stack.Screen name="CocktailDetail" component={CocktailDetail} />
       </Stack.Navigator>
     </NavigationContainer>
