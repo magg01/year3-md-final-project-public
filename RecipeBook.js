@@ -1,5 +1,3 @@
-import React from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export async function saveToRecipeBook(drink) {
@@ -21,5 +19,15 @@ export async function saveToRecipeBook(drink) {
     }
   } else {
     alert(drink["strDrink"] + " is already in your recipe book.");
+  }
+}
+
+export async function getFromRecipeBook(id){
+  try {
+    const jsonValue = await AsyncStorage.getItem(id);
+    return jsonValue != null ? JSON.parse(jsonValue) : null
+  } catch (e) {
+    console.log("fetchFromRecipeBook: error encountered ->" + e);
+    alert("An error occured");
   }
 }
