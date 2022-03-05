@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export async function saveToRecipeBook(drink) {
+async function saveToRecipeBook(drink) {
   let exists;
   try {
     exists = await AsyncStorage.getItem(drink["idDrink"]);
@@ -22,7 +22,7 @@ export async function saveToRecipeBook(drink) {
   }
 }
 
-export async function getFromRecipeBook(id){
+async function getFromRecipeBook(id){
   try {
     const jsonValue = await AsyncStorage.getItem(id);
     return jsonValue != null ? JSON.parse(jsonValue) : null
@@ -31,3 +31,33 @@ export async function getFromRecipeBook(id){
     alert("An error occured");
   }
 }
+
+async function getAllRecipes(){
+  let recipes = [];
+  try{
+    return new Promise((resolve, reject) => {
+      AsyncStorage.getAllKeys()
+      .then((keys) => {
+        try {
+          AsyncStorage.multiGet(keys)
+          .then((pairs) => {
+            pairs.map((pair) => {
+              recipes.push(JSON.parse(pair[1]));
+            })
+            let recipeBook = {};
+            recipeBook["drinks"] = recipes;
+            resolve(recipeBook);
+          });
+        } catch (e) {
+          reject("error");
+          console.log("getAllRecipes: error occured -> " + e);
+          alert("An error occurred retreiving your recipe book");
+        }
+      });
+    });
+  } catch (e) {
+    console.log("getAllRecipes: an error occurred -> " + e);
+  }
+}
+
+export { saveToRecipeBook, getFromRecipeBook, getAllRecipes };
