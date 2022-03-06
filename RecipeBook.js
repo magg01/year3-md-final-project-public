@@ -25,6 +25,7 @@ async function saveToRecipeBook(drink) {
 async function getFromRecipeBook(id){
   try {
     const jsonValue = await AsyncStorage.getItem(id);
+    console.log("getFromRecipeBook: got " + JSON.parse(jsonValue) + " from id " + id)
     return jsonValue != null ? JSON.parse(jsonValue) : null
   } catch (e) {
     console.log("getFromRecipeBook: error encountered ->" + e);
