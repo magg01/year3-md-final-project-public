@@ -24,7 +24,7 @@ export function RecipeBookScreen({navigation, route}){
         }
       }
       updateContentsOfBook();
-    }, [recipeBook])
+    }, [])
   );
 
   if(recipeBook === undefined){
@@ -33,7 +33,7 @@ export function RecipeBookScreen({navigation, route}){
         add loading indicator
       </Text>
     )
-  } else if (recipeBook === []){
+  } else if (recipeBook.drinks.length === 0){
     return (
       <Text>
         hmm... no recipes
