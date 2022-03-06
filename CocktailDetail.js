@@ -6,6 +6,16 @@ import { Ionicons } from '@expo/vector-icons';
 export function CocktailDetail({navigation, route}){
   const [currentDrinkInRecipeBook, setcurrentDrinkInRecipeBook] = useState(undefined);
 
+  useEffect(async () => {
+    if (currentDrinkInRecipeBook === undefined){
+      let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
+      setcurrentDrinkInRecipeBook(inBook);
+      setHeaderOptions();
+    } else {
+      setHeaderOptions();
+    }
+  }, [currentDrinkInRecipeBook]);
+
   const setHeaderOptions = () => {
     if (currentDrinkInRecipeBook) {
       navigation.setOptions(
@@ -34,16 +44,6 @@ export function CocktailDetail({navigation, route}){
       )
     }
   }
-
-  useEffect(async () => {
-    if (currentDrinkInRecipeBook === undefined){
-      let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
-      setcurrentDrinkInRecipeBook(inBook);
-      setHeaderOptions();
-    } else {
-      setHeaderOptions();
-    }
-  }, [currentDrinkInRecipeBook]);
 
   return(
     <View>
