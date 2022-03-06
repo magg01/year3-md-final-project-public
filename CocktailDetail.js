@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity, Button} from 'react-native';
-import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook } from './RecipeBook';
+import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button} from 'react-native';
+import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook, updateRecipe} from './RecipeBook';
 import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetail({navigation, route}){
   const [currentDrinkInRecipeBook, setCurrentDrinkInRecipeBook] = useState(undefined);
+  const [notesText, setNotesText] = useState(undefined);
 
   useEffect(async () => {
     if (currentDrinkInRecipeBook === undefined){
-      let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
+      const inBook = await isInRecipeBook(route.params.drink["idDrink"]);
       setCurrentDrinkInRecipeBook(inBook);
       setHeaderOptions();
     } else {
       setHeaderOptions();
     }
   }, [currentDrinkInRecipeBook]);
+
+  const saveNotes = async () => {
+    let drink = route.params.drink
+    drink["strNotes"] = notesText
+    updateRecipe(drink);
+  }
 
   const saveDrink = async () => {
     await saveToRecipeBook(route.params.drink);
@@ -54,21 +61,51 @@ export function CocktailDetail({navigation, route}){
     }
   }
 
-  return(
-    <View>
-      <Image
-        style={styles.tileImage}
-        source={{uri:route.params.drink["strDrinkThumb"]}}
-      />
+  if(currentDrinkInRecipeBook === undefined){
+    return(
       <Text>
-        {route.params.drink["strAlcoholic"]}
-        {"\n"}
-        Glass: {route.params.drink["strGlass"]}
-        {"\n"}
-        Instructions: {route.params.drink["strInstructions"]}
+        Need a loading indicator
       </Text>
-    </View>
-  );
+    );
+  } else if (currentDrinkInRecipeBook){
+    return(
+      <View>
+        <Image
+          style={styles.tileImage}
+          source={{uri:route.params.drink["strDrinkThumb"]}}
+        />
+        <Text>
+          {route.params.drink["strAlcoholic"]}
+          {"\n"}
+          Glass: {route.params.drink["strGlass"]}
+          {"\n"}
+          Instructions: {route.params.drink["strInstructions"]}
+        </Text>
+        <TextInput
+          placeholder="Notes"
+          onChangeText={text => setNotesText(text)}
+          defaultValue={route.params.drink["strNotes"]}
+          onBlur={() => saveNotes()}
+        />
+      </View>
+    );
+  } else {
+    return(
+      <View>
+        <Image
+          style={styles.tileImage}
+          source={{uri:route.params.drink["strDrinkThumb"]}}
+        />
+        <Text>
+          {route.params.drink["strAlcoholic"]}
+          {"\n"}
+          Glass: {route.params.drink["strGlass"]}
+          {"\n"}
+          Instructions: {route.params.drink["strInstructions"]}
+        </Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
