@@ -1,5 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+async function isInRecipeBook(id){
+  let exists;
+  try{
+    exists = await AsyncStorage.getItem(id)
+    return exists === null ? false : true
+  } catch (e) {
+    console.log("isInRecipeBook: an error occurred -> " + e)
+  }
+}
+
 async function saveToRecipeBook(drink) {
   let exists;
   try {
@@ -61,4 +71,15 @@ async function getAllRecipes(){
   }
 }
 
-export { saveToRecipeBook, getFromRecipeBook, getAllRecipes };
+async function removeFromRecipeBook(id){
+  try {
+    AsyncStorage.removeItem(id);
+    console.log('removed drink with id=' + id + " from recipe book")
+    alert('This drink was removed from your recipe book');
+  } catch (e) {
+    console.log("removeFromRecipeBook: an error occured -> " + e)
+    alert('couldn\'t remove this drink from your recipe book')
+  }
+}
+
+export { isInRecipeBook, saveToRecipeBook, getFromRecipeBook, getAllRecipes, removeFromRecipeBook };
