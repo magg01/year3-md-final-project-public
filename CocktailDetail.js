@@ -4,17 +4,16 @@ import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook } from './Recipe
 import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetail({navigation, route}){
-
-  const [inRecipeBook, setInRecipeBook] = useState(undefined);
+  const [currentDrinkInRecipeBook, setcurrentDrinkInRecipeBook] = useState(undefined);
 
   const setHeaderOptions = () => {
-    if (inRecipeBook) {
+    if (currentDrinkInRecipeBook) {
       navigation.setOptions(
         {headerRight: () => (
           <TouchableOpacity
             style={{paddingRight: 10}}
             onPress={() => removeFromRecipeBook(route.params.drink["idDrink"])
-          .then(setInRecipeBook(false))}
+          .then(setcurrentDrinkInRecipeBook(false))}
           >
             <Ionicons name="book-outline" size={28}/>
             <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
@@ -26,7 +25,7 @@ export function CocktailDetail({navigation, route}){
         {headerRight: () => (
           <TouchableOpacity
             style={{paddingRight: 10}}
-            onPress={() => saveToRecipeBook(route.params.drink).then(setInRecipeBook(true))}
+            onPress={() => saveToRecipeBook(route.params.drink).then(setcurrentDrinkInRecipeBook(true))}
           >
             <Ionicons name="book-outline" size={28}/>
             <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
@@ -37,14 +36,14 @@ export function CocktailDetail({navigation, route}){
   }
 
   useEffect(async () => {
-    if (inRecipeBook === undefined){
+    if (currentDrinkInRecipeBook === undefined){
       let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
-      setInRecipeBook(inBook);
+      setcurrentDrinkInRecipeBook(inBook);
       setHeaderOptions();
     } else {
       setHeaderOptions();
     }
-  }, [inRecipeBook]);
+  }, [currentDrinkInRecipeBook]);
 
   return(
     <View>
