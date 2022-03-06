@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 async function isInRecipeBook(id){
-  let exists;
   try{
-    exists = await AsyncStorage.getItem(id)
+    const exists = await AsyncStorage.getItem(id)
     return exists === null ? false : true
   } catch (e) {
     console.log("isInRecipeBook: an error occurred -> " + e)
