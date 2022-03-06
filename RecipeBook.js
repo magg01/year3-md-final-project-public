@@ -73,4 +73,14 @@ async function removeFromRecipeBook(id){
   }
 }
 
-export { isInRecipeBook, saveToRecipeBook, getFromRecipeBook, getAllRecipes, removeFromRecipeBook };
+async function updateRecipe(drink){
+  try {
+    await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
+    console.log("Drink with id " + drink["idDrink"] + " successfully updated");
+  } catch (e) {
+    console.log("updateRecipe: an error occured -> " + e)
+    alert('couldn\'t update this drink in your recipe book')
+  }
+}
+
+export { isInRecipeBook, saveToRecipeBook, getFromRecipeBook, getAllRecipes, removeFromRecipeBook, updateRecipe };
