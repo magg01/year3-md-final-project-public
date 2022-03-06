@@ -53,7 +53,6 @@ export function SearchScreen({navigation, route}) {
       })
       .then(response => response.json())
       .then(json => {
-        console.log(json);
         setSearchResults(json);
       }).catch((error) => {
         console.log(`There was an error -> ${error}`);
