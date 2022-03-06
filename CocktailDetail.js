@@ -67,10 +67,6 @@ export function CocktailDetail({navigation, route}){
         {"\n"}
         Instructions: {route.params.drink["strInstructions"]}
       </Text>
-      <Button
-        title="setHeaderOptions"
-        onPress={() => setHeaderOptions()}
-      />
     </View>
   );
 }
