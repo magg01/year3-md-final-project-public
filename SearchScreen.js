@@ -32,7 +32,7 @@ export function SearchScreen({navigation, route}) {
         )
       ])
     ).start()
-  }, [shakerAngle]);
+  }, []);
 
 
   const spin = shakerAngle.interpolate({
