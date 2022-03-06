@@ -11,24 +11,22 @@ async function isInRecipeBook(id){
 }
 
 async function saveToRecipeBook(drink) {
-  let exists;
   try {
-    exists = await AsyncStorage.getItem(drink["idDrink"]);
-  } catch (e) {
-    console.log(e);
-    alert("Error " +drink["strDrink"] + " could not be saved.")
-  }
-  if (exists === null){
-    try {
-      await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
-      console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
-      alert(drink["strDrink"] + " was saved to recipe book.");
-    } catch (e) {
-      alert("Error " +drink["strDrink"] + " could not be saved.")
-      console.log(e);
+    const exists = await AsyncStorage.getItem(drink["idDrink"]);
+    if (exists === null){
+      try {
+        await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
+        console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
+        alert(drink["strDrink"] + " was saved to recipe book.");
+      } catch(e){
+        throw(e)
+      }
+    } else {
+      alert(drink["strDrink"] + " is already in your recipe book.");
     }
-  } else {
-    alert(drink["strDrink"] + " is already in your recipe book.");
+  } catch (e) {
+    console.log("saveToReceipBook encountered an error -> " + e);
+    alert("Error " +drink["strDrink"] + " could not be saved.")
   }
 }
 
