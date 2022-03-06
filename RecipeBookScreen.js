@@ -8,12 +8,14 @@ export function RecipeBookScreen({navigation, route}){
   const [recipeBook, setRecipeBook] = useState(undefined);
 
   useEffect(() => {
-    (async() => {
-      let returnedRecipes = await getAllRecipes()
-      console.log("returned recipes are " + JSON.stringify(returnedRecipes));
-      setRecipeBook(returnedRecipes);
-    })();
-  }, []);
+    if (recipeBook === undefined){
+      (async() => {
+        let returnedRecipes = await getAllRecipes();
+        console.log("returned recipes are " + JSON.stringify(returnedRecipes));
+        setRecipeBook(returnedRecipes);
+      })();
+    }
+  }, [recipeBook]);
 
   if(recipeBook === undefined){
     return (
