@@ -4,17 +4,27 @@ import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook } from './Recipe
 import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetail({navigation, route}){
-  const [currentDrinkInRecipeBook, setcurrentDrinkInRecipeBook] = useState(undefined);
+  const [currentDrinkInRecipeBook, setCurrentDrinkInRecipeBook] = useState(undefined);
 
   useEffect(async () => {
     if (currentDrinkInRecipeBook === undefined){
       let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
-      setcurrentDrinkInRecipeBook(inBook);
+      setCurrentDrinkInRecipeBook(inBook);
       setHeaderOptions();
     } else {
       setHeaderOptions();
     }
   }, [currentDrinkInRecipeBook]);
+
+  const saveDrink = async () => {
+    await saveToRecipeBook(route.params.drink);
+    setCurrentDrinkInRecipeBook(true);
+  }
+
+  const removeDrink = async () => {
+    await removeFromRecipeBook(route.params.drink["idDrink"]);
+    setCurrentDrinkInRecipeBook(false);
+  }
 
   const setHeaderOptions = () => {
     if (currentDrinkInRecipeBook) {
@@ -22,8 +32,7 @@ export function CocktailDetail({navigation, route}){
         {headerRight: () => (
           <TouchableOpacity
             style={{paddingRight: 10}}
-            onPress={() => removeFromRecipeBook(route.params.drink["idDrink"])
-          .then(setcurrentDrinkInRecipeBook(false))}
+            onPress={() => removeDrink()}
           >
             <Ionicons name="book-outline" size={28}/>
             <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
@@ -35,7 +44,7 @@ export function CocktailDetail({navigation, route}){
         {headerRight: () => (
           <TouchableOpacity
             style={{paddingRight: 10}}
-            onPress={() => saveToRecipeBook(route.params.drink).then(setcurrentDrinkInRecipeBook(true))}
+            onPress={() => saveDrink()}
           >
             <Ionicons name="book-outline" size={28}/>
             <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
