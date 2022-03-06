@@ -67,7 +67,7 @@ async function getAllRecipes(){
 
 async function removeFromRecipeBook(id){
   try {
-    AsyncStorage.removeItem(id);
+    await AsyncStorage.removeItem(id);
     console.log('removed drink with id=' + id + " from recipe book")
     alert('This drink was removed from your recipe book');
   } catch (e) {
