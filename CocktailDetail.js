@@ -36,17 +36,15 @@ export function CocktailDetail({navigation, route}){
     }
   }
 
-  useEffect(() => {
-    (async () => {
-      if (inRecipeBook === undefined){
-        let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
-        setInRecipeBook(inBook);
-        setHeaderOptions();
-      } else {
-        setHeaderOptions();
-      }
-    })();
-  }, [inRecipeBook])
+  useEffect(async () => {
+    if (inRecipeBook === undefined){
+      let inBook = await isInRecipeBook(route.params.drink["idDrink"]);
+      setInRecipeBook(inBook);
+      setHeaderOptions();
+    } else {
+      setHeaderOptions();
+    }
+  }, [inRecipeBook]);
 
   return(
     <View>
