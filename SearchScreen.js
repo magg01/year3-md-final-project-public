@@ -42,21 +42,21 @@ export function SearchScreen({navigation, route}) {
 
   useEffect(() => {
     (async () => {
-      //below for simulating network delay - REMOVE BEFORE SUBMISSION
-      fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
-      //fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }
-      })
-      .then(response => response.json())
-      .then(json => {
+      try{
+        //below for simulating network delay - REMOVE BEFORE SUBMISSION
+        const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+        //const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        })
+        const json = await response.json();
         setSearchResults(json);
-      }).catch((error) => {
-        console.log(`There was an error -> ${error}`);
-      });
+      } catch (e) {
+        console.log(`SearchScreen: useEffect fetch encountered an error -> ${e}`);
+      }
     })();
   },[]);
 
