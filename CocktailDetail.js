@@ -1,30 +1,51 @@
-import React from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-export async function saveToRecipeBook(drink) {
-  let exists;
-  try {
-    exists = await AsyncStorage.getItem(drink["idDrink"]);
-  } catch (e) {
-    console.log(e);
-    alert("Error " +drink["strDrink"] + " could not be saved.")
-  }
-  if (exists === null){
-    try {
-      await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
-      console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
-      alert(drink["strDrink"] + " was saved to recipe book.");
-    } catch (e) {
-      alert("Error " +drink["strDrink"] + " could not be saved.")
-      console.log(e);
-    }
-  } else {
-    alert(drink["strDrink"] + " is already in your recipe book.");
-  }
-}
+import React, { useEffect, useState } from 'react';
+import {StyleSheet, View, Image, Text, TouchableOpacity, Button} from 'react-native';
+import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook } from './RecipeBook';
+import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetail({navigation, route}){
+
+  const [inRecipeBook, setInRecipeBook] = useState(undefined);
+
+  const setHeaderOptions = () => {
+    if (inRecipeBook) {
+      navigation.setOptions(
+        {headerRight: () => (
+          <TouchableOpacity
+            style={{paddingRight: 10}}
+            onPress={() => removeFromRecipeBook(route.params.drink["idDrink"])
+          .then(setInRecipeBook(false))}
+          >
+            <Ionicons name="book-outline" size={28}/>
+            <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
+          </TouchableOpacity>
+        )}
+      )
+    } else {
+      navigation.setOptions(
+        {headerRight: () => (
+          <TouchableOpacity
+            style={{paddingRight: 10}}
+            onPress={() => saveToRecipeBook(route.params.drink).then(setInRecipeBook(true))}
+          >
+            <Ionicons name="book-outline" size={28}/>
+            <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
+          </TouchableOpacity>
+        )}
+      )
+    }
+  }
+
+  useEffect(() => {
+    if (inRecipeBook === undefined){
+      isInRecipeBook(route.params.drink["idDrink"])
+      .then((result) => setInRecipeBook(result))
+      .then(() => setHeaderOptions());
+    } else {
+      setHeaderOptions()
+    }
+  }, [inRecipeBook])
+
   return(
     <View>
       <Image
@@ -38,6 +59,10 @@ export function CocktailDetail({navigation, route}){
         {"\n"}
         Instructions: {route.params.drink["strInstructions"]}
       </Text>
+      <Button
+        title="setHeaderOptions"
+        onPress={() => setHeaderOptions()}
+      />
     </View>
   );
 }

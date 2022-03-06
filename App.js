@@ -4,10 +4,8 @@ import { MainScreen } from './MainScreen';
 import { CocktailDetail } from './CocktailDetail';
 import { SearchScreen } from './SearchScreen';
 import { RecipeBookScreen } from './RecipeBookScreen';
-import { saveToRecipeBook } from './RecipeBook';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -31,16 +29,7 @@ export default function App() {
           component={CocktailDetail}
           options= {
             ({route}) => ({
-              title: route.params.drink["strDrink"],
-              headerRight: () => (
-                <TouchableOpacity
-                  style={{paddingRight: 10}}
-                  onPress={() => saveToRecipeBook(route.params.drink)}
-                >
-                  <Ionicons name="book-outline" size={28}/>
-                  <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
-                </TouchableOpacity>
-              )
+              title: route.params.drink["strDrink"]
             })
           }
         />
