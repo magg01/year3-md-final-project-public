@@ -9,7 +9,7 @@ export function RecipeBookScreen({navigation, route}){
 
   useEffect(() => {
     (async() => {
-      await getAllRecipes()
+      getAllRecipes()
       .then((returnedRecipes) => {
         console.log("returned recipes are " + JSON.stringify(returnedRecipes));
         setRecipeBook(returnedRecipes);
