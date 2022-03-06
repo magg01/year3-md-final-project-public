@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Text} from 'react-native';
 import CocktailTile from './CocktailTile';
+import { useFocusEffect } from '@react-navigation/native';
 import { getAllRecipes } from './RecipeBook';
 
 
 export function RecipeBookScreen({navigation, route}){
   const [recipeBook, setRecipeBook] = useState(undefined);
 
-  useEffect(() => {
-    if (recipeBook === undefined){
-      (async() => {
-        let returnedRecipes = await getAllRecipes();
-        console.log("returned recipes are " + JSON.stringify(returnedRecipes));
-        setRecipeBook(returnedRecipes);
-      })();
-    }
-  }, [recipeBook]);
+  //useFocusEffect from navigation library so that the recipe book is updated
+  //when navigating BACK to the recipe book page as well as simply to the page.
+  useFocusEffect(
+    //have to wrap the callback in useCallback so that the effect only runs
+    //on initial render or if one of the depencies changes i.e. RecipeBook
+    //and not on every render if the screen has focus.
+    useCallback(() => {
+      const updateContentsOfBook = async () => {
+        try {
+          const results = await getAllRecipes();
+          setRecipeBook(results);
+        } catch (e){
+          console.log("RecipeBookScreen::useFocusEffect encountered an error -> " + e);
+        }
+      }
+      updateContentsOfBook();
+    }, [recipeBook])
+  );
 
   if(recipeBook === undefined){
     return (
