@@ -44,27 +44,21 @@ async function getFromRecipeBook(id){
 }
 
 async function getAllRecipes(){
-  let recipes = [];
   try{
-    return new Promise((resolve) => {
-      AsyncStorage.getAllKeys()
-      .then((keys) => {
-        try {
-          AsyncStorage.multiGet(keys)
-          .then((pairs) => {
-            pairs.map((pair) => {
-              recipes.push(JSON.parse(pair[1]));
-            })
-            let recipeBook = {};
-            recipeBook["drinks"] = recipes;
-            resolve(recipeBook);
-          });
-        } catch (e) {
-          console.log("getAllRecipes: error occured -> " + e);
-          resolve("error");
-        }
-      });
-    });
+    const keys = await AsyncStorage.getAllKeys()
+    try {
+      const pairs = await AsyncStorage.multiGet(keys)
+      const recipes = [];
+      pairs.map((pair) => {
+        recipes.push(JSON.parse(pair[1]));
+      })
+      const recipeBook = {};
+      recipeBook["drinks"] = recipes;
+      return(recipeBook);
+    } catch (e) {
+      console.log("getAllRecipes: error occured -> " + e);
+      return("error");
+    }
   } catch (e) {
     console.log("getAllRecipes: an error occurred -> " + e);
     resolve("error");
