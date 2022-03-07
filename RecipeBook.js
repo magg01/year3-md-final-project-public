@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system';
 
 async function isInRecipeBook(id){
   try{
@@ -83,4 +84,36 @@ async function updateRecipe(drink){
   }
 }
 
-export { isInRecipeBook, saveToRecipeBook, getFromRecipeBook, getAllRecipes, removeFromRecipeBook, updateRecipe };
+async function saveImageToFile(drink){
+  try{
+    await FileSystem.downloadAsync(drink["strDrinkThumb"], FileSystem.documentDirectory + drink["idDrink"] + "imgThumb.jpg");
+    console.log("saveImageToFile: image for drink " + drink["idDrink"] + " sucessfully saved")
+  } catch (e) {
+    console.log("saveImageToFile: an error occured -> " + e);
+  }
+}
+
+async function removeSavedImageFromFile(id){
+  try{
+    await FileSystem.deleteAsync(FileSystem.documentDirectory + id + "imgThumb.jpg");
+    console.log("removeSavedImageFromFile: image for drink " + id + " sucessfully removed")
+  } catch (e) {
+    console.log("removeSavedImageFromFile: an error occured -> " + e);
+  }
+}
+
+function getUriForSavedImageFile(id){
+  return FileSystem.documentDirectory + id + "imgThumb.jpg";
+}
+
+export {
+  isInRecipeBook,
+  saveToRecipeBook,
+  getFromRecipeBook,
+  getAllRecipes,
+  removeFromRecipeBook,
+  updateRecipe,
+  saveImageToFile,
+  getUriForSavedImageFile,
+  removeSavedImageFromFile
+}

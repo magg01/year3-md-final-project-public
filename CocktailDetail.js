@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button} from 'react-native';
-import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook, updateRecipe} from './RecipeBook';
+import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile} from './RecipeBook';
 import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetail({navigation, route}){
@@ -26,11 +26,14 @@ export function CocktailDetail({navigation, route}){
   const saveDrink = async () => {
     await saveToRecipeBook(route.params.drink);
     setCurrentDrinkInRecipeBook(true);
+    await saveImageToFile(route.params.drink);
   }
 
   const removeDrink = async () => {
+    await removeSavedImageFromFile(route.params.drink["idDrink"])
     await removeFromRecipeBook(route.params.drink["idDrink"]);
     setCurrentDrinkInRecipeBook(false);
+
   }
 
   const setHeaderOptions = () => {
@@ -61,18 +64,12 @@ export function CocktailDetail({navigation, route}){
     }
   }
 
-  if(currentDrinkInRecipeBook === undefined){
-    return(
-      <Text>
-        Need a loading indicator
-      </Text>
-    );
-  } else if (currentDrinkInRecipeBook){
+if (currentDrinkInRecipeBook){
     return(
       <View>
         <Image
           style={styles.tileImage}
-          source={{uri:route.params.drink["strDrinkThumb"]}}
+          source={{uri:getUriForSavedImageFile(route.params.drink["idDrink"])}}
         />
         <Text>
           {route.params.drink["strAlcoholic"]}
@@ -94,7 +91,8 @@ export function CocktailDetail({navigation, route}){
       <View>
         <Image
           style={styles.tileImage}
-          source={{uri:route.params.drink["strDrinkThumb"]}}
+          source={{uri: route.params.drink["strDrinkThumb"]}}
+          loadingIndicatorSource={require("./assets/cocktail-shaker.png")}
         />
         <Text>
           {route.params.drink["strAlcoholic"]}
