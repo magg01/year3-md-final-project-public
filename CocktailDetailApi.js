@@ -15,7 +15,6 @@ export function CocktailDetailApi({navigation, route}){
 
   const saveDrink = async () => {
     await saveToRecipeBook(route.params.drink);
-    alert(route.params.drink["strDrink"] + " was saved to recipe book.");
     navigation.goBack();
     saveImageToFile(route.params.drink);
   }

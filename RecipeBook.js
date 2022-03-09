@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
+import Toast from 'react-native-root-toast';
+
+const saveRecipeSuccessToast = (drinkName) => {
+  Toast.show(drinkName + " was added to your recipe book", {duration: Toast.durations.SHORT});
+}
 
 async function isInRecipeBook(id){
   try{
@@ -16,6 +21,7 @@ async function saveToRecipeBook(drink) {
     if (exists === null){
       try {
         await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
+        saveRecipeSuccessToast(drink["strDrink"]);
         console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
       } catch(e){
         throw(e)
@@ -24,7 +30,7 @@ async function saveToRecipeBook(drink) {
       alert(drink["strDrink"] + " is already in your recipe book.");
     }
   } catch (e) {
-    console.log("saveToReceipBook encountered an error -> " + e);
+    console.log("saveToRecipeBook encountered an error -> " + e);
     alert("Error " +drink["strDrink"] + " could not be saved.")
   }
 }
