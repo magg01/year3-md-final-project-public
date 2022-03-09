@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
-import { Ionicons } from '@expo/vector-icons';
+import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
 
 export function CocktailDetailApi({navigation, route}){
   const [currentDrinkInRecipeBook, setCurrentDrinkInRecipeBook] = useState(undefined);
@@ -29,27 +29,22 @@ export function CocktailDetailApi({navigation, route}){
     if (currentDrinkInRecipeBook) {
       navigation.setOptions(
         {headerRight: () => (
-          <TouchableOpacity
+          <ButtonAddRemoveToFromRecipeBook
             style={{paddingRight: 10}}
             onPress={async () =>
-              await confirmRecipeRemoval() ? removeDrink(route.params.drink["idDrink"]) : null
-            }
-          >
-            <Ionicons name="book-outline" size={28}/>
-            <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
-          </TouchableOpacity>
+              await confirmRecipeRemoval() ? removeDrink(route.params.drink["idDrink"]) : null}
+            mode="remove"
+          />
         )}
       )
     } else {
       navigation.setOptions(
         {headerRight: () => (
-          <TouchableOpacity
+          <ButtonAddRemoveToFromRecipeBook
             style={{paddingRight: 10}}
             onPress={() => saveDrink()}
-          >
-            <Ionicons name="book-outline" size={28}/>
-            <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
-          </TouchableOpacity>
+            mode="add"
+          />
         )}
       )
     }
