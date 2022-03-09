@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button} from 'react-native';
-import { isInRecipeBook, saveToRecipeBook, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile} from './RecipeBook';
+import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
+import { isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
 import { Ionicons } from '@expo/vector-icons';
 
 export function CocktailDetailApi({navigation, route}){
@@ -19,10 +19,10 @@ export function CocktailDetailApi({navigation, route}){
     saveImageToFile(route.params.drink);
   }
 
-  const removeDrink = async () => {
-    await removeFromRecipeBook(route.params.drink["idDrink"]);
+  const removeDrink = async (id) => {
+    await removeFromRecipeBook(id)
     navigation.goBack();
-    removeSavedImageFromFile(route.params.drink["idDrink"])
+    removeSavedImageFromFile(id)
   }
 
   const setHeaderOptions = () => {
@@ -31,7 +31,9 @@ export function CocktailDetailApi({navigation, route}){
         {headerRight: () => (
           <TouchableOpacity
             style={{paddingRight: 10}}
-            onPress={() => removeDrink()}
+            onPress={async () =>
+              await confirmRecipeRemoval() ? removeDrink(route.params.drink["idDrink"]) : null
+            }
           >
             <Ionicons name="book-outline" size={28}/>
             <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>

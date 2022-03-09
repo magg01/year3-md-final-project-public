@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import Toast from 'react-native-root-toast';
+import { Alert } from 'react-native';
 
 const saveRecipeSuccessToast = (drinkName) => {
   Toast.show(drinkName + " was added to your recipe book", {duration: Toast.durations.SHORT});
@@ -27,11 +28,11 @@ async function saveToRecipeBook(drink) {
         throw(e)
       }
     } else {
-      alert(drink["strDrink"] + " is already in your recipe book.");
+      Alert.alert(null, drink["strDrink"] + " is already in your recipe book.");
     }
   } catch (e) {
     console.log("saveToRecipeBook encountered an error -> " + e);
-    alert("Error " +drink["strDrink"] + " could not be saved.")
+    Alert.alert("Error", drink["strDrink"] + " could not be saved.")
   }
 }
 
@@ -42,7 +43,7 @@ async function getFromRecipeBook(id){
     return jsonValue != null ? JSON.parse(jsonValue) : null
   } catch (e) {
     console.log("getFromRecipeBook: error encountered ->" + e);
-    alert("An error occured");
+    Alert.alert("Error", "An error occured while retrieving recipes");
   }
 }
 
@@ -68,14 +69,35 @@ async function getAllRecipes(){
   }
 }
 
+async function confirmRecipeRemoval(){
+  return new Promise ((resolve) => {
+    Alert.alert(
+      "Are you sure you want to remove this drink?",
+      "You will lose any notes and your own image if you've added one.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => resolve(false),
+          style: "cancel"
+        },
+        {
+          text: "Remove",
+          onPress: () => resolve(true),
+          style: "destructive"
+        }
+      ]
+    );
+  })
+
+}
+
 async function removeFromRecipeBook(id){
   try {
     await AsyncStorage.removeItem(id);
-    alert("Removed from recipe book.");
-    console.log('removed drink with id=' + id + " from recipe book")
+    console.log('removed drink with id=' + id + " from recipe book");
   } catch (e) {
-    console.log("removeFromRecipeBook: an error occured -> " + e)
-    alert('couldn\'t remove this drink from your recipe book')
+    console.log("removeFromRecipeBook: an error occured -> " + e);
+    Alert.alert("Error", "couldn\'t remove this drink from your recipe book");
   }
 }
 
@@ -85,7 +107,7 @@ async function updateRecipe(drink){
     console.log("Drink with id " + drink["idDrink"] + " successfully updated");
   } catch (e) {
     console.log("updateRecipe: an error occured -> " + e)
-    alert('couldn\'t update this drink in your recipe book')
+    Alert.alert("Error", "couldn\'t update this drink in your recipe book")
   }
 }
 
@@ -116,6 +138,7 @@ export {
   saveToRecipeBook,
   getFromRecipeBook,
   getAllRecipes,
+  confirmRecipeRemoval,
   removeFromRecipeBook,
   updateRecipe,
   saveImageToFile,
