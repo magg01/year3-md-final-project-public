@@ -24,7 +24,7 @@ export function RecipeBookScreen({navigation, route}){
         }
       }
       updateContentsOfBook();
-    }, [])
+    }, [recipeBook])
   );
 
   if(recipeBook === undefined){
