@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Text} from 'react-native';
 import CocktailTile from './CocktailTile';
 import { useFocusEffect } from '@react-navigation/native';
-import { getAllRecipes } from './RecipeBook';
+import { getAllRecipes, getUriForSavedImageFile } from './RecipeBook';
 
 
 export function RecipeBookScreen({navigation, route}){
@@ -53,8 +53,8 @@ export function RecipeBookScreen({navigation, route}){
             <CocktailTile
               key={drink["idDrink"]}
               title={drink["strDrink"]}
-              image={drink["strDrinkThumb"]+"/preview"}
-              onPress={() => {navigation.navigate("CocktailDetail", {drink})}}
+              image={getUriForSavedImageFile(drink["idDrink"])}
+              onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drink})}}
             />
           ))}
         </ScrollView>

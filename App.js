@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetail } from './CocktailDetail';
+import { CocktailDetailApi } from './CocktailDetailApi';
+import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
 import { SearchScreen } from './SearchScreen';
 import { RecipeBookScreen } from './RecipeBookScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,8 +27,17 @@ export default function App() {
           options= {{ title: "Search results"}}
         />
         <Stack.Screen
-          name="CocktailDetail"
-          component={CocktailDetail}
+          name="CocktailDetailApi"
+          component={CocktailDetailApi}
+          options= {
+            ({route}) => ({
+              title: route.params.drink["strDrink"]
+            })
+          }
+        />
+        <Stack.Screen
+          name="CocktailDetailRecipeBook"
+          component={CocktailDetailRecipeBook}
           options= {
             ({route}) => ({
               title: route.params.drink["strDrink"]

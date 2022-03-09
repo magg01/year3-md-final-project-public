@@ -10,6 +10,7 @@ export default function CocktailTile(props){
       <Image
         style={styles.tileImage}
         source={{uri:props.image}}
+        defaultSource={require("./assets/cocktail-shaker.png")}
       />
       <Text
         style={styles.tileTitle}

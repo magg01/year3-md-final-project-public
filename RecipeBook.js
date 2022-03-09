@@ -17,7 +17,6 @@ async function saveToRecipeBook(drink) {
       try {
         await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
         console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
-        alert(drink["strDrink"] + " was saved to recipe book.");
       } catch(e){
         throw(e)
       }
@@ -66,8 +65,8 @@ async function getAllRecipes(){
 async function removeFromRecipeBook(id){
   try {
     await AsyncStorage.removeItem(id);
+    alert("Removed from recipe book.");
     console.log('removed drink with id=' + id + " from recipe book")
-    alert('This drink was removed from your recipe book');
   } catch (e) {
     console.log("removeFromRecipeBook: an error occured -> " + e)
     alert('couldn\'t remove this drink from your recipe book')

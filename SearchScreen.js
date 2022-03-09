@@ -90,7 +90,7 @@ export function SearchScreen({navigation, route}) {
               key={drink["idDrink"]}
               title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
-              onPress={() => {navigation.navigate("CocktailDetail", {drink})}}
+              onPress={() => {navigation.navigate("CocktailDetailApi", {drink})}}
             />
           ))}
         </ScrollView>
