@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, Text, Image, View, ScrollView, Animated, Easing } from 'react-native';
 import CocktailTile from './CocktailTile';
+import { isInRecipeBook } from './RecipeBook'
 
 export function SearchScreen({navigation, route}) {
   const searchText = route.params.searchText;
@@ -90,7 +91,13 @@ export function SearchScreen({navigation, route}) {
               key={drink["idDrink"]}
               title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
-              onPress={() => {navigation.navigate("CocktailDetailApi", {drink})}}
+              onPress={async () => {
+                if(await isInRecipeBook(drink["idDrink"])) {
+                  navigation.navigate("CocktailDetailRecipeBook", {drink})
+                } else {
+                  navigation.navigate("CocktailDetailApi", {drink})
+                }
+              }}
             />
           ))}
         </ScrollView>
