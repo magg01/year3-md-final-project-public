@@ -19,12 +19,19 @@ export function CocktailDetailRecipeBook({navigation, route}){
       navigation.setOptions({
         title: currentDrink["strDrink"],
         headerRight: () => (
-          <ButtonAddRemoveToFromRecipeBook
-            style={{paddingRight: 10}}
-            onPress={async () =>
-              await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null}
-            mode="remove"
-          />
+          <View style={{ flexDirection: 'row'}}>
+            <ButtonAddRemoveToFromRecipeBook
+              style={{paddingRight: 10}}
+              onPress={async () =>
+                await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null}
+              mode="remove"
+            />
+            <TouchableOpacity
+              onPress = {() => navigation.navigate("ScreenCameraAddImage")}
+            >
+              <Ionicons name="camera-outline" size={28} />
+            </TouchableOpacity>
+          </View>
         )
       })
     }
