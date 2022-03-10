@@ -1,9 +1,15 @@
-import { Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import { Cell, Section, TableView } from 'react-native-tableview-simple';
 
 export function ScreenShoppingList({navigation, route}){
   return(
-    <Text>
-      This is the shopping list Screen.
-    </Text>
+    //change to flat list
+    <ScrollView>
+      <TableView>
+        <Section>
+          <Cell title="Ingredient 1" />
+        </Section>
+      </TableView>
+    </ScrollView>
   )
 }
