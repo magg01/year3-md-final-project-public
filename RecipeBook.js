@@ -131,7 +131,7 @@ async function removeSavedImageFromFile(id){
 
 
 async function replaceImageForDrink(id, newImgCacheUri){
-  alert('replacing image');
+  return ("Testing");
 }
 
 function getUriForSavedImageFile(id){

@@ -76,6 +76,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
           defaultValue={currentDrink["strNotes"]}
           onBlur={() => saveNotes()}
         />
+        <Text>
+          {"Hello"}
+          {route.params.newImageUri}
+        </Text>
       </View>
     );
   };

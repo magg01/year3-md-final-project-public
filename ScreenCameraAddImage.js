@@ -5,7 +5,7 @@ import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import { replaceImageForDrink } from './RecipeBook';
 
-export function ScreenCameraAddImage({route}) {
+export function ScreenCameraAddImage({navigation, route}) {
   const [hasPermission, setHasPermission ] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [cameraReady, setCameraReady] = useState(false);
@@ -68,7 +68,10 @@ export function ScreenCameraAddImage({route}) {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.captureButton}
-            onPress={() => { replaceImageForDrink(route.params.drinkId, newImageCacheUri) }}
+            onPress={async () => {
+              let newImageUri = await replaceImageForDrink(route.params.drinkId, newImageCacheUri)
+              navigation.navigate("CocktailDetailRecipeBook", {newImageUri: newImageUri})
+            }}
           >
             <Ionicons name="camera-outline" size={28} />
           </TouchableOpacity>
