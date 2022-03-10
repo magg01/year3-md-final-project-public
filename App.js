@@ -5,6 +5,7 @@ import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
 import { SearchScreen } from './SearchScreen';
 import { RecipeBookScreen } from './RecipeBookScreen';
+import { ScreenCameraAddImage }  from './ScreenCameraAddImage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootSiblingParent } from 'react-native-root-siblings';
@@ -41,6 +42,11 @@ export default function App() {
             name="RecipeBookScreen"
             component={RecipeBookScreen}
             options={{title: "Recipe book"}}
+          />
+          <Stack.Screen
+            name="ScreenCameraAddImage"
+            component={ScreenCameraAddImage}
+            options={{title: "Add image"}}
           />
         </Stack.Navigator>
       </NavigationContainer>
