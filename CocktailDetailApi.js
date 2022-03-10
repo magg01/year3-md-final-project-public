@@ -7,6 +7,7 @@ import { LoadingAnimation } from './LoadingAnimation';
 export function CocktailDetailApi({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
   const abortController = new AbortController();
+
   const signal = abortController.signal;
 
   useEffect(() => {
