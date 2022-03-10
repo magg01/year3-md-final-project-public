@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
-import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
+import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveApiImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
 import { LoadingAnimation } from './LoadingAnimation';
 
@@ -52,7 +52,7 @@ export function CocktailDetailApi({navigation, route}){
     if(currentDrink != undefined){
       await saveToRecipeBook(currentDrink);
       navigation.goBack();
-      saveImageToFile(currentDrink);
+      saveApiImageToFile(currentDrink);
     }
   }
 

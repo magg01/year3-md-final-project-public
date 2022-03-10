@@ -111,7 +111,7 @@ async function updateRecipe(drink){
   }
 }
 
-async function saveImageToFile(drink){
+async function saveApiImageToFile(drink){
   try{
     await FileSystem.downloadAsync(drink["strDrinkThumb"], FileSystem.documentDirectory + drink["idDrink"] + "imgThumb.jpg");
     console.log("saveImageToFile: image for drink " + drink["idDrink"] + " sucessfully saved")
@@ -141,7 +141,7 @@ export {
   confirmRecipeRemoval,
   removeFromRecipeBook,
   updateRecipe,
-  saveImageToFile,
+  saveApiImageToFile,
   getUriForSavedImageFile,
   removeSavedImageFromFile
 }
