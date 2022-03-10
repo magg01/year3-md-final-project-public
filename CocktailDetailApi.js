@@ -1,22 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
-import { isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
+import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
 
 export function CocktailDetailApi({navigation, route}){
   const [currentDrinkInRecipeBook, setCurrentDrinkInRecipeBook] = useState(undefined);
+  const [currentDrink, setCurrentDrink] = useState(undefined);
 
   useEffect(() => {
     (async () => {
-      setCurrentDrinkInRecipeBook(await isInRecipeBook(route.params.drink["idDrink"]));
-      setHeaderOptions();
+      setCurrentDrinkInRecipeBook(await isInRecipeBook(route.params.drinkId));
     })()
-  }, [currentDrinkInRecipeBook]);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if(currentDrinkInRecipeBook != undefined){
+        if(currentDrinkInRecipeBook){
+          setCurrentDrink(getFromRecipeBook(route.params.drinkId))
+        } else {
+          const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }
+          })
+          const json = await response.json();
+          setCurrentDrink(json["drinks"][0]);
+        }
+      }
+    })();
+  }, [currentDrinkInRecipeBook])
+
+  useEffect(() => {
+    if(currentDrink != undefined){
+      navigation.setOptions(
+        {
+          title: currentDrink["strDrink"],
+          headerRight: () => (
+            <ButtonAddRemoveToFromRecipeBook
+              style={{paddingRight: 10}}
+              onPress={() => saveDrink()}
+              mode="add"
+            />
+          )
+        }
+      )
+    }
+  }, [currentDrink])
+
+  const setHeaderOptions = async() => {
+
+  }
 
   const saveDrink = async () => {
-    await saveToRecipeBook(route.params.drink);
-    navigation.goBack();
-    saveImageToFile(route.params.drink);
+    if(currentDrink != undefined){
+      await saveToRecipeBook(currentDrink);
+      navigation.goBack();
+      saveImageToFile(currentDrink);
+    }
   }
 
   const removeDrink = async (id) => {
@@ -25,47 +68,30 @@ export function CocktailDetailApi({navigation, route}){
     removeSavedImageFromFile(id)
   }
 
-  const setHeaderOptions = () => {
-    if (currentDrinkInRecipeBook) {
-      navigation.setOptions(
-        {headerRight: () => (
-          <ButtonAddRemoveToFromRecipeBook
-            style={{paddingRight: 10}}
-            onPress={async () =>
-              await confirmRecipeRemoval() ? removeDrink(route.params.drink["idDrink"]) : null}
-            mode="remove"
-          />
-        )}
-      )
-    } else {
-      navigation.setOptions(
-        {headerRight: () => (
-          <ButtonAddRemoveToFromRecipeBook
-            style={{paddingRight: 10}}
-            onPress={() => saveDrink()}
-            mode="add"
-          />
-        )}
-      )
-    }
-  }
-
-  return(
-    <View>
-      <Image
-        style={styles.tileImage}
-        source={{uri: route.params.drink["strDrinkThumb"]}}
-        loadingIndicatorSource={require("./assets/cocktail-shaker.png")}
-      />
+  if(currentDrink === undefined){
+    return(
       <Text>
-        {route.params.drink["strAlcoholic"]}
-        {"\n"}
-        Glass: {route.params.drink["strGlass"]}
-        {"\n"}
-        Instructions: {route.params.drink["strInstructions"]}
+        fetching drink...
       </Text>
-    </View>
-  );
+    )
+  } else {
+    return(
+      <View>
+        <Image
+          style={styles.tileImage}
+          source={{uri: currentDrink["strDrinkThumb"]}}
+          loadingIndicatorSource={require("./assets/cocktail-shaker.png")}
+        />
+        <Text>
+          {currentDrink["strAlcoholic"]}
+          {"\n"}
+          Glass: {currentDrink["strGlass"]}
+          {"\n"}
+          Instructions: {currentDrink["strInstructions"]}
+        </Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

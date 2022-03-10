@@ -30,20 +30,12 @@ export default function App() {
           <Stack.Screen
             name="CocktailDetailApi"
             component={CocktailDetailApi}
-            options= {
-              ({route}) => ({
-                title: route.params.drink["strDrink"]
-              })
-            }
+            options={{title: null}}
           />
           <Stack.Screen
             name="CocktailDetailRecipeBook"
             component={CocktailDetailRecipeBook}
-            // options= {
-            //   ({route}) => ({
-            //     title: route.params.drink["strDrink"]
-            //   })
-            // }
+            options={{title: null}}
           />
           <Stack.Screen
             name="RecipeBookScreen"

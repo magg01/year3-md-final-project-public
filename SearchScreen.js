@@ -93,9 +93,9 @@ export function SearchScreen({navigation, route}) {
               image={drink["strDrinkThumb"]+"/preview"}
               onPress={async () => {
                 if(await isInRecipeBook(drink["idDrink"])) {
-                  navigation.navigate("CocktailDetailRecipeBook", {drink})
+                  navigation.navigate("CocktailDetailRecipeBook", {drinkId: drink["idDrink"]})
                 } else {
-                  navigation.navigate("CocktailDetailApi", {drink})
+                  navigation.navigate("CocktailDetailApi", {drinkId: drink["idDrink"]})
                 }
               }}
             />
