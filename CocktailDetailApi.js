@@ -4,34 +4,23 @@ import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPresse
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
 
 export function CocktailDetailApi({navigation, route}){
-  const [currentDrinkInRecipeBook, setCurrentDrinkInRecipeBook] = useState(undefined);
   const [currentDrink, setCurrentDrink] = useState(undefined);
 
   useEffect(() => {
-    (async () => {
-      setCurrentDrinkInRecipeBook(await isInRecipeBook(route.params.drinkId));
-    })()
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if(currentDrinkInRecipeBook != undefined){
-        if(currentDrinkInRecipeBook){
-          setCurrentDrink(getFromRecipeBook(route.params.drinkId))
-        } else {
-          const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            }
-          })
-          const json = await response.json();
-          setCurrentDrink(json["drinks"][0]);
-        }
-      }
-    })();
-  }, [currentDrinkInRecipeBook])
+    if(currentDrink === undefined){
+      (async () => {
+        const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        })
+        const json = await response.json();
+        setCurrentDrink(json["drinks"][0]);
+      })();
+    }
+  }, [])
 
   useEffect(() => {
     if(currentDrink != undefined){
