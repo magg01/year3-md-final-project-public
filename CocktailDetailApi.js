@@ -56,12 +56,6 @@ export function CocktailDetailApi({navigation, route}){
     }
   }
 
-  const removeDrink = async (id) => {
-    await removeFromRecipeBook(id)
-    navigation.goBack();
-    removeSavedImageFromFile(id)
-  }
-
   if(currentDrink === undefined){
     return(
       <LoadingAnimation
