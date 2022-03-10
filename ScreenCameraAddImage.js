@@ -3,12 +3,14 @@ import React, {useEffect, useState, useRef} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
+import { replaceImageForDrink } from './RecipeBook';
 
-export function ScreenCameraAddImage() {
+export function ScreenCameraAddImage({route}) {
   const [hasPermission, setHasPermission ] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [cameraReady, setCameraReady] = useState(false);
   const cameraRef = useRef(undefined);
+  const newImageCacheUri = useRef(undefined);
 
   //get permission just once
   useEffect(() => {
@@ -66,7 +68,7 @@ export function ScreenCameraAddImage() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.captureButton}
-            onPress={() => { alert('capture button pressed') }}
+            onPress={() => { replaceImageForDrink(route.params.drinkId, newImageCacheUri) }}
           >
             <Ionicons name="camera-outline" size={28} />
           </TouchableOpacity>

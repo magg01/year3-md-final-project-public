@@ -27,7 +27,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
               mode="remove"
             />
             <TouchableOpacity
-              onPress = {() => navigation.navigate("ScreenCameraAddImage")}
+              onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
             >
               <Ionicons name="camera-outline" size={28} />
             </TouchableOpacity>

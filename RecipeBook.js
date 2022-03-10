@@ -129,6 +129,11 @@ async function removeSavedImageFromFile(id){
   }
 }
 
+
+async function replaceImageForDrink(id, newImgCacheUri){
+  alert('replacing image');
+}
+
 function getUriForSavedImageFile(id){
   return FileSystem.documentDirectory + id + "imgThumb.jpg";
 }
@@ -143,5 +148,6 @@ export {
   updateRecipe,
   saveApiImageToFile,
   getUriForSavedImageFile,
-  removeSavedImageFromFile
+  removeSavedImageFromFile,
+  replaceImageForDrink,
 }
