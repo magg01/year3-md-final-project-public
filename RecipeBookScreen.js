@@ -53,7 +53,7 @@ export function RecipeBookScreen({navigation}){
             <CocktailTile
               key={drink["idDrink"]}
               title={drink["strDrink"]}
-              image={getUriForSavedImageFile(drink["idDrink"])}
+              image={drink["strDrinkThumb"]}
               onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drinkId: drink["idDrink"] })}}
             />
           ))}

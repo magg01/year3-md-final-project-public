@@ -50,9 +50,13 @@ export function CocktailDetailApi({navigation, route}){
 
   const saveDrink = async () => {
     if(currentDrink != undefined){
-      await saveToRecipeBook(currentDrink);
-      navigation.goBack();
-      saveApiImageToFile(currentDrink);
+      try{
+        await saveToRecipeBook(currentDrink);
+        navigation.goBack();
+        saveApiImageToFile(currentDrink);
+      } catch {
+        console.log("saveDrink: encountered an error -> " + e);
+      }
     }
   }
 

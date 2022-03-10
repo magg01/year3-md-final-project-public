@@ -113,8 +113,12 @@ async function updateRecipe(drink){
 
 async function saveApiImageToFile(drink){
   try{
-    await FileSystem.downloadAsync(drink["strDrinkThumb"], FileSystem.documentDirectory + drink["idDrink"] + "imgThumb.jpg");
-    console.log("saveImageToFile: image for drink " + drink["idDrink"] + " sucessfully saved")
+    let filepath = FileSystem.documentDirectory + drink["idDrink"] + Date.now() + ".jpg";
+    await FileSystem.downloadAsync(drink["strDrinkThumb"], filepath);
+    let newDrink = await getFromRecipeBook(drink["idDrink"]);
+    newDrink["strDrinkThumb"] = filepath
+    updateRecipe(newDrink);
+    console.log("saveImageToFile: image for drink " + drink["idDrink"] + " sucessfully saved");
   } catch (e) {
     console.log("saveImageToFile: an error occured -> " + e);
   }
@@ -122,7 +126,8 @@ async function saveApiImageToFile(drink){
 
 async function removeSavedImageFromFile(id){
   try{
-    await FileSystem.deleteAsync(FileSystem.documentDirectory + id + "imgThumb.jpg");
+    let filepath = (await getFromRecipeBook(id))["strDrinkThumb"]
+    await FileSystem.deleteAsync(filepath);
     console.log("removeSavedImageFromFile: image for drink " + id + " sucessfully removed")
   } catch (e) {
     console.log("removeSavedImageFromFile: an error occured -> " + e);
@@ -131,7 +136,7 @@ async function removeSavedImageFromFile(id){
 
 async function copyImageFromCache(id, imageCacheUri){
   try{
-    let filepath = FileSystem.documentDirectory + id + Date.now();
+    let filepath = FileSystem.documentDirectory + id + Date.now() + ".jpg";
     FileSystem.copyAsync({from: imageCacheUri, to: filepath})
     return(filepath);
   } catch (e) {
@@ -141,7 +146,7 @@ async function copyImageFromCache(id, imageCacheUri){
 }
 
 async function replaceImageForDrink(id, newImgCacheUri){
-  // removeSavedImageFromFile(id);
+  await removeSavedImageFromFile(id);
   let newPath = await copyImageFromCache(id, newImgCacheUri);
   let drink = await getFromRecipeBook(id);
   drink["strDrinkThumb"] = newPath
@@ -149,8 +154,9 @@ async function replaceImageForDrink(id, newImgCacheUri){
   return newPath;
 }
 
-function getUriForSavedImageFile(id){
-  return FileSystem.documentDirectory + id + "imgThumb.jpg";
+async function getUriForSavedImageFile(id){
+  let recipe = await getFromRecipeBook(id);
+  return recipe["strDrinkThumb"];
 }
 
 export {
