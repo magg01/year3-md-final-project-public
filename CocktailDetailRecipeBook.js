@@ -9,7 +9,6 @@ export function CocktailDetailRecipeBook({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
 
   useEffect(() => {
-    // setHeaderOptions()
     (async () => {
       setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
     })();
@@ -40,19 +39,6 @@ export function CocktailDetailRecipeBook({navigation, route}){
     await removeFromRecipeBook(id);
     navigation.goBack();
     removeSavedImageFromFile(id)
-  }
-
-  const setHeaderOptions = () => {
-    navigation.setOptions(
-      {headerRight: () => (
-        <ButtonAddRemoveToFromRecipeBook
-          style={{paddingRight: 10}}
-          onPress={async () =>
-            await confirmRecipeRemoval() ? removeDrink(route.params.drinkId) : null}
-          mode="remove"
-        />
-      )}
-    )
   }
 
   if(currentDrink === undefined){
