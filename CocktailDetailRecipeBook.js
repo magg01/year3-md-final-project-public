@@ -31,8 +31,8 @@ export function CocktailDetailRecipeBook({navigation, route}){
   const saveNotes = async () => {
     let drink = currentDrink;
     drink["strNotes"] = notesText;
-    await updateRecipe(drink);
-    setCurrentDrink(getFromRecipeBook(route.params.drinkId));
+    updateRecipe(drink);
+    setCurrentDrink(drink);
   }
 
   const removeDrink = async (id) => {
