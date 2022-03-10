@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getAllRecipes, getUriForSavedImageFile } from './RecipeBook';
 
 
-export function RecipeBookScreen({navigation, route}){
+export function RecipeBookScreen({navigation}){
   const [recipeBook, setRecipeBook] = useState(undefined);
 
   //useFocusEffect from navigation library so that the recipe book is updated
@@ -54,7 +54,7 @@ export function RecipeBookScreen({navigation, route}){
               key={drink["idDrink"]}
               title={drink["strDrink"]}
               image={getUriForSavedImageFile(drink["idDrink"])}
-              onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drink})}}
+              onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drinkId: drink["idDrink"] })}}
             />
           ))}
         </ScrollView>

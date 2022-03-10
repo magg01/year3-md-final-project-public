@@ -39,11 +39,11 @@ export default function App() {
           <Stack.Screen
             name="CocktailDetailRecipeBook"
             component={CocktailDetailRecipeBook}
-            options= {
-              ({route}) => ({
-                title: route.params.drink["strDrink"]
-              })
-            }
+            // options= {
+            //   ({route}) => ({
+            //     title: route.params.drink["strDrink"]
+            //   })
+            // }
           />
           <Stack.Screen
             name="RecipeBookScreen"
