@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
+import { LoadingAnimation } from './LoadingAnimation';
 
 export function CocktailDetailApi({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
@@ -9,7 +10,7 @@ export function CocktailDetailApi({navigation, route}){
   useEffect(() => {
     if(currentDrink === undefined){
       (async () => {
-        const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
+        const response = await fetch(`https://deelay.me/1000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -39,10 +40,6 @@ export function CocktailDetailApi({navigation, route}){
     }
   }, [currentDrink])
 
-  const setHeaderOptions = async() => {
-
-  }
-
   const saveDrink = async () => {
     if(currentDrink != undefined){
       await saveToRecipeBook(currentDrink);
@@ -59,9 +56,9 @@ export function CocktailDetailApi({navigation, route}){
 
   if(currentDrink === undefined){
     return(
-      <Text>
-        fetching drink...
-      </Text>
+      <LoadingAnimation
+        loadingMessage="Fetching drink..."
+      />
     )
   } else {
     return(
