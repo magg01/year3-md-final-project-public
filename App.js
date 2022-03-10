@@ -17,9 +17,13 @@ const Stack = createStackNavigator();
 export default function App() {
 
   const resetDebug = true;
-  useEffect(() => {
+  useEffect(async () => {
     if(resetDebug){
-      AsyncStorage.clear();
+      try{
+        await AsyncStorage.clear();
+      } catch (e) {
+        console.log("resetDebug: encountered an error -> " + e);
+      }
     }
   })
 
