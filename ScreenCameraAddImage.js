@@ -3,7 +3,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
-import { replaceImageForDrink } from './RecipeBook';
+import { replaceImageForDrink, copyImageFromCache } from './RecipeBook';
 
 export function ScreenCameraAddImage({navigation, route}) {
   const [hasPermission, setHasPermission ] = useState(null);
@@ -69,7 +69,9 @@ export function ScreenCameraAddImage({navigation, route}) {
           <TouchableOpacity
             style={styles.captureButton}
             onPress={async () => {
-              let newImageUri = await replaceImageForDrink(route.params.drinkId, newImageCacheUri)
+              let image = await cameraRef.current.takePictureAsync();
+              // let newImageUri = await replaceImageForDrink(route.params.drinkId, newImageCacheUri)
+              let newImageUri = await replaceImageForDrink(route.params.drinkId, image.uri);
               navigation.navigate("CocktailDetailRecipeBook", {newImageUri: newImageUri})
             }}
           >

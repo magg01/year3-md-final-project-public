@@ -129,9 +129,24 @@ async function removeSavedImageFromFile(id){
   }
 }
 
+async function copyImageFromCache(id, imageCacheUri){
+  try{
+    let filepath = FileSystem.documentDirectory + id + Date.now();
+    FileSystem.copyAsync({from: imageCacheUri, to: filepath})
+    return(filepath);
+  } catch (e) {
+    console.log("copyImageFromCache: encountered an error -> " + e);
+    return(null);
+  }
+}
 
 async function replaceImageForDrink(id, newImgCacheUri){
-  return ("Testing");
+  // removeSavedImageFromFile(id);
+  let newPath = await copyImageFromCache(id, newImgCacheUri);
+  let drink = await getFromRecipeBook(id);
+  drink["strDrinkThumb"] = newPath
+  await updateRecipe(drink);
+  return newPath;
 }
 
 function getUriForSavedImageFile(id){
@@ -150,4 +165,5 @@ export {
   getUriForSavedImageFile,
   removeSavedImageFromFile,
   replaceImageForDrink,
+  copyImageFromCache,
 }

@@ -1,18 +1,27 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removeFromRecipeBook, confirmRecipeRemoval} from './RecipeBook';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook.js';
 import { Ionicons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 export function CocktailDetailRecipeBook({navigation, route}){
   const [notesText, setNotesText] = useState(undefined);
   const [currentDrink, setCurrentDrink] = useState(undefined);
+  const [currentImageUri, setCurrentImageUri] = useState(undefined);
 
   useEffect(() => {
     (async () => {
       setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
+      console.log("here again");
     })();
   }, []);
+
+  useEffect(() => {
+    if(currentDrink != undefined){
+      setCurrentImageUri(currentDrink["strDrinkThumb"]);
+    }
+  }, [currentDrink])
 
   useEffect(() => {
     if(currentDrink != undefined){
@@ -50,7 +59,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
     removeSavedImageFromFile(id)
   }
 
-  if(currentDrink === undefined){
+if(currentDrink === undefined){
     return(
       <Text>
         Fetching Drink...
@@ -61,7 +70,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
       <View>
         <Image
           style={styles.tileImage}
-          source={{uri:getUriForSavedImageFile(currentDrink["idDrink"])}}
+          source={{uri: route.params.newImageUri ? route.params.newImageUri : currentImageUri}}
         />
         <Text>
           {currentDrink["strAlcoholic"]}
@@ -77,8 +86,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
           onBlur={() => saveNotes()}
         />
         <Text>
-          {"Hello"}
-          {route.params.newImageUri}
+          {currentImageUri}
         </Text>
       </View>
     );
