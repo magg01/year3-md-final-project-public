@@ -14,19 +14,21 @@ export function CocktailDetailRecipeBook({navigation, route}){
     })();
   }, []);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: currentDrink === undefined ? '' : currentDrink["strDrink"],
-      headerRight: () => (
-        <ButtonAddRemoveToFromRecipeBook
-          style={{paddingRight: 10}}
-          onPress={async () =>
-            await confirmRecipeRemoval() ? removeDrink(route.params.drinkId) : null}
-          mode="remove"
-        />
-      )
-    })
-  });
+  useEffect(() => {
+    if(currentDrink != undefined){
+      navigation.setOptions({
+        title: currentDrink["strDrink"],
+        headerRight: () => (
+          <ButtonAddRemoveToFromRecipeBook
+            style={{paddingRight: 10}}
+            onPress={async () =>
+              await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null}
+            mode="remove"
+          />
+        )
+      })
+    }
+  }, [currentDrink])
 
   const saveNotes = async () => {
     let drink = currentDrink;
@@ -52,7 +54,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
       <View>
         <Image
           style={styles.tileImage}
-          source={{uri:getUriForSavedImageFile(route.params.drinkId)}}
+          source={{uri:getUriForSavedImageFile(currentDrink["idDrink"])}}
         />
         <Text>
           {currentDrink["strAlcoholic"]}
