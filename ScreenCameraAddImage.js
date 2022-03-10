@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
+import { Ionicons } from '@expo/vector-icons';
 
 export function ScreenCameraAddImage() {
   const [hasPermission, setHasPermission ] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [cameraReady, setCameraReady] = useState(false);
+  const cameraRef = useRef(undefined);
+
   //get permission just once
   useEffect(() => {
     (async () => {
@@ -45,6 +49,8 @@ export function ScreenCameraAddImage() {
           type={cameraType}
           //ratio hard coded for my galaxyS20 - not ideal solution
           ratio="20:9"
+          onCameraReady={() => setCameraReady(true)}
+          ref = {cameraRef}
         >
           <TouchableOpacity
             style={styles.flipButton}
@@ -56,7 +62,13 @@ export function ScreenCameraAddImage() {
               );
             }}
           >
-            <Text>Flip</Text>
+            <Ionicons name="camera-reverse-outline" size={28} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.captureButton}
+            onPress={() => { alert('capture button pressed') }}
+          >
+            <Ionicons name="camera-outline" size={28} />
           </TouchableOpacity>
         </Camera>
       </View>
@@ -84,4 +96,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 20,
   },
+  captureButton: {
+    backgroundColor: "white",
+    position: "absolute",
+    bottom: "25%",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  }
 });
