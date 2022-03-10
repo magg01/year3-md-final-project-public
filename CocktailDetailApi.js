@@ -6,21 +6,29 @@ import { LoadingAnimation } from './LoadingAnimation';
 
 export function CocktailDetailApi({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
+  const abortController = new AbortController();
+  const signal = abortController.signal;
 
   useEffect(() => {
     if(currentDrink === undefined){
       (async () => {
-        const response = await fetch(`https://deelay.me/1000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }
-        })
-        const json = await response.json();
-        setCurrentDrink(json["drinks"][0]);
+        try{
+          const response = await fetch(`https://deelay.me/1000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
+            signal: signal,
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }
+          })
+          const json = await response.json();
+          setCurrentDrink(json["drinks"][0]);
+        } catch (e) {
+          console.log(`CocktailDetailApi: useEffect fetch encountered an error -> ${e}`);
+        }
       })();
     }
+    return () => abortController.abort();
   }, [])
 
   useEffect(() => {

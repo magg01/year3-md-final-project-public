@@ -7,6 +7,8 @@ import { isInRecipeBook } from './RecipeBook'
 
 export function SearchScreen({navigation, route}) {
   const [searchResults, setSearchResults] = useState(undefined);
+  const abortController = new AbortController();
+  const signal = abortController.signal;
 
   useEffect(() => {
     (async () => {
@@ -14,6 +16,7 @@ export function SearchScreen({navigation, route}) {
         //below for simulating network delay - REMOVE BEFORE SUBMISSION
         const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${route.params.searchText}`,{
         //const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+          signal: signal,
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -26,6 +29,7 @@ export function SearchScreen({navigation, route}) {
         console.log(`SearchScreen: useEffect fetch encountered an error -> ${e}`);
       }
     })();
+    return () => abortController.abort();
   },[]);
 
   if (searchResults === undefined){
