@@ -6,6 +6,7 @@ import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
 import { SearchScreen } from './SearchScreen';
 import { RecipeBookScreen } from './RecipeBookScreen';
+import { ScreenShoppingList } from './ScreenShoppingList';
 import { ScreenCameraAddImage }  from './ScreenCameraAddImage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -60,6 +61,11 @@ export default function App() {
             name="ScreenCameraAddImage"
             component={ScreenCameraAddImage}
             options={{title: "Add image"}}
+          />
+          <Stack.Screen
+            name="ScreenShoppingList"
+            component={ScreenShoppingList}
+            options={{title: "Shopping list"}}            
           />
         </Stack.Navigator>
       </NavigationContainer>

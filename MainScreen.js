@@ -24,6 +24,11 @@ export function MainScreen({navigation}) {
           accessibilityLabel="Open the recipe book"
           onPress={() => navigation.navigate("RecipeBookScreen")}
         />
+        <Button
+          title="Shopping list"
+          accessibilityLabel="Go to the shopping list"
+          onPress={() => navigation.navigate("ScreenShoppingList")}
+        />
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
