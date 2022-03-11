@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import { getOrCreateShoppingList, setShoppingList } from './ShoppingList';
 import { LoadingAnimation } from './LoadingAnimation';
+import { IngredientCell } from './IngredientCell';
 
 export function ScreenShoppingList({navigation, route}){
   const [currentShoppingList, setCurrentShoppingList] = useState(undefined);
@@ -31,9 +32,8 @@ export function ScreenShoppingList({navigation, route}){
           {Object.keys(currentShoppingList).map((key) => (
             <Section key={key} header={key}>
               {currentShoppingList[key].map((ingredient) => (
-                  <Cell
-                    key={ingredient}
-                    title={ingredient}
+                  <IngredientCell
+                    ingredient={ingredient}
                   />
               ))}
             </Section>
