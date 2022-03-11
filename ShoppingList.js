@@ -1,4 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-root-toast';
+import { Alert } from 'react-native';
+
 import {shoppingListKey, ingredientListKeysFromApi} from './Constants';
 
 async function getOrCreateShoppingList(){
@@ -24,17 +27,27 @@ async function setShoppingList(shoppingList){
 }
 
 async function addToShoppingList(recipe){
-  let list = await getOrCreateShoppingList();
-  let ingredients = []
-  for (key in ingredientListKeysFromApi){
-    if(recipe[ingredientListKeysFromApi[key]] === null){
-      break
+  try{
+    let list = await getOrCreateShoppingList();
+    if(list[recipe.strDrink]){
+      Alert.alert(null, recipe.strDrink + " ingredients are already on your shopping list.");
     } else {
-      ingredients.push(recipe[ingredientListKeysFromApi[key]])
+      let ingredients = []
+      for (key in ingredientListKeysFromApi){
+        if(recipe[ingredientListKeysFromApi[key]] === null){
+          break
+        } else {
+          ingredients.push(recipe[ingredientListKeysFromApi[key]])
+        }
+      }
+      list[recipe.strDrink] = ingredients
+      setShoppingList(list);
+      Toast.show(recipe.strDrink + " ingredients were added to your shopping list", {duration: Toast.durations.SHORT});
     }
+  } catch (e) {
+    console.log("addToShoppingList: encountered an error -> " + e);
+    alert('couldn\'t add to shopping list')
   }
-  list[recipe.strDrink] = ingredients
-  setShoppingList(list);
 }
 
 export {
