@@ -23,12 +23,6 @@ export function ScreenShoppingList({navigation, route}){
         loadingMessage="Fetching shopping list"
       />
     )
-  } else if (currentShoppingList === null) {
-    return(
-      <Text>
-        It's null!
-      </Text>
-    );
   } else {
     return(
       //change to flat list
