@@ -7,7 +7,7 @@ export function IngredientCell(props){
   return (
     <Cell
       titleTextStyle={isBought ? {textDecorationLine: 'line-through'} : {textDecorationLine: 'none'}}
-      key={props.ingredient}
+      key={props.key}
       title={props.ingredient}
       onPress={() => setIsBought(!isBought)}
     />
