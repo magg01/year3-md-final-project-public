@@ -8,12 +8,14 @@ export function ScreenShoppingList({navigation, route}){
   const [currentShoppingList, setCurrentShoppingList] = useState(undefined);
 
   useEffect(async()=> {
-    setCurrentShoppingList(await getOrCreateShoppingList());
-  }, [])
+    if(currentShoppingList === undefined){
+      setCurrentShoppingList(await getOrCreateShoppingList());
+    }
+  }, []);
 
   useEffect(() => {
-    console.log(currentShoppingList);
-  }, [currentShoppingList]);
+    console.log("ScreenShoppingList: currentShoppingList is: " + JSON.stringify(currentShoppingList));
+  },[currentShoppingList])
 
   if(currentShoppingList === undefined){
     return (
@@ -21,13 +23,22 @@ export function ScreenShoppingList({navigation, route}){
         loadingMessage="Fetching shopping list"
       />
     )
+  } else if (currentShoppingList === null) {
+    return(
+      <Text>
+        It's null!
+      </Text>
+    );
   } else {
     return(
       //change to flat list
       <ScrollView>
         <TableView>
-          {currentShoppingList.recipes.map((recipe) => (
-            <Section header={recipe["strDrink"]}>
+          {Object.keys(currentShoppingList).map((key) => (
+            <Section key={key} header={key}>
+              {currentShoppingList[key].map((ingredient) => (
+                  <Cell title={ingredient} />
+              ))}
             </Section>
           ))}
         </TableView>

@@ -55,9 +55,6 @@ async function getAllRecipes(){
       const pairs = await AsyncStorage.multiGet(keys)
       const recipes = [];
       pairs.map((pair) => {
-        console.log("pair is: " + pair);
-        console.log(shoppingListKey);
-        console.log(pair[0] != shoppingListKey)
         if(pair[0] != shoppingListKey) {
           recipes.push(JSON.parse(pair[1]));
         }

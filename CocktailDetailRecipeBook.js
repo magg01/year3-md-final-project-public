@@ -41,7 +41,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
               <Ionicons name="camera-outline" size={28} />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress = {() => addToShoppingList(currentDrink)}
+              onPress = {() => {
+                console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
+                addToShoppingList(currentDrink)}
+              }
             >
               <Ionicons name="cart-outline" size={28} />
             </TouchableOpacity>
