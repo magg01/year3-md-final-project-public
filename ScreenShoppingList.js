@@ -29,12 +29,13 @@ export function ScreenShoppingList({navigation, route}){
       //change to flat list
       <ScrollView>
         <TableView>
-          {Object.keys(currentShoppingList).map((key) => (
-            <Section key={key} header={key}>
-              {currentShoppingList[key].map((ingredient) => (
-                  <IngredientCell
-                    ingredient={ingredient}
-                  />
+          {Object.keys(currentShoppingList).map((recipe) => (
+            <Section key={recipe} header={recipe}>
+              {currentShoppingList[recipe].map((ingredient) => (
+                <IngredientCell
+                  key={recipe + ":" + ingredient}
+                  ingredient={ingredient}
+                />
               ))}
             </Section>
           ))}
