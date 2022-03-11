@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import Toast from 'react-native-root-toast';
 import { Alert } from 'react-native';
+import { shoppingListKey } from './Constants';
 
 const saveRecipeSuccessToast = (drinkName) => {
   Toast.show(drinkName + " was added to your recipe book", {duration: Toast.durations.SHORT});
@@ -54,7 +55,12 @@ async function getAllRecipes(){
       const pairs = await AsyncStorage.multiGet(keys)
       const recipes = [];
       pairs.map((pair) => {
-        recipes.push(JSON.parse(pair[1]));
+        console.log("pair is: " + pair);
+        console.log(shoppingListKey);
+        console.log(pair[0] != shoppingListKey)
+        if(pair[0] != shoppingListKey) {
+          recipes.push(JSON.parse(pair[1]));
+        }
       })
       const recipeBook = {};
       recipeBook["drinks"] = recipes;

@@ -1,10 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const shoppingListFilePath = AsyncStorage.documentDirectory + "shoppingList";
+import {shoppingListKey} from './Constants';
 
 async function getOrCreateShoppingList(){
   try{
-    let shoppingList = await AsyncStorage.getItem(shoppingListFilePath);
+    let shoppingList = await AsyncStorage.getItem(shoppingListKey);
     if(shoppingList === null){
       let emptyShoppingList = {recipes: []}
       setShoppingList(emptyShoppingList)
@@ -18,7 +17,7 @@ async function getOrCreateShoppingList(){
 }
 
 async function setShoppingList(shoppingList){
-  AsyncStorage.setItem(JSON.stringify(shoppingList), shoppingListFilePath);
+  AsyncStorage.setItem(shoppingListKey, JSON.stringify(shoppingList));
 }
 
 async function addToShoppingList(recipe){
@@ -28,7 +27,7 @@ async function addToShoppingList(recipe){
 }
 
 export {
-  shoppingListFilePath,
+  shoppingListKey,
   getOrCreateShoppingList,
   setShoppingList,
   addToShoppingList,
