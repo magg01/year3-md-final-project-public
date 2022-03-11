@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {shoppingListKey} from './Constants';
+import {shoppingListKey, ingredientListKeysFromApi} from './Constants';
 
 async function getOrCreateShoppingList(){
   try{
@@ -25,7 +25,14 @@ async function setShoppingList(shoppingList){
 
 async function addToShoppingList(recipe){
   let list = await getOrCreateShoppingList();
-  let ingredients = [recipe.strIngredient1, recipe.strIngredient2]
+  let ingredients = []
+  for (key in ingredientListKeysFromApi){
+    if(recipe[ingredientListKeysFromApi[key]] === null){
+      break
+    } else {
+      ingredients.push(recipe[ingredientListKeysFromApi[key]])
+    }
+  }
   list[recipe.strDrink] = ingredients
   setShoppingList(list);
 }

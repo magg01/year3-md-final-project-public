@@ -37,7 +37,10 @@ export function ScreenShoppingList({navigation, route}){
           {Object.keys(currentShoppingList).map((key) => (
             <Section key={key} header={key}>
               {currentShoppingList[key].map((ingredient) => (
-                  <Cell title={ingredient} />
+                  <Cell
+                    key={ingredient}
+                    title={ingredient}
+                  />
               ))}
             </Section>
           ))}
