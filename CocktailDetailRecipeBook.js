@@ -36,15 +36,17 @@ export function CocktailDetailRecipeBook({navigation, route}){
               mode="remove"
             />
             <TouchableOpacity
+              style={{paddingRight: 10}}
               onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
             >
               <Ionicons name="camera-outline" size={28} />
             </TouchableOpacity>
             <TouchableOpacity
+              style={{paddingRight: 10}}
               onPress = {() => {
                 console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
-                addToShoppingList(currentDrink)}
-              }
+                addToShoppingList(currentDrink)
+              }}
             >
               <Ionicons name="cart-outline" size={28} />
             </TouchableOpacity>
