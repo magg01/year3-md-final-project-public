@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, TouchableOpacity } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
-import { getOrCreateShoppingList, setShoppingList } from './ShoppingList';
+import { Ionicons } from '@expo/vector-icons';
+import { getOrCreateShoppingList, setShoppingList, clearBought } from './ShoppingList';
 import { LoadingAnimation } from './LoadingAnimation';
 import { IngredientCell } from './IngredientCell';
 
@@ -15,6 +16,28 @@ export function ScreenShoppingList({navigation, route}){
   }, []);
 
   useEffect(() => {
+    if(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0){
+      navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            style={{paddingRight: 10}}
+            onPress = {async () => {
+              await clearBought()
+              setCurrentShoppingList(await getOrCreateShoppingList());
+            }}
+          >
+            <Ionicons name="trash-bin-outline" size={28} />
+          </TouchableOpacity>
+        )
+      })
+    } else {
+      navigation.setOptions({
+        headerRight: null
+      })
+    }
+  }, [currentShoppingList])
+
+  useEffect(() => {
     console.log("ScreenShoppingList: currentShoppingList is: " + JSON.stringify(currentShoppingList));
   },[currentShoppingList])
 
@@ -24,7 +47,7 @@ export function ScreenShoppingList({navigation, route}){
         loadingMessage="Fetching shopping list"
       />
     )
-  } else if(JSON.stringify(currentShoppingList) === "{}" ) {
+  } else if(Object.keys(currentShoppingList).length === 0 ) {
     return (
       <Text>
         Your shopping list is empty
