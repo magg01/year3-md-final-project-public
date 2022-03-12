@@ -37,6 +37,7 @@ async function addToShoppingList(recipe){
         if(recipe[ingredientListKeysFromApi[key]] === null){
           break
         } else {
+          if(recipe[ingredientListKeysFromApi[key]].trim() != "")
           recipeShoppingDetails.ingredients[recipe[ingredientListKeysFromApi[key]]] = {isBought: false}
         }
       }
