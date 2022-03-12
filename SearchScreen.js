@@ -14,7 +14,7 @@ export function SearchScreen({navigation, route}) {
     (async () => {
       try{
         //below for simulating network delay - REMOVE BEFORE SUBMISSION
-        const response = await fetch(`https://deelay.me/2000/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${route.params.searchText}`,{
+        const response = await fetch(`https://deelay.me/100/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${route.params.searchText}`,{
         //const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
           signal: signal,
           method: 'GET',

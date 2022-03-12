@@ -13,7 +13,7 @@ export function CocktailDetailApi({navigation, route}){
     if(currentDrink === undefined){
       (async () => {
         try{
-          const response = await fetch(`https://deelay.me/1000/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
+          const response = await fetch(`https://deelay.me/100/https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${route.params.drinkId}`,{
             signal: signal,
             method: 'GET',
             headers: {
