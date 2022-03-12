@@ -32,15 +32,16 @@ async function addToShoppingList(recipe){
     if(list[recipe.strDrink]){
       Alert.alert(null, recipe.strDrink + " ingredients are already on your shopping list.");
     } else {
-      let recipeShoppingDetails = {ingredients: [], isBought: false}
+      let recipeShoppingDetails = {ingredients: {}}
       for (let key in ingredientListKeysFromApi){
         if(recipe[ingredientListKeysFromApi[key]] === null){
           break
         } else {
-          recipeShoppingDetails.ingredients.push(recipe[ingredientListKeysFromApi[key]])
+          recipeShoppingDetails.ingredients[recipe[ingredientListKeysFromApi[key]]] = {isBought: false}
         }
       }
       list[recipe.strDrink] = recipeShoppingDetails
+      console.log("addToShoppingList, list is now: " + JSON.stringify(list))
       setShoppingList(list);
       Toast.show(recipe.strDrink + " ingredients were added to your shopping list", {duration: Toast.durations.SHORT});
     }
@@ -50,9 +51,28 @@ async function addToShoppingList(recipe){
   }
 }
 
+async function updateIsBoughtForIngredient(recipe, ingredient, isBought){
+  try{
+    let list = await getOrCreateShoppingList();
+    if (list[recipe]){
+      if(list[recipe]["ingredients"][ingredient]){
+        list[recipe]["ingredients"][ingredient]["isBought"] = isBought;
+      } else {
+        Alert.alert(null, "This ingredient was not found on the shopping list");
+      }
+    } else {
+      Alert.alert(null, "This recipe was not found on the shopping list");
+    }
+    await setShoppingList(list);
+  } catch (e) {
+    console.log("updateIsBoughtForIngredient: encountered an error -> " + e)
+  }
+}
+
 export {
   shoppingListKey,
   getOrCreateShoppingList,
   setShoppingList,
   addToShoppingList,
+  updateIsBoughtForIngredient,
 }

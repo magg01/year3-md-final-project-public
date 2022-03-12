@@ -37,11 +37,12 @@ export function ScreenShoppingList({navigation, route}){
         <TableView>
           {Object.keys(currentShoppingList).map((recipe) => (
             <Section key={recipe} header={recipe}>
-              {currentShoppingList[recipe].ingredients.map((ingredient) => (
+              {Object.keys(currentShoppingList[recipe].ingredients).map((ingredient) => (
                 <IngredientCell
                   key={recipe + ":" + ingredient}
+                  recipe={recipe}
                   ingredient={ingredient}
-                  isBought={currentShoppingList[recipe].isBought}
+                  isBought={currentShoppingList[recipe]["ingredients"][ingredient].isBought}
                 />
               ))}
             </Section>

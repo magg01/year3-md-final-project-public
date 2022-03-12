@@ -17,7 +17,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  const resetDebug = true;
+  const resetDebug = false;
   useEffect(async () => {
     if(resetDebug){
       try{
@@ -65,7 +65,7 @@ export default function App() {
           <Stack.Screen
             name="ScreenShoppingList"
             component={ScreenShoppingList}
-            options={{title: "Shopping list"}}            
+            options={{title: "Shopping list"}}
           />
         </Stack.Navigator>
       </NavigationContainer>
