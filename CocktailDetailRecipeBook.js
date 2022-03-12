@@ -32,7 +32,8 @@ export function CocktailDetailRecipeBook({navigation, route}){
             <ButtonAddRemoveToFromRecipeBook
               style={{paddingRight: 10}}
               onPress={async () =>
-                await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null}
+                await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null
+              }
               mode="remove"
             />
             <TouchableOpacity
@@ -64,9 +65,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
   }
 
   const removeDrink = async (id) => {
-    await removeFromRecipeBook(id);
+    await removeSavedImageFromFile(id)
+    removeFromRecipeBook(id);
     navigation.goBack();
-    removeSavedImageFromFile(id)
+
   }
 
 if(currentDrink === undefined){
