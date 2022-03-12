@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
-import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removeFromRecipeBook, confirmRecipeRemoval} from './RecipeBook';
+import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeDrink, confirmRecipeRemoval} from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook.js';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,6 +23,11 @@ export function CocktailDetailRecipeBook({navigation, route}){
     }
   }, [currentDrink])
 
+  async function recipeRemovalConfirmed(){
+    await removeDrink(currentDrink["idDrink"])
+    navigation.goBack()
+  }
+
   useEffect(() => {
     if(currentDrink != undefined){
       navigation.setOptions({
@@ -32,7 +37,11 @@ export function CocktailDetailRecipeBook({navigation, route}){
             <ButtonAddRemoveToFromRecipeBook
               style={{paddingRight: 10}}
               onPress={async () =>
-                await confirmRecipeRemoval() ? removeDrink(currentDrink["idDrink"]) : null
+                await confirmRecipeRemoval()
+                ?
+                  recipeRemovalConfirmed()
+                :
+                  null
               }
               mode="remove"
             />
@@ -57,18 +66,11 @@ export function CocktailDetailRecipeBook({navigation, route}){
     }
   }, [currentDrink])
 
-  const saveNotes = async () => {
+  async function saveNotes(){
     let drink = currentDrink;
     drink["strNotes"] = notesText;
     updateRecipe(drink);
     setCurrentDrink(drink);
-  }
-
-  const removeDrink = async (id) => {
-    await removeSavedImageFromFile(id)
-    removeFromRecipeBook(id);
-    navigation.goBack();
-
   }
 
 if(currentDrink === undefined){

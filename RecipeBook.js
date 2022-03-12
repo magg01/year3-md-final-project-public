@@ -68,7 +68,7 @@ async function getAllRecipes(){
     }
   } catch (e) {
     console.log("getAllRecipes: an error occurred -> " + e);
-    resolve("error");
+    return("error");
   }
 }
 
@@ -114,7 +114,12 @@ async function confirmPhotoReplacement(){
   })
 }
 
-async function removeFromRecipeBook(id){
+async function removeDrink(id){
+  await removeSavedImageFromFile(id)
+  removeDrinkFromRecipeBook(id);
+}
+
+async function removeDrinkFromRecipeBook(id){
   try {
     await AsyncStorage.removeItem(id);
     console.log('removed drink with id=' + id + " from recipe book");
@@ -188,7 +193,7 @@ export {
   getFromRecipeBook,
   getAllRecipes,
   confirmRecipeRemoval,
-  removeFromRecipeBook,
+  removeDrink,
   updateRecipe,
   saveApiImageToFile,
   getUriForSavedImageFile,
