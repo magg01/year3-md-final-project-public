@@ -32,15 +32,15 @@ async function addToShoppingList(recipe){
     if(list[recipe.strDrink]){
       Alert.alert(null, recipe.strDrink + " ingredients are already on your shopping list.");
     } else {
-      let ingredients = []
-      for (key in ingredientListKeysFromApi){
+      let recipeShoppingDetails = {ingredients: [], isBought: false}
+      for (let key in ingredientListKeysFromApi){
         if(recipe[ingredientListKeysFromApi[key]] === null){
           break
         } else {
-          ingredients.push(recipe[ingredientListKeysFromApi[key]])
+          recipeShoppingDetails.ingredients.push(recipe[ingredientListKeysFromApi[key]])
         }
       }
-      list[recipe.strDrink] = ingredients
+      list[recipe.strDrink] = recipeShoppingDetails
       setShoppingList(list);
       Toast.show(recipe.strDrink + " ingredients were added to your shopping list", {duration: Toast.durations.SHORT});
     }

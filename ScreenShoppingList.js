@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { Cell, Section, TableView } from 'react-native-tableview-simple';
 import { getOrCreateShoppingList, setShoppingList } from './ShoppingList';
 import { LoadingAnimation } from './LoadingAnimation';
@@ -24,6 +24,12 @@ export function ScreenShoppingList({navigation, route}){
         loadingMessage="Fetching shopping list"
       />
     )
+  } else if(JSON.stringify(currentShoppingList) === "{}" ) {
+    return (
+      <Text>
+        Your shopping list is empty
+      </Text>
+    )
   } else {
     return(
       //change to flat list
@@ -31,10 +37,11 @@ export function ScreenShoppingList({navigation, route}){
         <TableView>
           {Object.keys(currentShoppingList).map((recipe) => (
             <Section key={recipe} header={recipe}>
-              {currentShoppingList[recipe].map((ingredient) => (
+              {currentShoppingList[recipe].ingredients.map((ingredient) => (
                 <IngredientCell
                   key={recipe + ":" + ingredient}
                   ingredient={ingredient}
+                  isBought={currentShoppingList[recipe].isBought}
                 />
               ))}
             </Section>

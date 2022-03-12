@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Cell } from 'react-native-tableview-simple';
 
 export function IngredientCell(props){
-  const [isBought, setIsBought] = useState(false);
+  const [isBought, setIsBought] = useState(props.isBought);
 
   return (
     <Cell
