@@ -12,6 +12,7 @@ export function ScreenCameraAddImage({navigation, route}) {
   const [cameraReady, setCameraReady] = useState(false);
   const [cameraRatio, setCameraRatio] = useState(undefined);
   const cameraRef = useRef(undefined);
+  const [shouldReviewImage, setShouldReviewImage] = useState(false);
 
   //get permission just once
   useEffect(() => {
@@ -63,29 +64,37 @@ export function ScreenCameraAddImage({navigation, route}) {
       <Text>Access to camera was denied. Please check your permissions for this app in your device's settings and allow access to the camera.</Text>
     );
   } else {
-    return (
-      <View style={styles.container}>
-        <Camera
-          style={styles.camera}
-          type={cameraType}
-          //ratio hard coded for my galaxyS20 - not ideal solution
-          ratio={cameraRatio}
-          onCameraReady={() => setCameraReady(true)}
-          ref = {cameraRef}
-        >
-          <TouchableOpacity
-            style={styles.captureButton}
-            onPress={async () => {
-              let image = await cameraRef.current.takePictureAsync();
-              let newImageUri = await replaceImageForDrink(route.params.drinkId, image.uri);
-              navigation.navigate("CocktailDetailRecipeBook", {newImageUri: newImageUri})
-            }}
+    if(shouldReviewImage){
+      return(
+        <Text>
+          Hello
+        </Text>
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <Camera
+            style={styles.camera}
+            type={cameraType}
+            //ratio hard coded for my galaxyS20 - not ideal solution
+            ratio={cameraRatio}
+            onCameraReady={() => setCameraReady(true)}
+            ref = {cameraRef}
           >
-            <Ionicons name="camera-outline" size={28} />
-          </TouchableOpacity>
-        </Camera>
-      </View>
-    );
+            <TouchableOpacity
+              style={styles.captureButton}
+              onPress={async () => {
+                cameraRef.current.takePictureAsync()
+                .then((image) => replaceImageForDrink(route.params.drinkId, image.uri))
+                .then((newImageUri) => navigation.navigate("CocktailDetailRecipeBook", {newImageUri: newImageUri}));
+              }}
+            >
+              <Ionicons name="camera-outline" size={28} />
+            </TouchableOpacity>
+          </Camera>
+        </View>
+      );
+    }
   }
 }
 const styles = StyleSheet.create({
