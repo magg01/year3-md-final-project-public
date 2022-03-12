@@ -43,7 +43,7 @@ async function addToShoppingList(recipe){
       list[recipe.strDrink] = recipeShoppingDetails
       console.log("addToShoppingList, list is now: " + JSON.stringify(list))
       setShoppingList(list);
-      Toast.show(recipe.strDrink + " ingredients were added to your shopping list", {duration: Toast.durations.SHORT});
+      Toast.show("Ingredients for " + recipe.strDrink + " were added to your shopping list", {duration: Toast.durations.SHORT});
     }
   } catch (e) {
     console.log("addToShoppingList: encountered an error -> " + e);
@@ -69,10 +69,30 @@ async function updateIsBoughtForIngredient(recipe, ingredient, isBought){
   }
 }
 
+async function clearBought(){
+  let list = await getOrCreateShoppingList()
+  Object.keys(list).map((recipe) => (
+    Object.keys(list[recipe].ingredients).map((ingredient) =>(
+      list[recipe].ingredients[ingredient].isBought
+      ?
+      delete list[recipe].ingredients[ingredient]
+      :
+      null
+    )),
+    Object.keys(list[recipe].ingredients).length === 0
+    ?
+    delete list[recipe]
+    :
+    null
+  ))
+  await setShoppingList(list);
+}
+
 export {
   shoppingListKey,
   getOrCreateShoppingList,
   setShoppingList,
   addToShoppingList,
   updateIsBoughtForIngredient,
+  clearBought,
 }
