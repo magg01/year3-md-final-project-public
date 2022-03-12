@@ -91,7 +91,27 @@ async function confirmRecipeRemoval(){
       ]
     );
   })
+}
 
+async function confirmPhotoReplacement(){
+  return new Promise((resolve) => {
+    Alert.alert(
+      "Are you sure you want to keep this image?",
+      "You will lose the previous image.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => resolve(false),
+          style: "cancel"
+        },
+        {
+          text: "Replace",
+          onPress: () => resolve(true),
+          style: "destructive"
+        }
+      ]
+    );
+  })
 }
 
 async function removeFromRecipeBook(id){
@@ -175,4 +195,5 @@ export {
   removeSavedImageFromFile,
   replaceImageForDrink,
   copyImageFromCache,
+  confirmPhotoReplacement,
 }
