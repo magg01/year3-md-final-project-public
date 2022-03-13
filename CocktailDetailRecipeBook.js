@@ -51,7 +51,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
             />
             <AddToShoppingListButton
               style={{paddingRight: 10}}
-              drink={currentDrink}
+              onPress={() => {
+                console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
+                addToShoppingList(currentDrink)
+              }}
             />
           </View>
         )

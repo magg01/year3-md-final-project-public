@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveApiImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
+import { addToShoppingList } from './ShoppingList';
 import { AddRemoveToFromRecipeBookButton, AddToShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 
@@ -45,7 +46,10 @@ export function CocktailDetailApi({navigation, route}){
               />
               <AddToShoppingListButton
                 style={{paddingRight: 10}}
-                drink={currentDrink}
+                onPress={() => {
+                  console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
+                  addToShoppingList(currentDrink)
+                }}
               />
             </View>
           )

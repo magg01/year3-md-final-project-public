@@ -1,15 +1,11 @@
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { addToShoppingList } from './ShoppingList';
 
 export function AddToShoppingListButton(props){
   return (
     <TouchableOpacity
       style={props.style}
-      onPress = {() => {
-        console.log("From recipe book detail screen, adding " + props.drink["strDrink"] + " to shopping list");
-        addToShoppingList(props.drink)
-      }}
+      onPress = {props.onPress}
     >
       <Ionicons name="cart-outline" size={28} />
     </TouchableOpacity>
@@ -23,6 +19,17 @@ export function CaptureDrinkImageButton(props){
       onPress={props.onPress}
     >
       <Ionicons name="camera-outline" size={28} />
+    </TouchableOpacity>
+  )
+}
+
+export function RemoveBoughtFromShoppingListButton(props){
+  return (
+    <TouchableOpacity
+      style={props.style}
+      onPress = {props.onPress}
+    >
+      <Ionicons name="trash-bin-outline" size={28} />
     </TouchableOpacity>
   )
 }

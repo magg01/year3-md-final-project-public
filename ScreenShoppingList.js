@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import { ScrollView, Text, TouchableOpacity } from 'react-native';
-import { Cell, Section, TableView } from 'react-native-tableview-simple';
+import { ScrollView, Text } from 'react-native';
+import { TableView, Section } from 'react-native-tableview-simple';
 import { Ionicons } from '@expo/vector-icons';
 import { getOrCreateShoppingList, setShoppingList, clearBought } from './ShoppingList';
+import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 import { IngredientCell } from './IngredientCell';
 
@@ -19,15 +20,13 @@ export function ScreenShoppingList({navigation, route}){
     if(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0){
       navigation.setOptions({
         headerRight: () => (
-          <TouchableOpacity
+          <RemoveBoughtFromShoppingListButton
             style={{paddingRight: 10}}
-            onPress = {async () => {
+            onPress={async () => {
               await clearBought()
               setCurrentShoppingList(await getOrCreateShoppingList());
             }}
-          >
-            <Ionicons name="trash-bin-outline" size={28} />
-          </TouchableOpacity>
+          />
         )
       })
     } else {
