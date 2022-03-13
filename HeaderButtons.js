@@ -16,6 +16,17 @@ export function AddToShoppingListButton(props){
   )
 }
 
+export function CaptureDrinkImageButton(props){
+  return (
+    <TouchableOpacity
+      style={props.style}
+      onPress={props.onPress}
+    >
+      <Ionicons name="camera-outline" size={28} />
+    </TouchableOpacity>
+  )
+}
+
 export function AddRemoveToFromRecipeBookButton(props){
   if(props.mode === "add"){
     return(

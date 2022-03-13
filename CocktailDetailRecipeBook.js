@@ -2,7 +2,7 @@ import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeDrink, confirmRecipeRemoval} from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
-import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton } from './HeaderButtons';
+import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton, CaptureDrinkImageButton } from './HeaderButtons';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -45,12 +45,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
               }
               mode="remove"
             />
-            <TouchableOpacity
+            <CaptureDrinkImageButton
               style={{paddingRight: 10}}
               onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
-            >
-              <Ionicons name="camera-outline" size={28} />
-            </TouchableOpacity>
+            />
             <AddToShoppingListButton
               style={{paddingRight: 10}}
               drink={currentDrink}
