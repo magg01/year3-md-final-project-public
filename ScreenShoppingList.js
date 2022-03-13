@@ -1,5 +1,6 @@
-import { useEffect, useState} from 'react';
+import { useEffect, useState, useCallback} from 'react';
 import { ScrollView, Text } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native'
 import { TableView, Section } from 'react-native-tableview-simple';
 import { getOrCreateShoppingList, clearBought } from './ShoppingList';
 import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
@@ -9,11 +10,16 @@ import { IngredientCell } from './IngredientCell';
 export function ScreenShoppingList({navigation, route}){
   const [currentShoppingList, setCurrentShoppingList] = useState(undefined);
 
-  useEffect(async()=> {
-    if(currentShoppingList === undefined){
-      setCurrentShoppingList(await getOrCreateShoppingList());
-    }
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      const setInitialShoppingList = async () => {
+        if(currentShoppingList === undefined){
+          setCurrentShoppingList(await getOrCreateShoppingList());
+        }
+      }
+      setInitialShoppingList();
+    }, [])
+  );
 
   useEffect(() => {
     if(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0){
@@ -34,10 +40,6 @@ export function ScreenShoppingList({navigation, route}){
       })
     }
   }, [currentShoppingList])
-
-  useEffect(() => {
-    console.log("ScreenShoppingList: currentShoppingList is: " + JSON.stringify(currentShoppingList));
-  },[currentShoppingList])
 
   if(currentShoppingList === undefined){
     return (
