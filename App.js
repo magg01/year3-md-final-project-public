@@ -105,7 +105,6 @@ export default function App() {
     <RootSiblingParent>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="MainScreenStack"
           shifting={true}
           labeled={true}
         >
