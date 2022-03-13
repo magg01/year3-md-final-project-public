@@ -1,5 +1,6 @@
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export function AddToShoppingListButton(props){
   return (
@@ -7,7 +8,7 @@ export function AddToShoppingListButton(props){
       style={props.style}
       onPress = {props.onPress}
     >
-      <Ionicons name="cart-outline" size={28} />
+      <MaterialIcons name="add-shopping-cart" size={28} color="black" />
     </TouchableOpacity>
   )
 }
@@ -18,7 +19,7 @@ export function CaptureDrinkImageButton(props){
       style={props.style}
       onPress={props.onPress}
     >
-      <Ionicons name="camera-outline" size={28} />
+      <MaterialIcons name="photo-camera" size={28} color="black" />
     </TouchableOpacity>
   )
 }
