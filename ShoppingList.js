@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-root-toast';
 import { Alert } from 'react-native';
 
-import {shoppingListKey, ingredientListKeysFromApi} from './Constants';
+import {shoppingListKey, ingredientListKeysFromApi, measureListKeysFromApi} from './Constants';
 
 async function getOrCreateShoppingList(){
   try{
@@ -38,7 +38,7 @@ async function addToShoppingList(recipe){
           break
         } else {
           if(recipe[ingredientListKeysFromApi[key]].trim() != "")
-          recipeShoppingDetails.ingredients[recipe[ingredientListKeysFromApi[key]]] = {isBought: false}
+          recipeShoppingDetails.ingredients[recipe[ingredientListKeysFromApi[key]]] = {isBought: false, measure: recipe[measureListKeysFromApi[key]]}
         }
       }
       list[recipe.strDrink] = recipeShoppingDetails
