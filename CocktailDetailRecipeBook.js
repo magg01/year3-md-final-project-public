@@ -2,8 +2,7 @@ import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeDrink, confirmRecipeRemoval} from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
-import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook.js';
-import { HeaderButtonAddToShoppingList } from './HeaderButtonAddToShoppingList';
+import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton } from './HeaderButtons';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -35,7 +34,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
         title: currentDrink["strDrink"],
         headerRight: () => (
           <View style={{ flexDirection: 'row'}}>
-            <ButtonAddRemoveToFromRecipeBook
+            <AddRemoveToFromRecipeBookButton
               style={{paddingRight: 10}}
               onPress={async () =>
                 await confirmRecipeRemoval()
@@ -52,7 +51,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
             >
               <Ionicons name="camera-outline" size={28} />
             </TouchableOpacity>
-            <HeaderButtonAddToShoppingList
+            <AddToShoppingListButton
               style={{paddingRight: 10}}
               drink={currentDrink}
             />
