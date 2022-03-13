@@ -19,7 +19,7 @@ export function CaptureDrinkImageButton(props){
       style={props.style}
       onPress={props.onPress}
     >
-      <MaterialIcons name="photo-camera" size={28} color="black" />
+      <MaterialIcons name="photo-camera" size={26} color="black" />
     </TouchableOpacity>
   )
 }
@@ -30,7 +30,7 @@ export function RemoveBoughtFromShoppingListButton(props){
       style={props.style}
       onPress = {props.onPress}
     >
-      <Ionicons name="trash-bin-outline" size={28} />
+      <MaterialIcons name="delete-sweep" size={26} color="black" />
     </TouchableOpacity>
   )
 }
@@ -42,8 +42,8 @@ export function AddRemoveToFromRecipeBookButton(props){
         style={props.style}
         onPress={props.onPress}
       >
-        <Ionicons name="book-outline" size={28}/>
-        <Ionicons name="add-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
+        <Ionicons name="book-outline" size={26}/>
+        <Ionicons name="add-circle-outline" size={12} style={{position: 'absolute', paddingTop:6, paddingLeft:12}}/>
       </TouchableOpacity>
     );
   } else if (props.mode === "remove") {
@@ -52,8 +52,8 @@ export function AddRemoveToFromRecipeBookButton(props){
         style={props.style}
         onPress={props.onPress}
       >
-        <Ionicons name="book-outline" size={28}/>
-        <Ionicons name="remove-circle-outline" size={14} style={{position: 'absolute', paddingTop:6, paddingLeft:13}}/>
+        <Ionicons name="book-outline" size={26}/>
+        <Ionicons name="remove-circle-outline" size={12} style={{position: 'absolute', paddingTop:6, paddingLeft:12}}/>
       </TouchableOpacity>
     );
   } else {
@@ -62,7 +62,7 @@ export function AddRemoveToFromRecipeBookButton(props){
         style={props.style}
         onPress={props.onPress}
       >
-        <Ionicons name="book-outline" size={28}/>
+        <Ionicons name="book-outline" size={26}/>
       </TouchableOpacity>
     );
   }
