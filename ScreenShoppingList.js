@@ -1,7 +1,8 @@
 import { useEffect, useState, useCallback} from 'react';
-import { ScrollView, Text, InteractionManager } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, InteractionManager } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native'
 import { TableView, Section } from 'react-native-tableview-simple';
+import { FontAwesome } from '@expo/vector-icons';
 import { getOrCreateShoppingList, clearBought } from './ShoppingList';
 import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
@@ -50,9 +51,13 @@ export function ScreenShoppingList({navigation, route}){
     )
   } else if(Object.keys(currentShoppingList).length === 0 ) {
     return (
-      <Text>
-        Your shopping list is empty
-      </Text>
+      <View style={styles.container}>
+        <FontAwesome name="shopping-basket" size={50} color="black" />
+        <Text>
+          { "\n" }
+          Your shopping list is empty
+        </Text>
+      </View>
     )
   } else {
     return(
@@ -77,3 +82,12 @@ export function ScreenShoppingList({navigation, route}){
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
