@@ -10,12 +10,17 @@ import { ScreenReviewCocktailImage } from './ScreenReviewCocktailImage';
 import { ScreenCameraAddImage }  from './ScreenCameraAddImage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const Tab = createMaterialBottomTabNavigator();
+  const MainStack = createStackNavigator()
+  const RecipeBookStack = createStackNavigator();
+  const ShoppingListStack = createStackNavigator();
 
   const resetDebug = false;
   useEffect(async () => {
@@ -28,51 +33,84 @@ export default function App() {
     }
   })
 
+  function MainScreenStack(){
+    return (
+      <MainStack.Navigator>
+        <MainStack.Screen
+          name="MainScreen"
+          component={MainScreen}
+          options= {{ title: "Home"}}
+        />
+        <MainStack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options= {{ title: "Search results"}}
+        />
+        <MainStack.Screen
+          name="CocktailDetailApi"
+          component={CocktailDetailApi}
+          options={{title: null}}
+        />
+      </MainStack.Navigator>
+    )
+  }
+
+  function RecipeBookScreenStack(){
+    return(
+      <RecipeBookStack.Navigator>
+        <RecipeBookStack.Screen
+          name="RecipeBookScreen"
+          component={RecipeBookScreen}
+          options={{title: "Recipe book"}}
+        />
+        <RecipeBookStack.Screen
+          name="CocktailDetailRecipeBook"
+          component={CocktailDetailRecipeBook}
+          options={{title: null}}
+        />
+        <RecipeBookStack.Screen
+          name="ScreenCameraAddImage"
+          component={ScreenCameraAddImage}
+          options={{title: "Add image"}}
+        />
+        <RecipeBookStack.Screen
+          name="ScreenReviewCocktailImage"
+          component={ScreenReviewCocktailImage}
+          options={{title: "Review image"}}
+        />
+      </RecipeBookStack.Navigator>
+    )
+  }
+
+  function ScreenShoppingListStack(){
+    return(
+      <ShoppingListStack.Navigator>
+        <ShoppingListStack.Screen
+          name="ScreenShoppingList"
+          component={ScreenShoppingList}
+          options={{title: "Shopping list"}}
+        />
+      </ShoppingListStack.Navigator>
+    )
+  }
+
   return (
     <RootSiblingParent>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="MainScreen"
-            component={MainScreen}
-            options= {{ title: "Home"}}
+        <Tab.Navigator>
+          <Tab.Screen
+            name="MainScreenStack"
+            component={MainScreenStack}
           />
-          <Stack.Screen
-            name="SearchScreen"
-            component={SearchScreen}
-            options= {{ title: "Search results"}}
+          <Tab.Screen
+            name="RecipeBookScreenStack"
+            component={RecipeBookScreenStack}
           />
-          <Stack.Screen
-            name="CocktailDetailApi"
-            component={CocktailDetailApi}
-            options={{title: null}}
+          <Tab.Screen
+            name="ScreenShoppingListStack"
+            component={ScreenShoppingListStack}
           />
-          <Stack.Screen
-            name="CocktailDetailRecipeBook"
-            component={CocktailDetailRecipeBook}
-            options={{title: null}}
-          />
-          <Stack.Screen
-            name="RecipeBookScreen"
-            component={RecipeBookScreen}
-            options={{title: "Recipe book"}}
-          />
-          <Stack.Screen
-            name="ScreenCameraAddImage"
-            component={ScreenCameraAddImage}
-            options={{title: "Add image"}}
-          />
-          <Stack.Screen
-            name="ScreenReviewCocktailImage"
-            component={ScreenReviewCocktailImage}
-            options={{title: "Review image"}}
-          />
-          <Stack.Screen
-            name="ScreenShoppingList"
-            component={ScreenShoppingList}
-            options={{title: "Shopping list"}}
-          />
-        </Stack.Navigator>
+        </Tab.Navigator>
       </NavigationContainer>
     </RootSiblingParent>
   );
