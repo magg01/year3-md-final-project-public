@@ -19,16 +19,6 @@ export function MainScreen({navigation}) {
           accessibilityLabel="Search for cocktails"
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
         />
-        <Button
-          title="Recipe book"
-          accessibilityLabel="Open the recipe book"
-          onPress={() => navigation.navigate("RecipeBookScreen")}
-        />
-        <Button
-          title="Shopping list"
-          accessibilityLabel="Go to the shopping list"
-          onPress={() => navigation.navigate("ScreenShoppingList")}
-        />
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
@@ -45,6 +35,7 @@ const styles = StyleSheet.create({
   searchBar:{
     height: 50,
     width: 200,
+    marginBottom: 20,
     borderWidth: 2,
     borderColor: 'black',
   }
