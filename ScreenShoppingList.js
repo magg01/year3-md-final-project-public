@@ -65,6 +65,7 @@ export function ScreenShoppingList({navigation, route}){
                   key={recipe + ":" + ingredient}
                   recipe={recipe}
                   ingredient={ingredient}
+                  measure={currentShoppingList[recipe]["ingredients"][ingredient].measure}
                   isBought={currentShoppingList[recipe]["ingredients"][ingredient].isBought}
                 />
               ))}
