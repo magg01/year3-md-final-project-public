@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
-import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
-import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeDrink, confirmRecipeRemoval} from './RecipeBook';
+import React, { useEffect, useState } from 'react';
+import {StyleSheet, View, Image, Text, TextInput} from 'react-native';
+import {
+  getFromRecipeBook,
+  updateRecipe,
+  removeDrink,
+  confirmRecipeRemoval} from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton, CaptureDrinkImageButton } from './HeaderButtons';
-import { Ionicons } from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
 
 export function CocktailDetailRecipeBook({navigation, route}){
   const [notesText, setNotesText] = useState(undefined);

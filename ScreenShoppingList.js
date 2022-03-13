@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import { ScrollView, Text } from 'react-native';
 import { TableView, Section } from 'react-native-tableview-simple';
-import { Ionicons } from '@expo/vector-icons';
-import { getOrCreateShoppingList, setShoppingList, clearBought } from './ShoppingList';
+import { getOrCreateShoppingList, clearBought } from './ShoppingList';
 import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 import { IngredientCell } from './IngredientCell';

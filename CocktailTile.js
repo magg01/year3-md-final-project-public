@@ -1,7 +1,6 @@
-import React from 'react';
 import {StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 
-export default function CocktailTile(props){
+export function CocktailTile(props){
   return(
     <TouchableOpacity
       style={styles.tile}

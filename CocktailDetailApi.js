@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
-import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveApiImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
+import {StyleSheet, View, Image, Text} from 'react-native';
+import { saveToRecipeBook, saveApiImageToFile } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 import { AddRemoveToFromRecipeBookButton, AddToShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';

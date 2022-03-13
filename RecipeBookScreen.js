@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, Text} from 'react-native';
-import CocktailTile from './CocktailTile';
+import { CocktailTile } from './CocktailTile';
 import { useFocusEffect } from '@react-navigation/native';
 import { getAllRecipes, getUriForSavedImageFile } from './RecipeBook';
 

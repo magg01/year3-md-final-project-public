@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
@@ -78,12 +77,3 @@ export default function App() {
     </RootSiblingParent>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

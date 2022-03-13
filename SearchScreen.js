@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, Text, Image, View, ScrollView } from 'react-native';
-import CocktailTile from './CocktailTile';
+import { useState, useEffect} from 'react';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { CocktailTile } from './CocktailTile';
 import { LoadingAnimation } from './LoadingAnimation'
 import { isInRecipeBook } from './RecipeBook'
 

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, View, Button } from 'react-native';
 
 export function MainScreen({navigation}) {
   const [searchText, setSearchText] = useState('');

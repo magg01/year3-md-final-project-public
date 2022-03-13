@@ -1,4 +1,4 @@
-import { Image, Text, View, Button, StyleSheet } from 'react-native'
+import { StyleSheet, Image, Text, View, Button } from 'react-native'
 import { confirmPhotoReplacement, replaceImageForDrink } from './RecipeBook';
 
 export function ScreenReviewCocktailImage({navigation, route}){

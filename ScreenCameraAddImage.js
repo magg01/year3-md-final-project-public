@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useEffect, useState, useRef, useCallback} from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
-import { replaceImageForDrink, copyImageFromCache, confirmPhotoReplacement } from './RecipeBook';
 import { LoadingAnimation } from './LoadingAnimation';
 import { useIsFocused } from '@react-navigation/native';
 
