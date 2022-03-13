@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback} from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, InteractionManager } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native'
 import { TableView, Section } from 'react-native-tableview-simple';
 import { getOrCreateShoppingList, clearBought } from './ShoppingList';
@@ -12,12 +12,13 @@ export function ScreenShoppingList({navigation, route}){
 
   useFocusEffect(
     useCallback(() => {
-      const setInitialShoppingList = async () => {
+      const task = InteractionManager.runAfterInteractions(async() => {
         if(currentShoppingList === undefined){
           setCurrentShoppingList(await getOrCreateShoppingList());
         }
-      }
-      setInitialShoppingList();
+      })
+
+      return () => task.cancel();
     }, [])
   );
 
