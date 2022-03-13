@@ -13,6 +13,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -94,21 +95,57 @@ export default function App() {
     )
   }
 
+  function homeIcon({focused, color}){
+    return(
+      <MaterialIcons name="home" size={24} color={color} />
+    )
+  }
+
   return (
     <RootSiblingParent>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          initialRouteName="MainScreenStack"
+          shifting={true}
+          labeled={true}
+        >
           <Tab.Screen
             name="MainScreenStack"
             component={MainScreenStack}
+            title="Home"
+            options={{
+              title: "Home",
+              tabBarLabel: "Home",
+              tabBarAccessibilityLabel: "Home",
+              tabBarIcon: ({color}) => (
+                <MaterialIcons name="home" size={24} color={color} />
+              )
+            }}
           />
           <Tab.Screen
             name="RecipeBookScreenStack"
             component={RecipeBookScreenStack}
+            options={{
+              title: "Recipe book",
+              tabBarLabel: "Recipe book",
+              tabBarAccessibilityLabel: "Recipe book",
+              tabBarIcon: ({color}) => (
+                <MaterialIcons name="menu-book" size={24} color={color} />
+              )
+            }}
           />
           <Tab.Screen
             name="ScreenShoppingListStack"
             component={ScreenShoppingListStack}
+            options={{
+              title: "Shopping list",
+              tabBarLabel: "Shopping list",
+              tabBarAccessibilityLabel: "Shopping list",
+              tabBarIcon: ({color}) => (
+                <MaterialIcons name="shopping-cart" size={24} color={color} />
+              )
+            }}
+
           />
         </Tab.Navigator>
       </NavigationContainer>
