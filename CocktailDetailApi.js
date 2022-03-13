@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Alert} from 'react-native';
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, removeButtonPressedConfirmResult, removeFromRecipeBook, updateRecipe, saveApiImageToFile, getUriForSavedImageFile, removeSavedImageFromFile, removedButtonPressed} from './RecipeBook';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook';
+import { HeaderButtonAddToShoppingList } from './HeaderButtonAddToShoppingList';
 import { LoadingAnimation } from './LoadingAnimation';
 
 export function CocktailDetailApi({navigation, route}){
@@ -37,11 +38,17 @@ export function CocktailDetailApi({navigation, route}){
         {
           title: currentDrink["strDrink"],
           headerRight: () => (
-            <ButtonAddRemoveToFromRecipeBook
-              style={{paddingRight: 10}}
-              onPress={() => saveDrink()}
-              mode="add"
-            />
+            <View style={{flexDirection: 'row'}}>
+              <ButtonAddRemoveToFromRecipeBook
+                style={{paddingRight: 10}}
+                onPress={() => saveDrink()}
+                mode="add"
+              />
+              <HeaderButtonAddToShoppingList
+                style={{paddingRight: 10}}
+                drink={currentDrink}
+              />
+            </View>
           )
         }
       )

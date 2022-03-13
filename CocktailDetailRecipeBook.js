@@ -3,6 +3,7 @@ import {StyleSheet, View, Image, Text, TextInput, TouchableOpacity, Button, Aler
 import { getFromRecipeBook, isInRecipeBook, saveToRecipeBook, updateRecipe, saveImageToFile, getUriForSavedImageFile, removeDrink, confirmRecipeRemoval} from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 import { ButtonAddRemoveToFromRecipeBook } from './ButtonAddRemoveToFromRecipeBook.js';
+import { HeaderButtonAddToShoppingList } from './HeaderButtonAddToShoppingList';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -51,15 +52,10 @@ export function CocktailDetailRecipeBook({navigation, route}){
             >
               <Ionicons name="camera-outline" size={28} />
             </TouchableOpacity>
-            <TouchableOpacity
+            <HeaderButtonAddToShoppingList
               style={{paddingRight: 10}}
-              onPress = {() => {
-                console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
-                addToShoppingList(currentDrink)
-              }}
-            >
-              <Ionicons name="cart-outline" size={28} />
-            </TouchableOpacity>
+              drink={currentDrink}
+            />
           </View>
         )
       })
