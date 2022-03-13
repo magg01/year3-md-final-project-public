@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {StyleSheet, View, Image, Text, TextInput} from 'react-native';
 import {
   getFromRecipeBook,
   updateRecipe,
   removeDrink,
   confirmRecipeRemoval} from './RecipeBook';
+import { useFocusEffect } from '@react-navigation/native'
 import { addToShoppingList } from './ShoppingList';
 import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton, CaptureDrinkImageButton } from './HeaderButtons';
 
@@ -13,11 +14,13 @@ export function CocktailDetailRecipeBook({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
   const [currentImageUri, setCurrentImageUri] = useState(undefined);
 
-  useEffect(() => {
-    (async () => {
-      setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
-    })();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
+      })()
+    },[route.params.drinkId])
+  );
 
   useEffect(() => {
     if(currentDrink != undefined){
