@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
 
 export function CocktailTile(props){
@@ -7,7 +8,6 @@ export function CocktailTile(props){
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         const { dx, dy } = gestureState
-        console.log(gestureState);
         return !(Math.abs(dx) < 1 && Math.abs(dy) < 1)
       },
       onPanResponderGrant: () => {
@@ -29,10 +29,23 @@ export function CocktailTile(props){
       ),
       onPanResponderRelease: () => {
         Animated.spring(
-          pan, // Auto-multiplexed
+          pan,
           {
-            toValue: { x: 0, y: 0 }, // Back to zero
-            useNativeDriver: true, // Added!
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: true,
+          }
+        ).start();
+        pan.flattenOffset();
+      },
+      //return the tile to its original position if the scroll view captures
+      //the panresponder. Otherwise the tile can get stuck and 'float' in an
+      //odd screen positon.
+      onPanResponderTerminate: () => {
+        Animated.spring(
+          pan,
+          {
+            toValue: { x: 0, y: 0 },
+            useNativeDriver: true,
           }
         ).start();
         pan.flattenOffset();
