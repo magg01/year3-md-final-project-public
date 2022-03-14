@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Cell } from 'react-native-tableview-simple';
 import { updateIsBoughtForIngredient } from './ShoppingList';
 
@@ -12,6 +12,7 @@ export function IngredientCell(props){
       title={props.ingredient}
       cellStyle={"RightDetail"}
       detail={props.measure}
+      detailTextStyle={isBought ? {textDecorationLine: 'line-through'} : {textDecorationLine: 'none'}}
       onPress={async () => {
         await updateIsBoughtForIngredient(props.recipe, props.ingredient, !isBought)
         await setIsBought(!isBought)
