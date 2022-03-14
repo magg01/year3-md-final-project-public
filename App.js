@@ -95,12 +95,6 @@ export default function App() {
     )
   }
 
-  function homeIcon({focused, color}){
-    return(
-      <MaterialIcons name="home" size={24} color={color} />
-    )
-  }
-
   return (
     <RootSiblingParent>
       <NavigationContainer>
