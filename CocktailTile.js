@@ -1,22 +1,24 @@
-import {StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, Text, TouchableHighlight} from 'react-native';
 
 export function CocktailTile(props){
   return(
-    <TouchableOpacity
+    <TouchableHighlight
       style={styles.tile}
       onPress={props.onPress}
     >
-      <Image
-        style={styles.tileImage}
-        source={{uri:props.image}}
-        defaultSource={require("./assets/cocktail-shaker.png")}
-      />
-      <Text
-        style={styles.tileTitle}
-      >
-        {props.title}
-      </Text>
-    </TouchableOpacity>
+      <View>
+        <Image
+          style={styles.tileImage}
+          source={{uri:props.image}}
+          defaultSource={require("./assets/cocktail-shaker.png")}
+        />
+        <Text
+          style={styles.tileTitle}
+        >
+          {props.title}
+        </Text>
+      </View>
+    </TouchableHighlight>
   );
 }
 
