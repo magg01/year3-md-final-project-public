@@ -41,7 +41,7 @@ export function RecipeBookScreen({navigation}){
         <MaterialIcons name="import-contacts" size={50} color="black" />
         <Text>
           { "\n" }
-          Your shopping list is empty
+          Your recipe book is empty
         </Text>
       </View>
     )
