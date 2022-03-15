@@ -20,13 +20,13 @@ export function CocktailTile(props){
           y: pan.y._value
         })
       },
-      onPanResponderMove: Animated.event(
-        [
-          null,
-          {dx: pan.x, dy: pan.y}
-        ],
-        {useNativeDriver: false}
-      ),
+      onPanResponderMove: (e, gestureState) => {
+        Animated.event([null, {
+          dx: pan.x,
+          dy: pan.y,
+          dy: props.panY.y,
+        }], {useNativeDriver: false})(e, gestureState);
+      },
       onPanResponderRelease: () => {
         Animated.spring(
           pan,
@@ -84,7 +84,6 @@ export function CocktailTile(props){
 }
 
 const styles = StyleSheet.create({
-
   tile: {
     height: "100%",
     width: "100%",
