@@ -114,7 +114,7 @@ export function CocktailTile(props){
           <Text
             style={styles.tileTitle}
           >
-            {props.title}
+            {props.drink["strDrink"]}
           </Text>
         </View>
       </TouchableHighlight>
