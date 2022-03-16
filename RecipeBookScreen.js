@@ -6,8 +6,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
 import { getAllRecipes } from './RecipeBook';
 
-
-
 export function RecipeBookScreen({navigation}){
   const [recipeBook, setRecipeBook] = useState(undefined);
   const bucket = useRef(new Animated.ValueXY({x:1, y:1})).current;
@@ -26,11 +24,6 @@ export function RecipeBookScreen({navigation}){
     } else {
       outRightZone()
     }
-    if(value.x < leftThird && value.y > bottomTenth){
-      inLeftZone()
-    } else {
-      outLeftZone()
-    }
   });
 
   function inRightZone(){
@@ -47,23 +40,6 @@ export function RecipeBookScreen({navigation}){
     }
     if(vibratedRight){
       vibratedRight.current = false
-    }
-  }
-
-  function inLeftZone(){
-    inLeftZoneSwitch.current = true
-    if(inLeftZoneSwitch && !vibratedLeft.current){
-      Haptics.impactAsync("light");
-      vibratedLeft.current = true
-    }
-  }
-
-  function outLeftZone(){
-    if(inLeftZoneSwitch){
-      inLeftZoneSwitch.current = false
-    }
-    if(vibratedLeft){
-      vibratedLeft.current = false
     }
   }
 
@@ -124,6 +100,24 @@ export function RecipeBookScreen({navigation}){
             />
           ))}
         </ScrollView>
+        <Animated.View style={{
+          position: 'absolute',
+          top: 620,
+          right: -100,
+          transform: [
+            {scaleX: bucket.x.interpolate({
+              inputRange: [0, 400],
+              outputRange: [0, 1.5]
+            })},
+            {translateY: bucket.y.interpolate({
+              inputRange: [0, 800],
+              outputRange: [0, -50]
+            })}
+          ]
+        }}>
+          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
+          </View>
+        </Animated.View>
       </SafeAreaView>
     );
   }
