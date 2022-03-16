@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
+import { saveToRecipeBook } from './RecipeBook';
+import { addToShoppingList } from './ShoppingList';
 
 export function CocktailTile(props){
   const pan = useRef(new Animated.ValueXY()).current;
@@ -57,11 +59,7 @@ export function CocktailTile(props){
             useNativeDriver: true
           }
         ).start()
-        if(props.inRecipeBookZone.current){
-          alert('added to recipe book')
-        } else if (props.inShoppingListZone.current){
-          alert('added to shopping list')
-        }
+        checkDropZonePerformAction()
       },
       //return the tile to its original position if the scroll view captures
       //the panresponder. Otherwise the tile can get stuck and 'float' in an
@@ -82,14 +80,17 @@ export function CocktailTile(props){
             useNativeDriver: true
           }
         ).start()
-        if(props.inRecipeBookZone.current){
-          alert('added to recipe book')
-        } else if (props.inShoppingListZone.current){
-          alert('added to shopping list')
-        }
       },
     })
   ).current;
+
+  function checkDropZonePerformAction(){
+    if(props.inRecipeBookZone.current){
+      saveToRecipeBook(props.drink)
+    } else if (props.inShoppingListZone.current){
+      addToShoppingList(props.drink)
+    }
+  }
 
   return(
     <Animated.View

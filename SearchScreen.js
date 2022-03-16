@@ -110,6 +110,7 @@ export function SearchScreen({navigation, route}) {
           {searchResults.drinks.map((drink) => (
             <CocktailTile
               key={drink["idDrink"]}
+              drink={drink}
               title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
               bucket={bucket}
