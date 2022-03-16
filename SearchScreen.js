@@ -1,5 +1,5 @@
-import { useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { useState, useEffect, useRef} from 'react';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { LoadingAnimation } from './LoadingAnimation'
 import { isInRecipeBook } from './RecipeBook'
@@ -8,6 +8,7 @@ export function SearchScreen({navigation, route}) {
   const [searchResults, setSearchResults] = useState(undefined);
   const abortController = new AbortController();
   const signal = abortController.signal;
+  const bucket = useRef(new Animated.ValueXY({x:1, y:1})).current;
 
   useEffect(() => {
     (async () => {
@@ -54,6 +55,7 @@ export function SearchScreen({navigation, route}) {
               key={drink["idDrink"]}
               title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
+              bucket={bucket}
               onPress={async () => {
                 if(await isInRecipeBook(drink["idDrink"])) {
                   navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
@@ -64,6 +66,42 @@ export function SearchScreen({navigation, route}) {
             />
           ))}
         </ScrollView>
+        <Animated.View style={{
+          position: 'absolute',
+          top: 620,
+          left: -100,
+          transform: [
+            {scaleX: bucket.x.interpolate({
+              inputRange: [0, 400],
+              outputRange: [1.5, 0]
+            })},
+            {translateY: bucket.y.interpolate({
+              inputRange: [0, 800],
+              outputRange: [0, -50]
+            })}
+          ]
+        }}>
+          <View style={{width: 200, height: 200, borderRadius: 100, backgroundColor: 'red'}}>
+          </View>
+        </Animated.View>
+        <Animated.View style={{
+          position: 'absolute',
+          top: 620,
+          right: -100,
+          transform: [
+            {scaleX: bucket.x.interpolate({
+              inputRange: [0, 400],
+              outputRange: [0, 1.5]
+            })},
+            {translateY: bucket.y.interpolate({
+              inputRange: [0, 800],
+              outputRange: [0, -50]
+            })}
+          ]
+        }}>
+          <View style={{width: 200, height: 200, borderRadius: 100, backgroundColor: 'green'}}>
+          </View>
+        </Animated.View>
       </SafeAreaView>
     );
   }

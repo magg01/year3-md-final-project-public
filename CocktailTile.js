@@ -4,6 +4,7 @@ import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponde
 
 export function CocktailTile(props){
   const pan = useRef(new Animated.ValueXY()).current;
+
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
@@ -19,13 +20,34 @@ export function CocktailTile(props){
           x: pan.x._value,
           y: pan.y._value
         })
+        props.bucket.setValue({
+          x: 1,
+          y: 1
+        })
+        props.bucket.setOffset({
+          x: props.bucket.x._value,
+          y: props.bucket.y._value,
+        })
       },
       onPanResponderMove: (e, gestureState) => {
-        Animated.event([null, {
-          dx: pan.x,
-          dy: pan.y,
-          dy: props.panY.y,
-        }], {useNativeDriver: false})(e, gestureState);
+        Animated.event(
+          [null,
+            {
+              dx: pan.x,
+              dy: pan.y,
+            }
+          ],
+          {useNativeDriver: false}
+        )(e, gestureState)
+        Animated.event(
+          [null,
+            {
+              moveX: props.bucket.x,
+              moveY: props.bucket.y
+            }
+          ],
+          {useNativeDriver: false}
+        )(e, gestureState)
       },
       onPanResponderRelease: () => {
         Animated.spring(
@@ -36,6 +58,13 @@ export function CocktailTile(props){
           }
         ).start();
         pan.flattenOffset();
+        Animated.spring(
+          props.bucket,
+          {
+            toValue: {x: 1, y: 1},
+            useNativeDriver: true
+          }
+        ).start()
       },
       //return the tile to its original position if the scroll view captures
       //the panresponder. Otherwise the tile can get stuck and 'float' in an
@@ -49,6 +78,13 @@ export function CocktailTile(props){
           }
         ).start();
         pan.flattenOffset();
+        Animated.spring(
+          props.bucket,
+          {
+            toValue: {x: 1, y: 1},
+            useNativeDriver: true
+          }
+        ).start()
       },
     })
   ).current;
