@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, Text} from 'react-native';
+import { useState, useCallback, useRef } from 'react';
+import { StyleSheet, View, SafeAreaView, ScrollView, Text, Animated, Dimensions, Vibration} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
@@ -9,6 +9,62 @@ import { getAllRecipes } from './RecipeBook';
 
 export function RecipeBookScreen({navigation}){
   const [recipeBook, setRecipeBook] = useState(undefined);
+  const bucket = useRef(new Animated.ValueXY({x:1, y:1})).current;
+  const {height, width} = Dimensions.get('window')
+  const rightThird = width / 3 * 2
+  const leftThird = width / 3
+  const bottomTenth = height / 10 * 9;
+  const inRightZoneSwitch = useRef(false);
+  const vibratedRight = useRef(false);
+  const inLeftZoneSwitch = useRef(false);
+  const vibratedLeft = useRef(false);
+
+  const listener = bucket.addListener((value) => {
+    if(value.x > rightThird && value.y > bottomTenth){
+      inRightZone()
+    } else {
+      outRightZone()
+    }
+    if(value.x < leftThird && value.y > bottomTenth){
+      inLeftZone()
+    } else {
+      outLeftZone()
+    }
+  });
+
+  function inRightZone(){
+    inRightZoneSwitch.current = true
+    if(!vibratedRight.current){
+      Vibration.vibrate(20, false);
+      vibratedRight.current = true
+    }
+  }
+
+  function outRightZone(){
+    if(inRightZoneSwitch){
+      inRightZoneSwitch.current = false
+    }
+    if(vibratedRight){
+      vibratedRight.current = false
+    }
+  }
+
+  function inLeftZone(){
+    inLeftZoneSwitch.current = true
+    if(inLeftZoneSwitch && !vibratedLeft.current){
+      Vibration.vibrate(20, false);
+      vibratedLeft.current = true
+    }
+  }
+
+  function outLeftZone(){
+    if(inLeftZoneSwitch){
+      inLeftZoneSwitch.current = false
+    }
+    if(vibratedLeft){
+      vibratedLeft.current = false
+    }
+  }
 
   //useFocusEffect from navigation library so that the recipe book is updated
   //when navigating BACK to the recipe book page as well as simply to the page.
@@ -58,8 +114,11 @@ export function RecipeBookScreen({navigation}){
           {recipeBook.drinks.map((drink) => (
             <CocktailTile
               key={drink["idDrink"]}
-              title={drink["strDrink"]}
+              drink={drink}
               image={drink["strDrinkThumb"]}
+              bucket={bucket}
+              inShoppingListZone={inRightZoneSwitch}
+              inRecipeBookZone={inLeftZoneSwitch}
               onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drinkId: drink["idDrink"] })}}
             />
           ))}

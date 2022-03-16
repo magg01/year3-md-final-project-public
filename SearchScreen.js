@@ -111,7 +111,6 @@ export function SearchScreen({navigation, route}) {
             <CocktailTile
               key={drink["idDrink"]}
               drink={drink}
-              title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
               bucket={bucket}
               inShoppingListZone={inRightZoneSwitch}
