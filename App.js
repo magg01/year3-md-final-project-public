@@ -16,9 +16,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-  const Tab = createMaterialBottomTabNavigator();
   const MainStack = createStackNavigator()
   const RecipeBookStack = createStackNavigator();
   const ShoppingListStack = createStackNavigator();
@@ -101,6 +101,7 @@ export default function App() {
         <Tab.Navigator
           shifting={true}
           labeled={true}
+          barStyle={{backgroundColor: '#694fad'}}
         >
           <Tab.Screen
             name="MainScreenStack"

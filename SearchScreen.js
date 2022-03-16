@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { LoadingAnimation } from './LoadingAnimation'
 import { isInRecipeBook } from './RecipeBook'
@@ -9,6 +9,63 @@ export function SearchScreen({navigation, route}) {
   const abortController = new AbortController();
   const signal = abortController.signal;
   const bucket = useRef(new Animated.ValueXY({x:1, y:1})).current;
+  const {height, width} = Dimensions.get('window')
+  const rightThird = width / 3 * 2
+  const leftThird = width / 3
+  const bottomTenth = height / 10 * 9;
+  const inRightZoneSwitch = useRef(false);
+  const vibratedRight = useRef(false);
+  const inLeftZoneSwitch = useRef(false);
+  const vibratedLeft = useRef(false);
+
+  const listener = bucket.addListener((value) => {
+    if(value.x > rightThird && value.y > bottomTenth){
+      inRightZone()
+    } else {
+      outRightZone()
+    }
+    if(value.x < leftThird && value.y > bottomTenth){
+      inLeftZone()
+    } else {
+      outLeftZone()
+    }
+  });
+
+  function inRightZone(){
+    inRightZoneSwitch.current = true
+    if(!vibratedRight.current){
+      Vibration.vibrate(20, false);
+      vibratedRight.current = true
+    }
+  }
+
+  function outRightZone(){
+    if(inRightZoneSwitch){
+      inRightZoneSwitch.current = false
+    }
+    if(vibratedRight){
+      vibratedRight.current = false
+    }
+  }
+
+  function inLeftZone(){
+    inLeftZoneSwitch.current = true
+    if(inLeftZoneSwitch && !vibratedLeft.current){
+      Vibration.vibrate(20, false);
+      vibratedLeft.current = true
+    }
+  }
+
+  function outLeftZone(){
+    if(inLeftZoneSwitch){
+      inLeftZoneSwitch.current = false
+    }
+    if(vibratedLeft){
+      vibratedLeft.current = false
+    }
+  }
+
+
 
   useEffect(() => {
     (async () => {
@@ -56,6 +113,8 @@ export function SearchScreen({navigation, route}) {
               title={drink["strDrink"]}
               image={drink["strDrinkThumb"]+"/preview"}
               bucket={bucket}
+              inShoppingListZone={inRightZoneSwitch}
+              inRecipeBookZone={inLeftZoneSwitch}
               onPress={async () => {
                 if(await isInRecipeBook(drink["idDrink"])) {
                   navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
@@ -81,7 +140,7 @@ export function SearchScreen({navigation, route}) {
             })}
           ]
         }}>
-          <View style={{width: 200, height: 200, borderRadius: 100, backgroundColor: 'red'}}>
+          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
           </View>
         </Animated.View>
         <Animated.View style={{
@@ -99,7 +158,7 @@ export function SearchScreen({navigation, route}) {
             })}
           ]
         }}>
-          <View style={{width: 200, height: 200, borderRadius: 100, backgroundColor: 'green'}}>
+          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
           </View>
         </Animated.View>
       </SafeAreaView>

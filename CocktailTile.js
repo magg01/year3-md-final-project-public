@@ -20,14 +20,6 @@ export function CocktailTile(props){
           x: pan.x._value,
           y: pan.y._value
         })
-        props.bucket.setValue({
-          x: 1,
-          y: 1
-        })
-        props.bucket.setOffset({
-          x: props.bucket.x._value,
-          y: props.bucket.y._value,
-        })
       },
       onPanResponderMove: (e, gestureState) => {
         Animated.event(
@@ -65,6 +57,11 @@ export function CocktailTile(props){
             useNativeDriver: true
           }
         ).start()
+        if(props.inRecipeBookZone.current){
+          alert('added to recipe book')
+        } else if (props.inShoppingListZone.current){
+          alert('added to shopping list')
+        }
       },
       //return the tile to its original position if the scroll view captures
       //the panresponder. Otherwise the tile can get stuck and 'float' in an
@@ -85,6 +82,11 @@ export function CocktailTile(props){
             useNativeDriver: true
           }
         ).start()
+        if(props.inRecipeBookZone.current){
+          alert('added to recipe book')
+        } else if (props.inShoppingListZone.current){
+          alert('added to shopping list')
+        }
       },
     })
   ).current;
