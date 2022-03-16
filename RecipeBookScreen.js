@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, Text, Animated, Dimensions, Vibration} from 'react-native';
+import { StyleSheet, View, SafeAreaView, ScrollView, Text, Animated, Dimensions} from 'react-native';
+import * as Haptics from 'expo-haptics';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
@@ -35,7 +36,7 @@ export function RecipeBookScreen({navigation}){
   function inRightZone(){
     inRightZoneSwitch.current = true
     if(!vibratedRight.current){
-      Vibration.vibrate(20, false);
+      Haptics.impactAsync("light");
       vibratedRight.current = true
     }
   }
@@ -52,7 +53,7 @@ export function RecipeBookScreen({navigation}){
   function inLeftZone(){
     inLeftZoneSwitch.current = true
     if(inLeftZoneSwitch && !vibratedLeft.current){
-      Vibration.vibrate(20, false);
+      Haptics.impactAsync("light");
       vibratedLeft.current = true
     }
   }

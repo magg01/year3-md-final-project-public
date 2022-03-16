@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions } from 'react-native';
+import * as Haptics from 'expo-haptics';
 import { CocktailTile } from './CocktailTile';
-import { LoadingAnimation } from './LoadingAnimation'
-import { isInRecipeBook } from './RecipeBook'
+import { LoadingAnimation } from './LoadingAnimation';
+import { isInRecipeBook } from './RecipeBook';
 
 export function SearchScreen({navigation, route}) {
   const [searchResults, setSearchResults] = useState(undefined);
@@ -34,7 +35,7 @@ export function SearchScreen({navigation, route}) {
   function inRightZone(){
     inRightZoneSwitch.current = true
     if(!vibratedRight.current){
-      Vibration.vibrate(20, false);
+      Haptics.impactAsync("light");
       vibratedRight.current = true
     }
   }
@@ -51,7 +52,7 @@ export function SearchScreen({navigation, route}) {
   function inLeftZone(){
     inLeftZoneSwitch.current = true
     if(inLeftZoneSwitch && !vibratedLeft.current){
-      Vibration.vibrate(20, false);
+      Haptics.impactAsync("light");
       vibratedLeft.current = true
     }
   }
@@ -64,8 +65,6 @@ export function SearchScreen({navigation, route}) {
       vibratedLeft.current = false
     }
   }
-
-
 
   useEffect(() => {
     (async () => {
