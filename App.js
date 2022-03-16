@@ -101,8 +101,21 @@ export default function App() {
         <Tab.Navigator
           shifting={true}
           labeled={true}
+          initialRouteName="MainScreenStack"
           barStyle={{backgroundColor: '#694fad'}}
         >
+          <Tab.Screen
+            name="RecipeBookScreenStack"
+            component={RecipeBookScreenStack}
+            options={{
+              title: "Recipe book",
+              tabBarLabel: "Recipe book",
+              tabBarAccessibilityLabel: "Recipe book",
+              tabBarIcon: ({color}) => (
+                <MaterialIcons name="menu-book" size={24} color={color} />
+              )
+            }}
+          />
           <Tab.Screen
             name="MainScreenStack"
             component={MainScreenStack}
@@ -113,18 +126,6 @@ export default function App() {
               tabBarAccessibilityLabel: "Home",
               tabBarIcon: ({color}) => (
                 <MaterialIcons name="home" size={24} color={color} />
-              )
-            }}
-          />
-          <Tab.Screen
-            name="RecipeBookScreenStack"
-            component={RecipeBookScreenStack}
-            options={{
-              title: "Recipe book",
-              tabBarLabel: "Recipe book",
-              tabBarAccessibilityLabel: "Recipe book",
-              tabBarIcon: ({color}) => (
-                <MaterialIcons name="menu-book" size={24} color={color} />
               )
             }}
           />
