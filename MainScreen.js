@@ -6,6 +6,7 @@ import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'r
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
 import { SuggestedCocktails } from './SuggestedCocktails';
+import { theme } from './App';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
 
 export function MainScreen({navigation}) {
@@ -76,28 +77,35 @@ export function MainScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <Searchbar
+        style={styles.searchbar}
         placeholder={"Search"}
         onChangeText={text => setSearchText(text)}
         value={searchText}
+        theme={theme}
         onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
       />
       {randomCocktail1 ?
         randomCocktail2 ?
-          <SuggestedCocktails
-            suggestionOne={randomCocktail1}
-            suggestionTwo={randomCocktail2}
-            navigation={navigation}
-          />
+          <View style={styles.suggestedCocktails}>
+            <SuggestedCocktails
+              suggestionOne={randomCocktail1}
+              suggestionTwo={randomCocktail2}
+              navigation={navigation}
+            />
+          </View>
         : null
       : null}
       {favouriteRecipes ?
         favouriteRecipes["drinks"].length === 0 ?
           null
         :
-          <FavouritesList
-            favourites={favouriteRecipes}
-            navigation={navigation}
-          />
+          <View style={styles.favouriteList}>
+            <FavouritesList
+              style={styles.favouriteList}
+              favourites={favouriteRecipes}
+              navigation={navigation}
+            />
+          </View>
        :
        null}
       <StatusBar style="auto" />
@@ -112,12 +120,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  searchBar:{
-    height: 50,
-    width: 200,
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: 'black',
-  }
-
+  searchbar: {
+    flex: 1
+  },
+  suggestedCocktails: {
+    flex: 5
+  },
+  favouriteList: {
+    flex: 5
+  },
 });

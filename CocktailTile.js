@@ -123,21 +123,20 @@ export function CocktailTile(props){
     )
   } else {
     return(
-      <View style={{width: 100, height: 100}}>
+      <View style={styles.tile}>
         <TouchableHighlight
-          style={styles.tile}
           onPress={props.onPress}
         >
-          <View style={{width: 100, height: 100}}>
+          <View style={styles.tileImage}>
             <Image
               style={styles.tileImage}
               source={{uri:props.image}}
               defaultSource={require("./assets/cocktail-shaker.png")}
             />
             <Text
-              style={styles.tileTitle}
+            style={styles.tileTitle}
             >
-              {props.drink["strDrink"]}
+            {props.drink["strDrink"]}
             </Text>
           </View>
         </TouchableHighlight>
@@ -148,8 +147,8 @@ export function CocktailTile(props){
 
 const styles = StyleSheet.create({
   tile: {
-    height: "100%",
-    width: "100%",
+    height: 100,
+    width: 100,
     borderRadius: 5,
     backgroundColor: 'gray',
   },

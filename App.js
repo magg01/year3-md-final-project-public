@@ -19,6 +19,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
+export const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
+
 export default function App() {
   const MainStack = createStackNavigator()
   const RecipeBookStack = createStackNavigator();
@@ -34,15 +43,6 @@ export default function App() {
       }
     }
   })
-
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: 'tomato',
-      accent: 'yellow',
-    },
-  };
 
   function MainScreenStack(){
     return (
