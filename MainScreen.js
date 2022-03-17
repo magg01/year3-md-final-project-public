@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useCallback } from 'react';
+import { Searchbar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'react-native';
 import { CocktailTile } from './CocktailTile';
@@ -73,41 +74,34 @@ export function MainScreen({navigation}) {
   },[]);
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          onChangeText={text => setSearchText(text)}
-          defaultValue={searchText}
-        />
-        <Button
-          title="Search"
-          accessibilityLabel="Search for cocktails"
-          onPress={() => navigation.navigate("SearchScreen", {searchText})}
-        />
-        {randomCocktail1 ?
-          randomCocktail2 ?
-            <SuggestedCocktails
-              suggestionOne={randomCocktail1}
-              suggestionTwo={randomCocktail2}
-              navigation={navigation}
-            />
-          : null
-        : null}
-        {favouriteRecipes ?
-          favouriteRecipes["drinks"].length === 0 ?
-            null
-          :
-            <FavouritesList
-              favourites={favouriteRecipes}
-              navigation={navigation}
-            />
-         :
-         null}
-        <StatusBar style="auto" />
-      </SafeAreaView>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Searchbar
+        placeholder={"Search"}
+        onChangeText={text => setSearchText(text)}
+        value={searchText}
+        onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
+      />
+      {randomCocktail1 ?
+        randomCocktail2 ?
+          <SuggestedCocktails
+            suggestionOne={randomCocktail1}
+            suggestionTwo={randomCocktail2}
+            navigation={navigation}
+          />
+        : null
+      : null}
+      {favouriteRecipes ?
+        favouriteRecipes["drinks"].length === 0 ?
+          null
+        :
+          <FavouritesList
+            favourites={favouriteRecipes}
+            navigation={navigation}
+          />
+       :
+       null}
+      <StatusBar style="auto" />
+    </SafeAreaView>
   );
 }
 
