@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'react-native';
 import { CocktailTile } from './CocktailTile';
+import { FavouritesList } from './FavouritesList';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
 
 export function MainScreen({navigation}) {
@@ -70,25 +71,6 @@ export function MainScreen({navigation}) {
     return () => abortController.abort();
   },[]);
 
-
-  const FavouritesList = () => {
-    return (
-      <ScrollView contentContainerStyle={{ paddingBottom: 1000 }}>
-        {favouriteRecipes.drinks.map((drink) => (
-          <CocktailTile
-            key={drink["idDrink"]}
-            drink={drink}
-            moveable={false}
-            image={drink["strDrinkThumb"]}
-            onPress={async () => {
-              navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
-            }}
-          />
-        ))}
-      </ScrollView>
-    )
-  }
-
   const SuggestedCocktails = () => {
     return (
       <View>
@@ -129,7 +111,7 @@ export function MainScreen({navigation}) {
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
         />
         {randomCocktail1 ? randomCocktail2 ? <SuggestedCocktails/> : null : null}
-        {favouriteRecipes ? favouriteRecipes["drinks"].length === 0 ? null : <FavouritesList/> : null}
+        {favouriteRecipes ? favouriteRecipes["drinks"].length === 0 ? null : <FavouritesList favourites={favouriteRecipes}/> : null}
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
