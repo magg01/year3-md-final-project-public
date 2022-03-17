@@ -112,6 +112,7 @@ export function SearchScreen({navigation, route}) {
               drink={drink}
               image={drink["strDrinkThumb"]+"/preview"}
               bucket={bucket}
+              moveable={true}
               inShoppingListZone={inRightZoneSwitch}
               inRecipeBookZone={inLeftZoneSwitch}
               onPress={async () => {

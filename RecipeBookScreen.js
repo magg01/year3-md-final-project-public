@@ -93,6 +93,7 @@ export function RecipeBookScreen({navigation}){
               key={drink["idDrink"]}
               drink={drink}
               image={drink["strDrinkThumb"]}
+              moveable={true}
               bucket={bucket}
               inShoppingListZone={inRightZoneSwitch}
               inRecipeBookZone={inLeftZoneSwitch}

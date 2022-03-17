@@ -1,13 +1,17 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
 import { saveToRecipeBook } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 
 export function CocktailTile(props){
-  const pan = useRef(new Animated.ValueXY()).current;
+  const pan = props.moveable ? useRef(new Animated.ValueXY()).current : null
 
-  const panResponder = useRef(
+  useEffect(() => {
+    console.log("pan is " + pan)
+  })
+
+  const panResponder = pan === null ? null : useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {
         const { dx, dy } = gestureState
@@ -82,7 +86,7 @@ export function CocktailTile(props){
         ).start()
       },
     })
-  ).current;
+  ).current
 
   function checkDropZonePerformAction(){
     if(props.inRecipeBookZone.current){
@@ -92,34 +96,58 @@ export function CocktailTile(props){
     }
   }
 
-  return(
-    <Animated.View
-      style={{
-        transform:[{translateX: pan.x}, {translateY: pan.y}],
-        height: 100,
-        width: 100
-      }}
-      {...panResponder.panHandlers}
-    >
-      <TouchableHighlight
-        style={styles.tile}
-        onPress={props.onPress}
+  if(pan != null){
+    return(
+      <Animated.View
+        style={{
+          transform:[{translateX: pan.x}, {translateY: pan.y}],
+          height: 100,
+          width: 100
+        }}
+        {...panResponder.panHandlers}
       >
-        <View style={{width: 100, height: 100}}>
-          <Image
-            style={styles.tileImage}
-            source={{uri:props.image}}
-            defaultSource={require("./assets/cocktail-shaker.png")}
-          />
-          <Text
-            style={styles.tileTitle}
-          >
-            {props.drink["strDrink"]}
-          </Text>
-        </View>
-      </TouchableHighlight>
-    </Animated.View>
-  );
+        <TouchableHighlight
+          style={styles.tile}
+          onPress={props.onPress}
+        >
+          <View style={{width: 100, height: 100}}>
+            <Image
+              style={styles.tileImage}
+              source={{uri:props.image}}
+              defaultSource={require("./assets/cocktail-shaker.png")}
+            />
+            <Text
+              style={styles.tileTitle}
+            >
+              {props.drink["strDrink"]}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </Animated.View>
+    )
+  } else {
+    return(
+      <View style={{width: 100, height: 100}}>
+        <TouchableHighlight
+          style={styles.tile}
+          onPress={props.onPress}
+        >
+          <View style={{width: 100, height: 100}}>
+            <Image
+              style={styles.tileImage}
+              source={{uri:props.image}}
+              defaultSource={require("./assets/cocktail-shaker.png")}
+            />
+            <Text
+              style={styles.tileTitle}
+            >
+              {props.drink["strDrink"]}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
