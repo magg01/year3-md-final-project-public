@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
+import { SuggestedCocktails } from './SuggestedCocktails';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
 
 export function MainScreen({navigation}) {
@@ -71,31 +72,6 @@ export function MainScreen({navigation}) {
     return () => abortController.abort();
   },[]);
 
-  const SuggestedCocktails = () => {
-    return (
-      <View>
-        <CocktailTile
-          key={randomCocktail1["idDrink"]}
-          drink={randomCocktail1}
-          moveable={false}
-          image={randomCocktail1["strDrinkThumb"]}
-          onPress={async () => {
-            navigation.navigate("CocktailDetailApi", {drinkId: randomCocktail1["idDrink"]})
-          }}
-        />
-        <CocktailTile
-          key={randomCocktail2["idDrink"]}
-          drink={randomCocktail2}
-          moveable={false}
-          image={randomCocktail2["strDrinkThumb"]}
-          onPress={async () => {
-            navigation.navigate("CocktailDetailApi", {drinkId: randomCocktail2["idDrink"]})
-          }}
-        />
-      </View>
-    )
-  }
-
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -110,7 +86,7 @@ export function MainScreen({navigation}) {
           accessibilityLabel="Search for cocktails"
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
         />
-        {randomCocktail1 ? randomCocktail2 ? <SuggestedCocktails/> : null : null}
+        {randomCocktail1 ? randomCocktail2 ? <SuggestedCocktails navigation={navigation} suggestionOne={randomCocktail1} suggestionTwo={randomCocktail2} /> : null : null}
         {favouriteRecipes ? favouriteRecipes["drinks"].length === 0 ? null : <FavouritesList favourites={favouriteRecipes}/> : null}
         <StatusBar style="auto" />
       </SafeAreaView>
