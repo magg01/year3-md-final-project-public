@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import { MainScreen } from './MainScreen';
 import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
@@ -33,6 +34,15 @@ export default function App() {
       }
     }
   })
+
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: 'tomato',
+      accent: 'yellow',
+    },
+  };
 
   function MainScreenStack(){
     return (
@@ -97,54 +107,56 @@ export default function App() {
 
   return (
     <RootSiblingParent>
-      <NavigationContainer>
-        <Tab.Navigator
-          shifting={true}
-          labeled={true}
-          initialRouteName="MainScreenStack"
-          backBehavior="initialRoute"
-          barStyle={{backgroundColor: '#694fad'}}
-        >
-          <Tab.Screen
-            name="RecipeBookScreenStack"
-            component={RecipeBookScreenStack}
-            options={{
-              title: "Recipe book",
-              tabBarLabel: "Recipe book",
-              tabBarAccessibilityLabel: "Recipe book",
-              tabBarIcon: ({color}) => (
-                <MaterialIcons name="menu-book" size={24} color={color} />
-              )
-            }}
-          />
-          <Tab.Screen
-            name="MainScreenStack"
-            component={MainScreenStack}
-            title="Home"
-            options={{
-              title: "Home",
-              tabBarLabel: "Home",
-              tabBarAccessibilityLabel: "Home",
-              tabBarIcon: ({color}) => (
-                <MaterialIcons name="home" size={24} color={color} />
-              )
-            }}
-          />
-          <Tab.Screen
-            name="ScreenShoppingListStack"
-            component={ScreenShoppingListStack}
-            options={{
-              title: "Shopping list",
-              tabBarLabel: "Shopping list",
-              tabBarAccessibilityLabel: "Shopping list",
-              tabBarIcon: ({color}) => (
-                <MaterialIcons name="shopping-cart" size={24} color={color} />
-              )
-            }}
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Tab.Navigator
+            shifting={true}
+            labeled={true}
+            initialRouteName="MainScreenStack"
+            backBehavior="initialRoute"
+            barStyle={{backgroundColor: '#694fad'}}
+          >
+            <Tab.Screen
+              name="RecipeBookScreenStack"
+              component={RecipeBookScreenStack}
+              options={{
+                title: "Recipe book",
+                tabBarLabel: "Recipe book",
+                tabBarAccessibilityLabel: "Recipe book",
+                tabBarIcon: ({color}) => (
+                  <MaterialIcons name="menu-book" size={24} color={color} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="MainScreenStack"
+              component={MainScreenStack}
+              title="Home"
+              options={{
+                title: "Home",
+                tabBarLabel: "Home",
+                tabBarAccessibilityLabel: "Home",
+                tabBarIcon: ({color}) => (
+                  <MaterialIcons name="home" size={24} color={color} />
+                )
+              }}
+            />
+            <Tab.Screen
+              name="ScreenShoppingListStack"
+              component={ScreenShoppingListStack}
+              options={{
+                title: "Shopping list",
+                tabBarLabel: "Shopping list",
+                tabBarAccessibilityLabel: "Shopping list",
+                tabBarIcon: ({color}) => (
+                  <MaterialIcons name="shopping-cart" size={24} color={color} />
+                )
+              }}
 
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </RootSiblingParent>
   );
 }
