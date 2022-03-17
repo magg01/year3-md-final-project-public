@@ -10,7 +10,7 @@ export function SuggestedCocktails(props){
         moveable={false}
         image={props.suggestionOne["strDrinkThumb"]}
         onPress={async () => {
-          navigation.navigate("CocktailDetailApi", {drinkId: props.suggestionOne["idDrink"]})
+          props.navigation.navigate("CocktailDetailApi", {drinkId: props.suggestionOne["idDrink"]})
         }}
       />
       <CocktailTile
