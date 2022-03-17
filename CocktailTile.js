@@ -92,7 +92,7 @@ export function CocktailTile(props){
     }
   }
 
-  if(pan != null){
+  if(props.moveable){
     return(
       <Animated.View
         style={{
