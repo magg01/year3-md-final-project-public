@@ -192,15 +192,23 @@ async function getUriForSavedImageFile(id){
 }
 
 async function addToFavourties(id){
-  let drink = await getFromRecipeBook(id)
-  drink["favourite"] = true
-  updateRecipe(drink);
+  try {
+    let drink = await getFromRecipeBook(id)
+    drink["favourite"] = true
+    updateRecipe(drink);
+  } catch (e) {
+    console.log("addToFavourties: encountered an error -> " + e);
+  }
 }
 
 async function removeFromFavourties(id){
-  let drink = await getFromRecipeBook(id)
-  drink["favourite"] = false
-  updateRecipe(drink);
+  try {
+    let drink = await getFromRecipeBook(id)
+    drink["favourite"] = false
+    updateRecipe(drink);
+  } catch (e) {
+    console.log("removeFromFavourties: encountered an error -> " + e);
+  }
 }
 
 export {
