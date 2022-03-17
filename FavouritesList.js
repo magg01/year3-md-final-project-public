@@ -11,7 +11,7 @@ export function FavouritesList(props) {
           moveable={false}
           image={drink["strDrinkThumb"]}
           onPress={async () => {
-            navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
+            props.navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
           }}
         />
       ))}

@@ -86,8 +86,25 @@ export function MainScreen({navigation}) {
           accessibilityLabel="Search for cocktails"
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
         />
-        {randomCocktail1 ? randomCocktail2 ? <SuggestedCocktails navigation={navigation} suggestionOne={randomCocktail1} suggestionTwo={randomCocktail2} /> : null : null}
-        {favouriteRecipes ? favouriteRecipes["drinks"].length === 0 ? null : <FavouritesList favourites={favouriteRecipes}/> : null}
+        {randomCocktail1 ?
+          randomCocktail2 ?
+            <SuggestedCocktails
+              suggestionOne={randomCocktail1}
+              suggestionTwo={randomCocktail2}
+              navigation={navigation}
+            />
+          : null
+        : null}
+        {favouriteRecipes ?
+          favouriteRecipes["drinks"].length === 0 ?
+            null
+          :
+            <FavouritesList
+              favourites={favouriteRecipes}
+              navigation={navigation}
+            />
+         :
+         null}
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
