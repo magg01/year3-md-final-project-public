@@ -3,6 +3,7 @@ import { StyleSheet, View, SafeAreaView, ScrollView, Text, Animated, Dimensions}
 import * as Haptics from 'expo-haptics';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { LoadingAnimation } from './LoadingAnimation';
 import { CocktailTile } from './CocktailTile';
 import { getAllRecipes } from './RecipeBook';
 
@@ -64,10 +65,10 @@ export function RecipeBookScreen({navigation}){
 
   if(recipeBook === undefined){
     return (
-      <Text>
-        add loading indicator
-      </Text>
-    )
+      <LoadingAnimation
+        loadingMessage="Opening recipe book"
+      />
+    );
   } else if (recipeBook.drinks.length === 0){
     return (
       <View style={styles.container}>

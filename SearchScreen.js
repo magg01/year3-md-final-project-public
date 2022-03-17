@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
 import { LoadingAnimation } from './LoadingAnimation';
 import { isInRecipeBook } from './RecipeBook';
@@ -96,12 +97,14 @@ export function SearchScreen({navigation, route}) {
     );
   } else  if (searchResults.drinks === null){
     return (
-      <View>
+      <View style={styles.container}>
+        <MaterialIcons name="no-drinks" size={50} color="black" />
         <Text>
+          { "\n" }
           No results found
         </Text>
       </View>
-    );
+    )
   } else {
     return (
       <SafeAreaView>
