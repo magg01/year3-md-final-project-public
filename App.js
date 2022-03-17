@@ -102,6 +102,7 @@ export default function App() {
           shifting={true}
           labeled={true}
           initialRouteName="MainScreenStack"
+          backBehavior="initialRoute"
           barStyle={{backgroundColor: '#694fad'}}
         >
           <Tab.Screen
