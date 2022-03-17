@@ -1,9 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { SafeAreaView, StyleSheet, TextInput, View, Button } from 'react-native';
+import { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'react-native';
+import { CocktailTile } from './CocktailTile';
+import { getFavourites } from './RecipeBook';
 
 export function MainScreen({navigation}) {
   const [searchText, setSearchText] = useState('');
+  const [favouriteRecipes, setFavouriteRecipes] = useState(undefined)
+
+  useFocusEffect(
+    useCallback(() => {
+      (async() => {
+        setFavouriteRecipes(await getFavourites());
+      })();
+    },[])
+  )
+
+  useEffect(() => {
+    console.log("favourites are: " + JSON.stringify(favouriteRecipes))
+  }, [favouriteRecipes])
+
+  const FavouritesList = () => {
+    return (
+      <ScrollView contentContainerStyle={{ paddingBottom: 1000 }}>
+        {favouriteRecipes.drinks.map((drink) => (
+          <CocktailTile
+            key={drink["idDrink"]}
+            drink={drink}
+            moveable={false}
+            image={drink["strDrinkThumb"]}
+            onPress={async () => {
+              navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
+            }}
+          />
+        ))}
+      </ScrollView>
+    )
+  }
 
   return (
     <View style={styles.container}>
@@ -19,6 +53,8 @@ export function MainScreen({navigation}) {
           accessibilityLabel="Search for cocktails"
           onPress={() => navigation.navigate("SearchScreen", {searchText})}
         />
+        {favouriteRecipes ? favouriteRecipes["drinks"].length === 0 ? null : <FavouritesList/> : null}
+
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
