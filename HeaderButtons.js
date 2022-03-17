@@ -35,6 +35,28 @@ export function RemoveBoughtFromShoppingListButton(props){
   )
 }
 
+export function AddRemoveToFromFavourites(props){
+  if(props.favourite){
+    return(
+      <TouchableOpacity
+        style={props.style}
+        onPress={props.onPress}
+      >
+        <MaterialIcons  name="star" size={26} color="black" />
+      </TouchableOpacity>
+    )
+  } else {
+    return(
+      <TouchableOpacity
+        style={props.style}
+        onPress={props.onPress}
+      >
+        <MaterialIcons  name="star-border" size={26} color="black" />
+      </TouchableOpacity>
+    )
+  }
+}
+
 export function AddRemoveToFromRecipeBookButton(props){
   if(props.mode === "add"){
     return(

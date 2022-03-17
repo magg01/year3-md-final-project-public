@@ -191,6 +191,18 @@ async function getUriForSavedImageFile(id){
   return recipe["strDrinkThumb"];
 }
 
+async function addToFavourties(id){
+  let drink = await getFromRecipeBook(id)
+  drink["favourite"] = true
+  updateRecipe(drink);
+}
+
+async function removeFromFavourties(id){
+  let drink = await getFromRecipeBook(id)
+  drink["favourite"] = false
+  updateRecipe(drink);
+}
+
 export {
   isInRecipeBook,
   saveToRecipeBook,
@@ -205,4 +217,6 @@ export {
   replaceImageForDrink,
   copyImageFromCache,
   confirmPhotoReplacement,
+  addToFavourties,
+  removeFromFavourties,
 }

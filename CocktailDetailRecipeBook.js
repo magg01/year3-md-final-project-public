@@ -4,20 +4,26 @@ import {
   getFromRecipeBook,
   updateRecipe,
   removeDrink,
-  confirmRecipeRemoval} from './RecipeBook';
+  confirmRecipeRemoval,
+  addToFavourties,
+  removeFromFavourties} from './RecipeBook';
 import { useFocusEffect } from '@react-navigation/native'
 import { addToShoppingList } from './ShoppingList';
-import { AddToShoppingListButton, AddRemoveToFromRecipeBookButton, CaptureDrinkImageButton } from './HeaderButtons';
+import { AddToShoppingListButton,
+  AddRemoveToFromRecipeBookButton,
+  CaptureDrinkImageButton,
+  AddRemoveToFromFavourites } from './HeaderButtons';
 
 export function CocktailDetailRecipeBook({navigation, route}){
   const [notesText, setNotesText] = useState(undefined);
   const [currentDrink, setCurrentDrink] = useState(undefined);
   const [currentImageUri, setCurrentImageUri] = useState(undefined);
+  const [isDrinkFavourite, setIsDrinkFavourite] = useState(undefined);
 
   useFocusEffect(
     useCallback(() => {
       (async () => {
-        setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
+        await setCurrentDrink(await getFromRecipeBook(route.params.drinkId));
       })()
     },[route.params.drinkId])
   );
@@ -25,6 +31,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
   useEffect(() => {
     if(currentDrink != undefined){
       setCurrentImageUri(currentDrink["strDrinkThumb"]);
+      setIsDrinkFavourite(currentDrink["favourite"]);
     }
   }, [currentDrink])
 
@@ -61,11 +68,24 @@ export function CocktailDetailRecipeBook({navigation, route}){
                 addToShoppingList(currentDrink)
               }}
             />
+            <AddRemoveToFromFavourites
+              style={{paddingRight: 10}}
+              favourite={isDrinkFavourite}
+              onPress={() => {
+                if(isDrinkFavourite){
+                  setIsDrinkFavourite(false)
+                  removeFromFavourties(currentDrink["idDrink"])
+                } else {
+                  setIsDrinkFavourite(true)
+                  addToFavourties(currentDrink["idDrink"])
+                }
+              }}
+            />
           </View>
         )
       })
     }
-  }, [currentDrink])
+  }, [currentDrink, isDrinkFavourite])
 
   async function saveNotes(){
     let drink = currentDrink;
