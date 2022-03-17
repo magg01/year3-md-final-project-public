@@ -211,6 +211,22 @@ async function removeFromFavourties(id){
   }
 }
 
+async function getFavourites(){
+  try {
+    let allRecipes = await getAllRecipes();
+    let favourites = []
+    allRecipes["drinks"].map((recipe) => (
+      recipe["favourite"] ? favourites.push(recipe) : null
+    ));
+    let favouritesBook = {};
+    favouritesBook["drinks"] = favourites;
+    return favouritesBook
+
+  } catch (e) {
+    console.log("getFavourties: encountered an error -> " + e);
+  }
+}
+
 export {
   isInRecipeBook,
   saveToRecipeBook,
@@ -227,4 +243,5 @@ export {
   confirmPhotoReplacement,
   addToFavourties,
   removeFromFavourties,
+  getFavourites,
 }
