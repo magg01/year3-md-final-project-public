@@ -9,6 +9,7 @@ import {
   removeFromFavourties} from './RecipeBook';
 import { useFocusEffect } from '@react-navigation/native'
 import { addToShoppingList } from './ShoppingList';
+import { LoadingAnimation } from './LoadingAnimation';
 import { AddToShoppingListButton,
   AddRemoveToFromRecipeBookButton,
   CaptureDrinkImageButton,
@@ -94,11 +95,11 @@ export function CocktailDetailRecipeBook({navigation, route}){
     setCurrentDrink(drink);
   }
 
-if(currentDrink === undefined){
-    return(
-      <Text>
-        Fetching Drink...
-      </Text>
+  if(currentDrink === undefined){
+    return (
+      <LoadingAnimation
+        loadingMessage="fetching drink"
+      />
     )
   } else {
     return(
