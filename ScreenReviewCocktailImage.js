@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { StyleSheet, Image, Text, View, Button } from 'react-native'
 import { confirmPhotoReplacement, replaceImageForDrink } from './RecipeBook';
 
 export function ScreenReviewCocktailImage({navigation, route}){
+  useEffect(()=> console.log("drinkId in review is: " + route.params.drinkId))
+
   return (
     <View style={styles.container}>
       <Image
@@ -18,7 +21,7 @@ export function ScreenReviewCocktailImage({navigation, route}){
           .then((confirmation) => {
             if(confirmation){
               replaceImageForDrink(route.params.drinkId, route.params.image.uri)
-              navigation.navigate("CocktailDetailRecipeBook",{newImageUri: route.params.image.uri})
+              navigation.navigate("CocktailDetailRecipeBook",{drinkId: route.params.drinkId, newImageUri: route.params.image.uri})
             }
           })
         }}

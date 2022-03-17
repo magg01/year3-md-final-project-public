@@ -174,12 +174,16 @@ async function copyImageFromCache(id, imageCacheUri){
 }
 
 async function replaceImageForDrink(id, newImgCacheUri){
-  await removeSavedImageFromFile(id);
-  let newPath = await copyImageFromCache(id, newImgCacheUri);
-  let drink = await getFromRecipeBook(id);
-  drink["strDrinkThumb"] = newPath
-  await updateRecipe(drink);
-  return newPath;
+  try{
+    await removeSavedImageFromFile(id);
+    let newPath = await copyImageFromCache(id, newImgCacheUri);
+    let drink = await getFromRecipeBook(id);
+    drink["strDrinkThumb"] = newPath
+    await updateRecipe(drink);
+    return newPath;
+  } catch (e) {
+    console.log("replaceImageForDrink: encountered an error -> " + e);
+  }
 }
 
 async function getUriForSavedImageFile(id){
