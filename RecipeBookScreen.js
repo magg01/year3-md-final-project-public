@@ -81,9 +81,13 @@ export function RecipeBookScreen({navigation}){
     )
   } else if (recipeBook === "error"){
     return (
-      <Text>
-        There was an error retrieving your recipe book.
-      </Text>
+      <View style={styles.container}>
+        <MaterialIcons name="error-outline" size={50} color="black" />
+        <Text>
+          { "\n" }
+          There was an error retreiving your recipe book
+        </Text>
+      </View>
     )
   } else {
     return (
