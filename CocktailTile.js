@@ -7,10 +7,6 @@ import { addToShoppingList } from './ShoppingList';
 export function CocktailTile(props){
   const pan = props.moveable ? useRef(new Animated.ValueXY()).current : null
 
-  useEffect(() => {
-    console.log("pan is " + pan)
-  })
-
   const panResponder = pan === null ? null : useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (evt, gestureState) => {

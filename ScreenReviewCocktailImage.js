@@ -3,8 +3,6 @@ import { StyleSheet, Image, Text, View, Button } from 'react-native'
 import { confirmPhotoReplacement, replaceImageForDrink } from './RecipeBook';
 
 export function ScreenReviewCocktailImage({navigation, route}){
-  useEffect(()=> console.log("drinkId in review is: " + route.params.drinkId))
-
   return (
     <View style={styles.container}>
       <Image
