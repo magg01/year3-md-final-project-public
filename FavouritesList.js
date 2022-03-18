@@ -1,41 +1,49 @@
-import { ScrollView, StyleSheet, View, Text } from 'react-native';
+import { useEffect } from 'react'
+import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 
 export function FavouritesList(props) {
+  const data = props.favourites.drinks
+
+  useEffect(() => {
+    console.log(Array.isArray(data));
+  })
+
+  const renderCocktailTile = ({item}) => {
+    return (
+      <CocktailTile
+        key={item.idDrink}
+        drink={item}
+        moveable={false}
+        image={item.strDrinkThumb}
+        onPress={async () => {
+          props.navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: item.idDrink}})
+        }}
+      />
+    )
+  }
+
   return (
     <View>
-      <View>
-        <Text>
-          Favourites
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>
+          Favourite cocktails
         </Text>
       </View>
-        <View>
-            {props.favourites.drinks.map((drink) => (
-              <CocktailTile
-                key={drink["idDrink"]}
-                drink={drink}
-                moveable={false}
-                image={drink["strDrinkThumb"]}
-                onPress={async () => {
-                  props.navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
-                }}
-              />
-            ))}
-          </View>
+      <View style={styles.drinkContainer}>
+        <FlatList
+          data={data}
+          renderItem={renderCocktailTile}
+          keyExtractor={item => item.idDrink}
+          numColumns={2}
+        />
       </View>
+    </View>
   )
 }
 
 
 const styles = StyleSheet.create({
-  outerContainer:{
-    flex: 4,
-    marginTop: 10,
-    borderWidth: 1,
-    backgroundColor: '#bff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   headerContainer: {
     flex: 1,
     borderWidth: 1,

@@ -97,11 +97,13 @@ export function MainScreen({navigation}) {
         favouriteRecipes["drinks"].length === 0 ?
           null
         :
+          <View style={styles.favouriteCocktailsCardContainer}>
             <FavouritesList
               style={styles.favouriteList}
               favourites={favouriteRecipes}
               navigation={navigation}
             />
+          </View>
        :
        null}
       <StatusBar style="auto" />
@@ -116,11 +118,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#aaa',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    flexShrink: 1,
   },
   searchbar: {
     height: "10%",
     backgroundColor: "#bbb",
     maxHeight: "10%",
+    flexShrink: 1,
   },
   suggestedCocktailsCardContainer: {
     height: "45%",
@@ -129,6 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 1,
   },
   favouriteCocktailsCardContainer: {
     height: "45%",
@@ -137,5 +142,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 1,
   }
 });
