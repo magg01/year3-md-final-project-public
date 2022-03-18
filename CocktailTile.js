@@ -94,7 +94,7 @@ export function CocktailTile(props){
 
   if(props.moveable){
     return(
-      <View style={styles.cocktailTile}>
+      <View style={[styles.cocktailTile, {maxWidth: maxTileSize}]}>
         <Animated.View
           style={{
             transform:[{translateX: pan.x}, {translateY: pan.y}],
@@ -102,7 +102,7 @@ export function CocktailTile(props){
           {...panResponder.panHandlers}
         >
           <TouchableHighlight
-            style={styles.tile}
+            style={styles.tileImageAndTitle}
             onPress={props.onPress}
           >
             <View style={styles.tileImageAndTitle}>

@@ -1,13 +1,8 @@
-import { useEffect } from 'react'
 import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 
 export function FavouritesList(props) {
   const data = props.favourites.drinks
-
-  useEffect(() => {
-    console.log(Array.isArray(data));
-  })
 
   const renderCocktailTile = ({item}) => {
     return (

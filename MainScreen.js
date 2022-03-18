@@ -74,47 +74,51 @@ export function MainScreen({navigation}) {
   },[]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Searchbar
-        style={styles.searchbar}
-        placeholder={"Search"}
-        onChangeText={text => setSearchText(text)}
-        value={searchText}
-        onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
-      />
-      {randomCocktail1 ?
-        randomCocktail2 ?
-          <View style={styles.suggestedCocktailsCardContainer}>
-            <SuggestedCocktails
-              suggestionOne={randomCocktail1}
-              suggestionTwo={randomCocktail2}
-              navigation={navigation}
-            />
-          </View>
-        : null
-      : null}
-      {favouriteRecipes ?
-        favouriteRecipes["drinks"].length === 0 ?
-          null
-        :
-          <View style={styles.favouriteCocktailsCardContainer}>
-            <FavouritesList
-              style={styles.favouriteList}
-              favourites={favouriteRecipes}
-              navigation={navigation}
-            />
-          </View>
-       :
-       null}
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView>
+        <Searchbar
+          style={styles.searchbar}
+          placeholder={"Search"}
+          onChangeText={text => setSearchText(text)}
+          value={searchText}
+          onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
+        />
+        {randomCocktail1 ?
+          randomCocktail2 ?
+            <View style={styles.suggestedCocktailsCardContainer}>
+              <SuggestedCocktails
+                suggestedCocktails={[randomCocktail1,randomCocktail2]}
+                navigation={navigation}
+              />
+            </View>
+          : null
+        : null}
+        {favouriteRecipes ?
+          favouriteRecipes["drinks"].length === 0 ?
+            null
+          :
+            <View style={styles.favouriteCocktailsCardContainer}>
+              <FavouritesList
+                style={styles.favouriteList}
+                favourites={favouriteRecipes}
+                navigation={navigation}
+              />
+            </View>
+         :
+         null}
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: "5%",
+    paddingTop: "2.5%",
+    paddingBottom: "2.5%",
+    paddingLeft: "2.5%",
+    paddingRight: "2.5%",
     backgroundColor: '#aaa',
     alignItems: 'center',
     justifyContent: 'flex-start',
