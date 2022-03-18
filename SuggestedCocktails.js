@@ -3,7 +3,7 @@ import { CocktailTile } from './CocktailTile';
 
 export function SuggestedCocktails(props){
   return (
-    <View style={styles.outerContainer}>
+    <View>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
           Suggested cocktails
