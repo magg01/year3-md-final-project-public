@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   suggestedCocktailsCardContainer: {
-    height: "45%",
+    height: "35%",
     marginTop: 10,
     borderWidth: 1,
     backgroundColor: '#bff',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   favouriteCocktailsCardContainer: {
-    height: "45%",
+    height: "55%",
     marginTop: 10,
     borderWidth: 1,
     backgroundColor: '#bff',
