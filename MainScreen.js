@@ -6,7 +6,6 @@ import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'r
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
 import { SuggestedCocktails } from './SuggestedCocktails';
-import { theme } from './App';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
 
 export function MainScreen({navigation}) {
@@ -81,12 +80,11 @@ export function MainScreen({navigation}) {
         placeholder={"Search"}
         onChangeText={text => setSearchText(text)}
         value={searchText}
-        theme={theme}
         onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
       />
       {randomCocktail1 ?
         randomCocktail2 ?
-          <View style={styles.suggestedCocktails}>
+          <View style={styles.suggestedCocktailsCardContainer}>
             <SuggestedCocktails
               suggestionOne={randomCocktail1}
               suggestionTwo={randomCocktail2}
@@ -99,13 +97,11 @@ export function MainScreen({navigation}) {
         favouriteRecipes["drinks"].length === 0 ?
           null
         :
-          <View style={styles.favouriteList}>
             <FavouritesList
               style={styles.favouriteList}
               favourites={favouriteRecipes}
               navigation={navigation}
             />
-          </View>
        :
        null}
       <StatusBar style="auto" />
@@ -116,17 +112,30 @@ export function MainScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    padding: "5%",
+    backgroundColor: '#aaa',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  searchbar: {
+    height: "10%",
+    backgroundColor: "#bbb",
+    maxHeight: "10%",
+  },
+  suggestedCocktailsCardContainer: {
+    height: "45%",
+    marginTop: 10,
+    borderWidth: 1,
+    backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  searchbar: {
-    flex: 1
-  },
-  suggestedCocktails: {
-    flex: 5
-  },
-  favouriteList: {
-    flex: 5
-  },
+  favouriteCocktailsCardContainer: {
+    height: "45%",
+    marginTop: 10,
+    borderWidth: 1,
+    backgroundColor: '#bff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });

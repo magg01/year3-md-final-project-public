@@ -94,48 +94,46 @@ export function CocktailTile(props){
 
   if(props.moveable){
     return(
-      <Animated.View
-        style={{
-          transform:[{translateX: pan.x}, {translateY: pan.y}],
-          height: 100,
-          width: 100
-        }}
-        {...panResponder.panHandlers}
-      >
-        <TouchableHighlight
-          style={styles.tile}
-          onPress={props.onPress}
+      <View style={styles.cocktailTile}>
+        <Animated.View
+          style={{
+            transform:[{translateX: pan.x}, {translateY: pan.y}],
+          }}
+          {...panResponder.panHandlers}
         >
-          <View style={{width: 100, height: 100}}>
-            <Image
-              style={styles.tileImage}
-              source={{uri:props.image}}
-              defaultSource={require("./assets/cocktail-shaker.png")}
-            />
-            <Text
-              style={styles.tileTitle}
-            >
-              {props.drink["strDrink"]}
-            </Text>
-          </View>
-        </TouchableHighlight>
-      </Animated.View>
+          <TouchableHighlight
+            style={styles.tile}
+            onPress={props.onPress}
+          >
+            <View style={styles.tileImageAndTitle}>
+              <Image
+                style={styles.tileImage}
+                source={{uri:props.image}}
+                defaultSource={require("./assets/cocktail-shaker.png")}
+              />
+              <Text
+                style={styles.tileTitle}
+              >
+                {props.drink["strDrink"]}
+              </Text>
+            </View>
+          </TouchableHighlight>
+        </Animated.View>
+      </View>
     )
   } else {
     return(
-      <View style={styles.tile}>
+      <View style={styles.cocktailTile}>
         <TouchableHighlight
           onPress={props.onPress}
         >
-          <View style={styles.tileImage}>
+          <View style={styles.tileImageAndTitle}>
             <Image
               style={styles.tileImage}
               source={{uri:props.image}}
               defaultSource={require("./assets/cocktail-shaker.png")}
             />
-            <Text
-            style={styles.tileTitle}
-            >
+            <Text style={styles.tileTitle}>
             {props.drink["strDrink"]}
             </Text>
           </View>
@@ -146,19 +144,25 @@ export function CocktailTile(props){
 }
 
 const styles = StyleSheet.create({
-  tile: {
-    height: 100,
-    width: 100,
+  cocktailTile: {
+    flex: 1,
+    margin: 10,
     borderRadius: 5,
-    backgroundColor: 'gray',
+  },
+  tileImageAndTitle: {
+    aspectRatio: 1,
+    borderRadius: 5,
+    alignItems: 'center',
+    backgroundColor: 'midnightblue'
   },
   tileImage: {
+    flex: 1,
     height: "100%",
     width: "100%",
     borderRadius: 5
   },
   tileTitle: {
-    position: 'absolute',
+    position: 'relative',
     color: 'white'
   }
 })
