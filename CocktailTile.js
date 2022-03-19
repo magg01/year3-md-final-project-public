@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
 import { saveToRecipeBook } from './RecipeBook';
@@ -94,7 +94,7 @@ export function CocktailTile(props){
 
   if(props.moveable){
     return(
-      <View style={[styles.cocktailTile, {maxWidth: maxTileSize}]}>
+      <View style={styles.cocktailTile}>
         <Animated.View
           style={{
             transform:[{translateX: pan.x}, {translateY: pan.y}],
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 5,
     alignItems: 'center',
-    backgroundColor: 'midnightblue'
+    backgroundColor: 'midnightblue',
   },
   tileImage: {
     flex: 1,
@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   tileTitle: {
-    position: 'relative',
     color: 'white'
   }
 })
