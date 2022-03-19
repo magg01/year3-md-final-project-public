@@ -2,10 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useCallback } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, Text } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
 import { SuggestedCocktails } from './SuggestedCocktails';
+import { LoadingAnimation } from './LoadingAnimation';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
 
 export function MainScreen({navigation}) {
@@ -83,32 +84,45 @@ export function MainScreen({navigation}) {
           value={searchText}
           onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
         />
+        <View style={styles.suggestedCocktailsCardContainer}>
         {randomCocktail1 ?
           randomCocktail2 ?
-            <View style={styles.suggestedCocktailsCardContainer}>
               <SuggestedCocktails
                 suggestedCocktails={[randomCocktail1,randomCocktail2]}
                 navigation={navigation}
               />
+          : <LoadingAnimation
+              loadingMessage={"fetching suggestions"}
               style={{height:20, width: 20}}
+            />
+        : <LoadingAnimation
+            loadingMessage={"fetching suggestions"}
             style={{height:50, width: 50}}
+          />
+        }
+        </View>
+
+        <View style={styles.favouriteCocktailsCardContainer}>
+          <View>
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>
+                Favourite cocktails
+              </Text>
             </View>
-          : null
-        : null}
-        {favouriteRecipes ?
-          favouriteRecipes["drinks"].length === 0 ?
-            null
-          :
-            <View style={styles.favouriteCocktailsCardContainer}>
-              <FavouritesList
-                style={styles.favouriteList}
-                favourites={favouriteRecipes}
-                navigation={navigation}
+            {favouriteRecipes ?
+              favouriteRecipes["drinks"].length === 0 ?
+                <Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>
+              : <FavouritesList
+                  favourites={favouriteRecipes}
+                  navigation={navigation}
+                />
+            : <LoadingAnimation
+                loadingMessage={"fetching favourites"}
                 style={{height:50, width: 50}}
               />
-            </View>
-         :
-         null}
+            }
+          </View>
+        </View>
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
@@ -128,27 +142,46 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   searchbar: {
-    height: "10%",
+    flex: 1,
     backgroundColor: "#bbb",
     maxHeight: "10%",
     flexShrink: 1,
   },
   suggestedCocktailsCardContainer: {
-    height: "35%",
+    flex: 3.5,
     marginTop: 10,
     borderWidth: 1,
     backgroundColor: '#bff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexShrink: 1,
   },
   favouriteCocktailsCardContainer: {
-    height: "55%",
+    flex: 5.5,
     marginTop: 10,
     borderWidth: 1,
     backgroundColor: '#bff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexShrink: 1,
-  }
+  },
+  headerContainer: {
+    flex: 1,
+    borderWidth: 1,
+    minWidth: "100%",
+    maxHeight: "10%",
+    backgroundColor: '#acd',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerText: {
+    flex: 1,
+    textAlignVertical: 'center',
+    alignSelf: 'flex-start',
+  },
+  noFavouritesText: {
+    flex: 1,
+    textAlignVertical: 'center',
+    textAlign: 'center',
+  },
 });
