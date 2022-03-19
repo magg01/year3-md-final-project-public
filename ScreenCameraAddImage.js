@@ -93,6 +93,7 @@ export function ScreenCameraAddImage({navigation, route}) {
     return (
       <LoadingAnimation
         loadingMessage="Accessing camera"
+        style={{width: 200, height: 200}}
       />
     );
   } else if (hasPermission === false) {

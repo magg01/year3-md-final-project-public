@@ -74,6 +74,7 @@ export function CocktailDetailApi({navigation, route}){
     return(
       <LoadingAnimation
         loadingMessage="Fetching drink..."
+        style={{width: 200, height: 200}}
       />
     )
   } else {

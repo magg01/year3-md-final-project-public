@@ -67,6 +67,7 @@ export function RecipeBookScreen({navigation}){
     return (
       <LoadingAnimation
         loadingMessage="Opening recipe book"
+        style={{width: 200, height: 200}}
       />
     );
   } else if (recipeBook.drinks.length === 0){

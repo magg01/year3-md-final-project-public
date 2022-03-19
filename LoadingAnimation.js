@@ -37,7 +37,7 @@ export function LoadingAnimation(props){
   return (
     <View style={styles.container}>
       <Animated.Image
-        style={[{height:200, width:200}, {transform: [{rotate: spin}]}]}
+        style={[props.style, {transform: [{rotate: spin}]}]}
         source={require('./assets/cocktail-shaker.png')}
       />
       <Text>
@@ -51,7 +51,6 @@ export function LoadingAnimation(props){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

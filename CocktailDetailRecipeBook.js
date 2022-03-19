@@ -99,6 +99,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
     return (
       <LoadingAnimation
         loadingMessage="fetching drink"
+        style={{width: 200, height: 200}}
       />
     )
   } else {

@@ -93,6 +93,7 @@ export function SearchScreen({navigation, route}) {
     return (
       <LoadingAnimation
         loadingMessage="mixing results"
+        style={{width: 200, height: 200}}
       />
     );
   } else  if (searchResults.drinks === null){

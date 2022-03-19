@@ -47,6 +47,7 @@ export function ScreenShoppingList({navigation, route}){
     return (
       <LoadingAnimation
         loadingMessage="Fetching shopping list"
+        style={{width: 200, height: 200}}
       />
     )
   } else if(Object.keys(currentShoppingList).length === 0 ) {

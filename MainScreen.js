@@ -90,6 +90,8 @@ export function MainScreen({navigation}) {
                 suggestedCocktails={[randomCocktail1,randomCocktail2]}
                 navigation={navigation}
               />
+              style={{height:20, width: 20}}
+            style={{height:50, width: 50}}
             </View>
           : null
         : null}
@@ -102,6 +104,7 @@ export function MainScreen({navigation}) {
                 style={styles.favouriteList}
                 favourites={favouriteRecipes}
                 navigation={navigation}
+                style={{height:50, width: 50}}
               />
             </View>
          :
