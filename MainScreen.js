@@ -50,16 +50,6 @@ export function MainScreen({navigation}) {
     const abortController = new AbortController();
     const signal = abortController.signal;
     let json = await getRandomCocktailFromApi(signal);
-    //for the first 3 attemps don't show drinks that are already in the recipe book
-    let count = 0;
-    while (await isInRecipeBook(json["drinks"][0]["idDrink"])){
-      count++
-      if(count < 3){
-        json = await getRandomCocktailFromApi(signal);
-      } else {
-        break;
-      }
-    }
     setRandomCocktail1(json["drinks"][0]);
     return () => abortController.abort();
   },[]);
@@ -68,16 +58,6 @@ export function MainScreen({navigation}) {
     const abortController = new AbortController();
     const signal = abortController.signal;
     let json = await getRandomCocktailFromApi(signal);
-    //for the first 3 attemps don't show drinks that are already in the recipe book
-    let count = 0;
-    while (await isInRecipeBook(json["drinks"][0]["idDrink"])){
-      count++
-      if(count < 3){
-        json = await getRandomCocktailFromApi(signal);
-      } else {
-        break;
-      }
-    }
     setRandomCocktail2(json["drinks"][0])
     return () => abortController.abort();
   },[]);
