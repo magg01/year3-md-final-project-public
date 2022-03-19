@@ -1,6 +1,6 @@
-import { View, StyleSheet, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Text, FlatList  } from 'react-native';
 import { CocktailTile } from './CocktailTile';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export function SuggestedCocktails(props){
   const data = props.suggestedCocktails
@@ -20,7 +20,7 @@ export function SuggestedCocktails(props){
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
           Suggested cocktails
@@ -28,35 +28,23 @@ export function SuggestedCocktails(props){
       </View>
       <View style={styles.drinkContainer}>
         <FlatList
+          style={{width: "100%"}}
+          horizontal={true}
+          contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
           data={data}
           renderItem={renderCocktailTile}
           keyExtractor={item => item.idDrink}
-          numColumns={2}
-        />      
-        {/*<CocktailTile
-          key={props.suggestedCocktails[0]["idDrink"]}
-          drink={props.suggestedCocktails[0]}
-          moveable={false}
-          image={props.suggestedCocktails[0]["strDrinkThumb"]}
-          onPress={async () => {
-            props.navigation.navigate("CocktailDetailApi", {drinkId: props.suggestedCocktails[0]["idDrink"]})
-          }}
         />
-        <CocktailTile
-          key={props.suggestedCocktails[1]["idDrink"]}
-          drink={props.suggestedCocktails[1]}
-          moveable={false}
-          image={props.suggestedCocktails[1]["strDrinkThumb"]}
-          onPress={async () => {
-            props.navigation.navigate("CocktailDetailApi", {drinkId: props.suggestedCocktails[1]["idDrink"]})
-          }}
-        />*/}
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   headerContainer: {
     flex: 1,
     borderWidth: 1,
@@ -72,9 +60,8 @@ const styles = StyleSheet.create({
     flex: 5,
     borderWidth: 1,
     padding: 5,
-    flexDirection: 'row',
     backgroundColor: '#cde',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 })
