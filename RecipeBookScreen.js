@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import { StyleSheet, View, SafeAreaView, ScrollView, Text, Animated, Dimensions} from 'react-native';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { StyleSheet, View, SafeAreaView, FlatList, Text, Animated, Dimensions} from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -63,6 +63,24 @@ export function RecipeBookScreen({navigation}){
     }, [])
   );
 
+  const renderCocktailTile = ({item}) => {
+    return (
+      <CocktailTile
+        key={item.idDrink}
+        drink={item}
+        moveable={false}
+        image={item.strDrinkThumb}
+        moveable={true}
+        bucket={bucket}
+        inShoppingListZone={inRightZoneSwitch}
+        inRecipeBookZone={inLeftZoneSwitch}
+        onPress={async () => {
+          navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: item.idDrink}})
+        }}
+      />
+    )
+  }
+
   if(recipeBook === undefined){
     return (
       <LoadingAnimation
@@ -72,41 +90,38 @@ export function RecipeBookScreen({navigation}){
     );
   } else if (recipeBook.drinks.length === 0){
     return (
-      <View style={styles.container}>
-        <MaterialIcons name="import-contacts" size={50} color="black" />
-        <Text>
-          { "\n" }
-          Your recipe book is empty
-        </Text>
-      </View>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <MaterialIcons name="import-contacts" size={50} color="black" />
+          <Text>
+            { "\n" }
+            Your recipe book is empty
+          </Text>
+        </View>
+      </SafeAreaView>
     )
   } else if (recipeBook === "error"){
     return (
-      <View style={styles.container}>
-        <MaterialIcons name="error-outline" size={50} color="black" />
-        <Text>
-          { "\n" }
-          There was an error retreiving your recipe book
-        </Text>
-      </View>
+      <SafeAreaView>
+        <View style={styles.container}>
+          <MaterialIcons name="error-outline" size={50} color="black" />
+          <Text>
+            { "\n" }
+            There was an error retreiving your recipe book
+          </Text>
+        </View>
+      </SafeAreaView>
     )
   } else {
     return (
-      <SafeAreaView>
-        <ScrollView contentContainerStyle={{ paddingBottom: 1000 }}>
-          {recipeBook.drinks.map((drink) => (
-            <CocktailTile
-              key={drink["idDrink"]}
-              drink={drink}
-              image={drink["strDrinkThumb"]}
-              moveable={true}
-              bucket={bucket}
-              inShoppingListZone={inRightZoneSwitch}
-              inRecipeBookZone={inLeftZoneSwitch}
-              onPress={() => {navigation.navigate("CocktailDetailRecipeBook", {drinkId: drink["idDrink"] })}}
-            />
-          ))}
-        </ScrollView>
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          style={{width: "100%"}}
+          data={recipeBook.drinks}
+          renderItem={renderCocktailTile}
+          keyExtractor={item => item.idDrink}
+          numColumns={3}
+        />
         <Animated.View style={{
           position: 'absolute',
           top: 620,
