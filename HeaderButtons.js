@@ -1,26 +1,27 @@
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+import { IconButton } from 'react-native-paper';
 
 export function AddToShoppingListButton(props){
   return (
-    <TouchableOpacity
-      style={props.style}
-      onPress = {props.onPress}
-    >
-      <MaterialIcons name="add-shopping-cart" size={28} color="black" />
-    </TouchableOpacity>
+    <IconButton
+      icon="cart-arrow-down"
+      color={'black'}
+      size={26}
+      onPress={props.onPress}
+    />
   )
 }
 
 export function CaptureDrinkImageButton(props){
   return (
-    <TouchableOpacity
-      style={props.style}
+    <IconButton
+      icon="camera"
+      color={'black'}
+      size={26}
       onPress={props.onPress}
-    >
-      <MaterialIcons name="photo-camera" size={26} color="black" />
-    </TouchableOpacity>
+    />
   )
 }
 
@@ -38,21 +39,21 @@ export function RemoveBoughtFromShoppingListButton(props){
 export function AddRemoveToFromFavourites(props){
   if(props.favourite){
     return(
-      <TouchableOpacity
-        style={props.style}
+      <IconButton
+        icon="star"
+        color={'black'}
+        size={26}
         onPress={props.onPress}
-      >
-        <MaterialIcons  name="star" size={26} color="black" />
-      </TouchableOpacity>
+      />
     )
   } else {
     return(
-      <TouchableOpacity
-        style={props.style}
+      <IconButton
+        icon="star-outline"
+        color={'black'}
+        size={26}
         onPress={props.onPress}
-      >
-        <MaterialIcons  name="star-border" size={26} color="black" />
-      </TouchableOpacity>
+      />
     )
   }
 }
@@ -60,32 +61,21 @@ export function AddRemoveToFromFavourites(props){
 export function AddRemoveToFromRecipeBookButton(props){
   if(props.mode === "add"){
     return(
-      <TouchableOpacity
-        style={props.style}
+      <IconButton
+        icon="book-plus"
+        color={'black'}
+        size={26}
         onPress={props.onPress}
-      >
-        <Ionicons name="book-outline" size={26}/>
-        <Ionicons name="add-circle-outline" size={12} style={{position: 'absolute', paddingTop:6, paddingLeft:12}}/>
-      </TouchableOpacity>
-    );
-  } else if (props.mode === "remove") {
-    return(
-      <TouchableOpacity
-        style={props.style}
-        onPress={props.onPress}
-      >
-        <Ionicons name="book-outline" size={26}/>
-        <Ionicons name="remove-circle-outline" size={12} style={{position: 'absolute', paddingTop:6, paddingLeft:12}}/>
-      </TouchableOpacity>
+      />
     );
   } else {
     return(
-      <TouchableOpacity
-        style={props.style}
+      <IconButton
+        icon="book-remove"
+        color={'black'}
+        size={26}
         onPress={props.onPress}
-      >
-        <Ionicons name="book-outline" size={26}/>
-      </TouchableOpacity>
+      />
     );
   }
 }

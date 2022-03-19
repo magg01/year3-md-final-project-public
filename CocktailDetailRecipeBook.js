@@ -48,7 +48,6 @@ export function CocktailDetailRecipeBook({navigation, route}){
         headerRight: () => (
           <View style={{ flexDirection: 'row'}}>
             <AddRemoveToFromRecipeBookButton
-              style={{paddingRight: 10}}
               onPress={async () =>
                 await confirmRecipeRemoval()
                 ?
@@ -59,18 +58,15 @@ export function CocktailDetailRecipeBook({navigation, route}){
               mode="remove"
             />
             <CaptureDrinkImageButton
-              style={{paddingRight: 10}}
               onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
             />
             <AddToShoppingListButton
-              style={{paddingRight: 10}}
               onPress={() => {
                 console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
                 addToShoppingList(currentDrink)
               }}
             />
             <AddRemoveToFromFavourites
-              style={{paddingRight: 10}}
               favourite={isDrinkFavourite}
               onPress={() => {
                 if(isDrinkFavourite){

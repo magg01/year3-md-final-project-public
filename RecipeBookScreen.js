@@ -120,7 +120,7 @@ export function RecipeBookScreen({navigation}){
           data={recipeBook.drinks}
           renderItem={renderCocktailTile}
           keyExtractor={item => item.idDrink}
-          numColumns={3}
+          numColumns={2}
         />
         <Animated.View style={{
           position: 'absolute',

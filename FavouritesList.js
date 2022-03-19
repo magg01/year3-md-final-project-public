@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#cde',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 })
