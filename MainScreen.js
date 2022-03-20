@@ -67,8 +67,9 @@ export function MainScreen({navigation}) {
     }
   }
 
-  function refreshSuggestions(){
-    setRandomCocktail1(undefined)
+  async function refreshSuggestions(){
+    await setRandomCocktail1(undefined)
+    await setRandomCocktail2(undefined)
     setShouldRefresh(!shouldRefresh)
   }
 
