@@ -4,7 +4,6 @@ import { useFocusEffect } from '@react-navigation/native'
 import { TableView, Section } from 'react-native-tableview-simple';
 import { FontAwesome } from '@expo/vector-icons';
 import { getOrCreateShoppingList, clearBought } from './ShoppingList';
-import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 import { IngredientCell } from './IngredientCell';
 import { CustomNavigationBar } from './CustomNavigationBar';

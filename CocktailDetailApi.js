@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Image, Text} from 'react-native';
 import { saveToRecipeBook, saveApiImageToFile } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
-import { AddRemoveToFromRecipeBookButton, AddToShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 import { Appbar } from 'react-native-paper';
 import { CustomNavigationBar } from './CustomNavigationBar';
