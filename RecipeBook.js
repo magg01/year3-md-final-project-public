@@ -5,7 +5,11 @@ import { Alert } from 'react-native';
 import { shoppingListKey } from './Constants';
 
 const saveRecipeSuccessToast = (drinkName) => {
-  Toast.show(drinkName + " was added to your recipe book", {duration: Toast.durations.SHORT});
+  Toast.show(`${drinkName} was added to your recipe book`, {duration: Toast.durations.SHORT});
+}
+
+const removeRecipeSuccessToast = () => {
+  Toast.show("Recipe removed from your recipe book", {duration: Toast.durations.SHORT});
 }
 
 async function isInRecipeBook(id){
@@ -22,6 +26,7 @@ async function saveToRecipeBook(drink) {
     const exists = await AsyncStorage.getItem(drink["idDrink"]);
     if (exists === null){
       try {
+        drink["favourite"] = false;
         await AsyncStorage.setItem(drink["idDrink"], JSON.stringify(drink));
         saveRecipeSuccessToast(drink["strDrink"]);
         console.log("Saved " + drink["strDrink"] + " successfully with key " + drink["idDrink"]);
@@ -111,7 +116,8 @@ async function confirmPhotoReplacement(){
 
 async function removeDrink(id){
   await removeSavedImageFromFile(id)
-  removeDrinkFromRecipeBook(id);
+  await removeDrinkFromRecipeBook(id);
+  removeRecipeSuccessToast()
 }
 
 async function removeDrinkFromRecipeBook(id){
@@ -186,7 +192,7 @@ async function getUriForSavedImageFile(id){
   return recipe["strDrinkThumb"];
 }
 
-async function addToFavourties(id){
+async function addToFavourites(id){
   try {
     let drink = await getFromRecipeBook(id)
     drink["favourite"] = true
@@ -196,7 +202,7 @@ async function addToFavourties(id){
   }
 }
 
-async function removeFromFavourties(id){
+async function removeFromFavourites(id){
   try {
     let drink = await getFromRecipeBook(id)
     drink["favourite"] = false
@@ -236,7 +242,7 @@ export {
   replaceImageForDrink,
   copyImageFromCache,
   confirmPhotoReplacement,
-  addToFavourties,
-  removeFromFavourties,
+  addToFavourites,
+  removeFromFavourites,
   getFavourites,
 }

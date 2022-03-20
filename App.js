@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
+import { Provider as PaperProvider, DefaultTheme, Appbar } from 'react-native-paper';
 import { MainScreen } from './MainScreen';
 import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
@@ -44,23 +44,37 @@ export default function App() {
     }
   })
 
+  function CustomNavigationBar({navigation, back, options, ...props}) {
+    console.log(options)
+    return (
+      <Appbar.Header>
+        { back ?  <Appbar.BackAction onPress={navigation.goBack} /> : null}
+        <Appbar.Content title={options.headerTitle} />
+      </Appbar.Header>
+    );
+  }
+
   function MainScreenStack(){
     return (
-      <MainStack.Navigator>
+      <MainStack.Navigator
+        screenOptions={{
+          header: (props) => <CustomNavigationBar {...props}  />,
+        }}
+      >
         <MainStack.Screen
           name="MainScreen"
           component={MainScreen}
-          options= {{ title: "Home"}}
+          options= {{ headerTitle: "Home"}}
         />
         <MainStack.Screen
           name="SearchScreen"
           component={SearchScreen}
-          options= {{ title: "Search results"}}
+          options= {{ headerTitle: "Search results"}}
         />
         <MainStack.Screen
           name="CocktailDetailApi"
           component={CocktailDetailApi}
-          options={{title: null}}
+          options={{headerTitle: null}}
         />
       </MainStack.Navigator>
     )
@@ -68,26 +82,30 @@ export default function App() {
 
   function RecipeBookScreenStack(){
     return(
-      <RecipeBookStack.Navigator>
+      <RecipeBookStack.Navigator
+        screenOptions={{
+          header: (props) => <CustomNavigationBar {...props} />,
+        }}
+      >
         <RecipeBookStack.Screen
           name="RecipeBookScreen"
           component={RecipeBookScreen}
-          options={{title: "Recipe book"}}
+          options={{headerTitle: "Recipe book"}}
         />
         <RecipeBookStack.Screen
           name="CocktailDetailRecipeBook"
           component={CocktailDetailRecipeBook}
-          options={{title: null}}
+          options={{headerTitle: null, headerTitleContainerStyle: {maxWidth: "60%"}}}
         />
         <RecipeBookStack.Screen
           name="ScreenCameraAddImage"
           component={ScreenCameraAddImage}
-          options={{title: "Add image"}}
+          options={{headerTitle: "Add image"}}
         />
         <RecipeBookStack.Screen
           name="ScreenReviewCocktailImage"
           component={ScreenReviewCocktailImage}
-          options={{title: "Review image"}}
+          options={{headerTitle: "Review image"}}
         />
       </RecipeBookStack.Navigator>
     )
@@ -95,11 +113,15 @@ export default function App() {
 
   function ScreenShoppingListStack(){
     return(
-      <ShoppingListStack.Navigator>
+      <ShoppingListStack.Navigator
+        screenOptions={{
+          header: (props) => <CustomNavigationBar {...props} />,
+        }}
+      >
         <ShoppingListStack.Screen
           name="ScreenShoppingList"
           component={ScreenShoppingList}
-          options={{title: "Shopping list"}}
+          options={{headerTitle: "Shopping list"}}
         />
       </ShoppingListStack.Navigator>
     )

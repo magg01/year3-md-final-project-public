@@ -7,6 +7,7 @@ import { getOrCreateShoppingList, clearBought } from './ShoppingList';
 import { RemoveBoughtFromShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
 import { IngredientCell } from './IngredientCell';
+import { CustomNavigationBar } from './CustomNavigationBar';
 
 export function ScreenShoppingList({navigation, route}){
   const [currentShoppingList, setCurrentShoppingList] = useState(undefined);
@@ -18,30 +19,28 @@ export function ScreenShoppingList({navigation, route}){
           setCurrentShoppingList(await getOrCreateShoppingList());
         }
       })
-
       return () => task.cancel();
     }, [])
   );
 
   useEffect(() => {
-    if(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0){
-      navigation.setOptions({
-        headerRight: () => (
-          <RemoveBoughtFromShoppingListButton
-            style={{paddingRight: 10}}
-            onPress={async () => {
-              await clearBought()
-              setCurrentShoppingList(await getOrCreateShoppingList());
-            }}
+    navigation.setOptions({
+      header: (props) => {
+        return (
+          <CustomNavigationBar
+            updateShoppingListAction={(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0)}
+            updateShoppingList={updateShoppingList}
+            {...props}
           />
         )
-      })
-    } else {
-      navigation.setOptions({
-        headerRight: null
-      })
-    }
+      }
+    })
   }, [currentShoppingList])
+
+  async function updateShoppingList(){
+    await clearBought()
+    setCurrentShoppingList(await getOrCreateShoppingList());
+  }
 
   if(currentShoppingList === undefined){
     return (

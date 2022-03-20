@@ -19,7 +19,7 @@ export function ScreenReviewCocktailImage({navigation, route}){
           .then((confirmation) => {
             if(confirmation){
               replaceImageForDrink(route.params.drinkId, route.params.image.uri)
-              navigation.navigate("CocktailDetailRecipeBook",{drinkId: route.params.drinkId, newImageUri: route.params.image.uri})
+              navigation.navigate("RecipeBookScreenStack",{screen: "CocktailDetailRecipeBook", params: {drinkId: route.params.drinkId, newImageUri: route.params.image.uri}})
             }
           })
         }}

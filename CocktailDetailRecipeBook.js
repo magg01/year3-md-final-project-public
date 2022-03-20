@@ -14,6 +14,7 @@ import { AddToShoppingListButton,
   AddRemoveToFromRecipeBookButton,
   CaptureDrinkImageButton,
   AddRemoveToFromFavourites } from './HeaderButtons';
+import { CustomNavigationBar } from './CustomNavigationBar';
 
 export function CocktailDetailRecipeBook({navigation, route}){
   const [notesText, setNotesText] = useState(undefined);
@@ -44,42 +45,55 @@ export function CocktailDetailRecipeBook({navigation, route}){
   useEffect(() => {
     if(currentDrink != undefined){
       navigation.setOptions({
-        title: currentDrink["strDrink"],
-        headerRight: () => (
-          <View style={{ flexDirection: 'row'}}>
-            <AddRemoveToFromRecipeBookButton
-              onPress={async () =>
-                await confirmRecipeRemoval()
-                ?
-                  recipeRemovalConfirmed()
-                :
-                  null
-              }
-              mode="remove"
+        headerTitle: currentDrink["strDrink"],
+        header: (props) => {
+          return (
+            <CustomNavigationBar
+              drink={currentDrink}
+              addToShoppingListAction={true}
+              removeFromRecipeBookAction={true}
+              replaceImageAction={true}
+              showFavouriteAction={true}
+              addRemoveToFromFavouritesAction={isDrinkFavourite}
+              changeFavouriteState={(isFavourite) => setIsDrinkFavourite(isFavourite)}
+              {...props}
             />
-            <CaptureDrinkImageButton
-              onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
-            />
-            <AddToShoppingListButton
-              onPress={() => {
-                console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
-                addToShoppingList(currentDrink)
-              }}
-            />
-            <AddRemoveToFromFavourites
-              favourite={isDrinkFavourite}
-              onPress={() => {
-                if(isDrinkFavourite){
-                  setIsDrinkFavourite(false)
-                  removeFromFavourties(currentDrink["idDrink"])
-                } else {
-                  setIsDrinkFavourite(true)
-                  addToFavourties(currentDrink["idDrink"])
-                }
-              }}
-            />
-          </View>
-        )
+          )
+        }
+        // headerRight: () => (
+        //   <View style={{ flexDirection: 'row'}}>
+        //     <AddRemoveToFromRecipeBookButton
+        //       onPress={async () =>
+        //         await confirmRecipeRemoval()
+        //         ?
+        //           recipeRemovalConfirmed()
+        //         :
+        //           null
+        //       }
+        //       mode="remove"
+        //     />
+        //     <CaptureDrinkImageButton
+        //       onPress = {() => navigation.navigate("ScreenCameraAddImage", {drinkId: route.params.drinkId})}
+        //     />
+        //     <AddToShoppingListButton
+        //       onPress={() => {
+        //         console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
+        //         addToShoppingList(currentDrink)
+        //       }}
+        //     />
+        //     <AddRemoveToFromFavourites
+        //       favourite={isDrinkFavourite}
+        //       onPress={() => {
+        //         if(isDrinkFavourite){
+        //           setIsDrinkFavourite(false)
+        //           removeFromFavourties(currentDrink["idDrink"])
+        //         } else {
+        //           setIsDrinkFavourite(true)
+        //           addToFavourties(currentDrink["idDrink"])
+        //         }
+        //       }}
+        //     />
+        //   </View>
       })
     }
   }, [currentDrink, isDrinkFavourite])

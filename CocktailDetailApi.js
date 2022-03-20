@@ -4,9 +4,12 @@ import { saveToRecipeBook, saveApiImageToFile } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 import { AddRemoveToFromRecipeBookButton, AddToShoppingListButton } from './HeaderButtons';
 import { LoadingAnimation } from './LoadingAnimation';
+import { Appbar } from 'react-native-paper';
+import { CustomNavigationBar } from './CustomNavigationBar';
 
 export function CocktailDetailApi({navigation, route}){
   const [currentDrink, setCurrentDrink] = useState(undefined);
+  const [actions, setActions] = useState("testing")
   const abortController = new AbortController();
   const signal = abortController.signal;
 
@@ -36,23 +39,17 @@ export function CocktailDetailApi({navigation, route}){
     if(currentDrink != undefined){
       navigation.setOptions(
         {
-          title: currentDrink["strDrink"],
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <AddRemoveToFromRecipeBookButton
-                style={{paddingRight: 10}}
-                onPress={() => saveDrink()}
-                mode="add"
+          headerTitle: currentDrink["strDrink"],
+          header: (props) => {
+            return (
+              <CustomNavigationBar
+                drink={currentDrink}
+                addToShoppingListAction={true}
+                addToRecipeBookAction={true}
+                {...props}
               />
-              <AddToShoppingListButton
-                style={{paddingRight: 10}}
-                onPress={() => {
-                  console.log("From recipe book detail screen, adding " + currentDrink["strDrink"] + " to shopping list");
-                  addToShoppingList(currentDrink)
-                }}
-              />
-            </View>
-          )
+            )
+          }
         }
       )
     }

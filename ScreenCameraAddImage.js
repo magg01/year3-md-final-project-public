@@ -73,7 +73,7 @@ export function ScreenCameraAddImage({navigation, route}) {
             onPress={async () => {
               camera.current.takePictureAsync()
               .then((image) => (
-                navigation.navigate("ScreenReviewCocktailImage", {drinkId: route.params.drinkId, image: image})
+                navigation.navigate("RecipeBookScreenStack", {screen: "ScreenReviewCocktailImage", params: {drinkId: route.params.drinkId, image: image}})
               )
             )}}
           >
