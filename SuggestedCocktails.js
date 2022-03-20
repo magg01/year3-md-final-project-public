@@ -1,6 +1,7 @@
-import { View, StyleSheet, Text, FlatList  } from 'react-native';
-import { CocktailTile } from './CocktailTile';
 import { useEffect, useState } from 'react'
+import { View, StyleSheet, Text, FlatList  } from 'react-native';
+import { Title } from 'react-native-paper';
+import { CocktailTile } from './CocktailTile';
 
 export function SuggestedCocktails(props){
   const data = props.suggestedCocktails
@@ -22,9 +23,7 @@ export function SuggestedCocktails(props){
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>
-          Suggested cocktails
-        </Text>
+        <Title>Suggested cocktails</Title>
       </View>
       <View style={styles.drinkContainer}>
         <FlatList

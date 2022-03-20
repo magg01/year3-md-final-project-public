@@ -73,43 +73,30 @@ export function MainScreen({navigation}) {
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
         <View style={styles.suggestedCocktailsCardContainer}>
-        {randomCocktail1 ?
-          randomCocktail2 ?
-              <SuggestedCocktails
-                suggestedCocktails={[randomCocktail1,randomCocktail2]}
-                navigation={navigation}
-              />
-          : <LoadingAnimation
+          {(randomCocktail1 && randomCocktail2) ?
+            <SuggestedCocktails
+              suggestedCocktails={[randomCocktail1,randomCocktail2]}
+              navigation={navigation}
+            />
+          :
+            <LoadingAnimation
               loadingMessage={"fetching suggestions"}
               style={{height:20, width: 20}}
             />
-        : <LoadingAnimation
-            loadingMessage={"fetching suggestions"}
-            style={{height:50, width: 50}}
-          />
-        }
+          }
         </View>
-
         <View style={styles.favouriteCocktailsCardContainer}>
-          <View>
-            <View style={styles.headerContainer}>
-              <Text style={styles.headerText}>
-                Favourite cocktails
-              </Text>
-            </View>
-            {favouriteRecipes ?
-              favouriteRecipes["drinks"].length === 0 ?
-                <Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>
-              : <FavouritesList
-                  favourites={favouriteRecipes}
-                  navigation={navigation}
-                />
-            : <LoadingAnimation
-                loadingMessage={"fetching favourites"}
-                style={{height:50, width: 50}}
-              />
-            }
-          </View>
+          {favouriteRecipes ?
+            <FavouritesList
+              favourites={favouriteRecipes}
+              navigation={navigation}
+            />
+          :
+            <LoadingAnimation
+              loadingMessage={"fetching favourites"}
+              style={{height:50, width: 50}}
+            />
+          }
         </View>
         <StatusBar style="auto" />
       </SafeAreaView>
@@ -151,23 +138,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
-  },
-  headerContainer: {
-    flex: 1,
-    minWidth: "100%",
-    maxHeight: "10%",
-    backgroundColor: '#acd',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headerText: {
-    flex: 1,
-    textAlignVertical: 'center',
-    alignSelf: 'flex-start',
-  },
-  noFavouritesText: {
-    flex: 1,
-    textAlignVertical: 'center',
-    textAlign: 'center',
   },
 });
