@@ -129,10 +129,7 @@ export function MainScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: "2.5%",
-    paddingBottom: "2.5%",
-    paddingLeft: "2.5%",
-    paddingRight: "2.5%",
+    padding: "2.5%",
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
