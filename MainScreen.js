@@ -81,7 +81,7 @@ export function MainScreen({navigation}) {
           :
             <LoadingAnimation
               loadingMessage={"fetching suggestions"}
-              style={{height:20, width: 20}}
+              style={{width: 50, height: 50}}
             />
           }
         </View>
