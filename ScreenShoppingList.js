@@ -27,8 +27,9 @@ export function ScreenShoppingList({navigation, route}){
       header: (props) => {
         return (
           <CustomNavigationBar
-            updateShoppingListAction={(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0)}
-            updateShoppingList={updateShoppingList}
+            screenName={"ShoppingListScreen"}
+            updateShoppingListIconButtonVisible={(currentShoppingList != undefined && Object.keys(currentShoppingList).length != 0)}
+            shoppingListIconButtonOnPress={updateShoppingList}
             {...props}
           />
         )

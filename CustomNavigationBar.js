@@ -9,6 +9,16 @@ export function CustomNavigationBar({navigation, back, options, ...props}) {
     navigation.goBack()
   }
 
+  if (props.screenName === "ShoppingListScreen"){
+    return (
+      <Appbar.Header>
+        { back ?  <Appbar.BackAction onPress={navigation.goBack} /> : null}
+        <Appbar.Content title={options.headerTitle} />
+        { props.updateShoppingListIconButtonVisible ? <Appbar.Action icon="trash-can" onPress={props.shoppingListIconButtonOnPress} /> : null }
+        </Appbar.Header>
+    )
+  }
+
   return (
     <Appbar.Header>
       { back ?  <Appbar.BackAction onPress={navigation.goBack} /> : null}
@@ -47,7 +57,6 @@ export function CustomNavigationBar({navigation, back, options, ...props}) {
         :
           null
       }
-      { props.updateShoppingListAction ? <Appbar.Action icon="trash-can" onPress={() => props.updateShoppingList()} /> : null}
     </Appbar.Header>
   );
 }
