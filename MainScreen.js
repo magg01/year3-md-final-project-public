@@ -70,7 +70,7 @@ export function MainScreen({navigation}) {
           placeholder={"Search"}
           onChangeText={text => setSearchText(text)}
           value={searchText}
-          onSubmitEditing={() => navigation.navigate("SearchScreen", {searchText})}
+          onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
         <View style={styles.suggestedCocktailsCardContainer}>
         {randomCocktail1 ?
