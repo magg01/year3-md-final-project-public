@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    borderWidth: 1,
     minWidth: "100%",
     backgroundColor: '#acd',
     alignItems: 'center',
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
   },
   drinkContainer: {
     flex: 5,
-    borderWidth: 1,
     padding: 5,
     backgroundColor: '#cde',
     alignItems: 'center',

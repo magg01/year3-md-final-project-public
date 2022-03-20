@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     paddingBottom: "2.5%",
     paddingLeft: "2.5%",
     paddingRight: "2.5%",
-    backgroundColor: '#aaa',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   suggestedCocktailsCardContainer: {
     flex: 3.5,
     marginTop: 10,
-    borderWidth: 1,
+    borderRadius: 5,
     backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
   favouriteCocktailsCardContainer: {
     flex: 5.5,
     marginTop: 10,
-    borderWidth: 1,
     backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -155,7 +154,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    borderWidth: 1,
     minWidth: "100%",
     maxHeight: "10%",
     backgroundColor: '#acd',
