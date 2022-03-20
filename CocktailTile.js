@@ -104,6 +104,7 @@ export function CocktailTile(props){
           <TouchableHighlight
             style={styles.tileImageAndTitle}
             onPress={props.onPress}
+            underlayColor={ 'transparent' }
           >
             <View style={styles.tileImageAndTitle}>
               <Image
@@ -126,6 +127,7 @@ export function CocktailTile(props){
       <View style={styles.cocktailTile}>
         <TouchableHighlight
           onPress={props.onPress}
+          underlayColor={ 'transparent' }
         >
           <View style={styles.tileImageAndTitle}>
             <Image
