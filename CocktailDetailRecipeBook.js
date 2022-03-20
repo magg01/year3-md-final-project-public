@@ -46,10 +46,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
           return (
             <CustomNavigationBar
               drink={currentDrink}
-              addToShoppingListAction={true}
-              removeFromRecipeBookAction={true}
-              replaceImageAction={true}
-              showFavouriteAction={true}
+              screenName={"CocktailDetailRecipeBookScreen"}
               addRemoveToFromFavouritesAction={isDrinkFavourite}
               changeFavouriteState={(isFavourite) => setIsDrinkFavourite(isFavourite)}
               {...props}
