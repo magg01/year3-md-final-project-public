@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, View, Text, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
+import { ScrollView, StyleSheet, View, FlatList } from 'react-native';
+import { Title, Text } from 'react-native-paper';
 import { CocktailTile } from './CocktailTile';
 
 export function FavouritesList(props) {
@@ -19,37 +20,34 @@ export function FavouritesList(props) {
     )
   }
 
-  if(props.favourites.drinks.length === 0){
-    return (
-      <View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>
-            Favourite cocktails
-          </Text>
-        </View>
-        <Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>
+  // if(props.favourites.drinks.length === 0){
+  //   return (
+  //     <View>
+  //       <View style={styles.headerContainer}>
+  //         <Title>Favourite cocktails</Title>
+  //       </View>
+  //       <Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>
+  //     </View>
+  //   )
+
+  return (
+    <View>
+      <View style={styles.headerContainer}>
+        <Title>Favourite cocktails</Title>
       </View>
-    )
-  } else {
-    return (
-      <View>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>
-            Favourite cocktails
-          </Text>
-        </View>
-        <View style={styles.drinkContainer}>
-          <FlatList
-            style={{width: "100%"}}
-            data={data}
-            renderItem={renderCocktailTile}
-            keyExtractor={item => item.idDrink}
-            numColumns={2}
-          />
-        </View>
+      <View style={styles.drinkContainer}>
+        <FlatList
+          ListEmptyComponent={<Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>}
+          style={{width: "100%"}}
+          data={data}
+          renderItem={renderCocktailTile}
+          keyExtractor={item => item.idDrink}
+          numColumns={2}
+        />
       </View>
-    )
-  }
+    </View>
+  )
+
 }
 
 
