@@ -87,5 +87,15 @@ export function CustomNavigationBar({navigation, back, options, ...props}) {
         </Menu>
       </Appbar.Header>
     )
+  } else if (props.screenName === "CocktailDetailApiScreen"){
+    return (
+      <Appbar.Header>
+        { back ?  <Appbar.BackAction onPress={navigation.goBack} /> : null}
+        <Appbar.Content title={options.headerTitle} />
+        <Appbar.Action icon="book-plus" onPress={() => saveToRecipeBook(props.drink)} />
+        <Appbar.Action icon="cart-arrow-down" onPress={() => {addToShoppingList(props.drink)}}
+        />
+      </Appbar.Header>
+    )
   }
 }

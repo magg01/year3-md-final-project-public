@@ -43,8 +43,7 @@ export function CocktailDetailApi({navigation, route}){
             return (
               <CustomNavigationBar
                 drink={currentDrink}
-                addToShoppingListAction={true}
-                addToRecipeBookAction={true}
+                screenName={"CocktailDetailApiScreen"}
                 {...props}
               />
             )
