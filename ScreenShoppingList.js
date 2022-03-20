@@ -24,6 +24,7 @@ export function ScreenShoppingList({navigation, route}){
 
   useEffect(() => {
     navigation.setOptions({
+      headerTitle: "Shopping list",
       header: (props) => {
         return (
           <CustomNavigationBar
