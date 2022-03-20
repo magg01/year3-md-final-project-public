@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef} from 'react';
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions, FlatList } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
@@ -89,6 +89,28 @@ export function SearchScreen({navigation, route}) {
     return () => abortController.abort();
   },[]);
 
+  const renderCocktailTile = ({item}) => {
+    return (
+      <CocktailTile
+        key={item.idDrink}
+        drink={item}
+        moveable={true}
+        image={item.strDrinkThumb}
+        moveable={true}
+        bucket={bucket}
+        inShoppingListZone={inRightZoneSwitch}
+        inRecipeBookZone={inLeftZoneSwitch}
+        onPress={async () => {
+          if(await isInRecipeBook(item["idDrink"])) {
+            navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", initial: false, params:{drinkId: item["idDrink"]}})
+          } else {
+            navigation.navigate("MainScreenStack", {screen: "CocktailDetailApi", params: {drinkId: item["idDrink"]}})
+          }
+        }}
+      />
+    )
+  }
+
   if (searchResults === undefined){
     return (
       <LoadingAnimation
@@ -109,26 +131,17 @@ export function SearchScreen({navigation, route}) {
   } else {
     return (
       <SafeAreaView>
-        <ScrollView contentContainerStyle={{ paddingBottom: 1000 }}>
-          {searchResults.drinks.map((drink) => (
-            <CocktailTile
-              key={drink["idDrink"]}
-              drink={drink}
-              image={drink["strDrinkThumb"]+"/preview"}
-              bucket={bucket}
-              moveable={true}
-              inShoppingListZone={inRightZoneSwitch}
-              inRecipeBookZone={inLeftZoneSwitch}
-              onPress={async () => {
-                if(await isInRecipeBook(drink["idDrink"])) {
-                  navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: drink["idDrink"]}})
-                } else {
-                  navigation.navigate("CocktailDetailApi", {drinkId: drink["idDrink"]})
-                }
-              }}
-            />
-          ))}
-        </ScrollView>
+        <FlatList
+          // need to ensure flatlist expands to bottom of screen even if there's
+          // not enough data to fill it, otherwise animated cocktail tiles
+          // are not visible when moved beyond the extent of the flatlist container
+          contentContainerStyle={{flexGrow: 1}}
+          style={{width: "100%"}}
+          data={searchResults.drinks}
+          renderItem={renderCocktailTile}
+          keyExtractor={item => item.idDrink}
+          numColumns={2}
+        />
         <Animated.View style={{
           position: 'absolute',
           top: 620,
