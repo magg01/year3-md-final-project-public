@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, SafeAreaView, Image, Dimensions } from 'react-native';
-import { Appbar, Modal, Portal, Text, Provider } from 'react-native-paper';
+import { Appbar, Modal, Portal, Text, Title, Provider } from 'react-native-paper';
 import { TableView, Section, Cell } from 'react-native-tableview-simple';
 import { saveToRecipeBook, saveApiImageToFile } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
@@ -162,19 +162,22 @@ export function CocktailDetailApi({navigation, route}){
           <Portal>
             <Modal visible={directionsModalVisible} onDismiss={hideDirectionsModal} contentContainerStyle={styles.modalStyle}>
               <ScrollView>
+                <Title>{currentDrink.strDrink}</Title>
                 <TableView>
-                  {Object.keys(currentDrinkIngredients).map((ingredientKey) => (
-                      <Cell
-                        key={ingredientKey}
-                        cellStyle={"LeftDetail"}
-                        title={currentDrinkIngredients[ingredientKey].ingredient}
-                        titleTextStyle={{fontSize: 20}}
-                        detail={currentDrinkIngredients[ingredientKey].measure}
-                        detailTextStyle={{fontSize: 15}}
-                      />
-                    :
-                      null
-                  ))}
+                  <Section>
+                    {Object.keys(currentDrinkIngredients).map((ingredientKey) => (
+                        <Cell
+                          key={ingredientKey}
+                          cellStyle={"RightDetail"}
+                          title={currentDrinkIngredients[ingredientKey].ingredient}
+                          titleTextStyle={{fontSize: 20}}
+                          detail={currentDrinkIngredients[ingredientKey].measure}
+                          detailTextStyle={{fontSize: 15, color: 'blue'}}
+                        />
+                      :
+                        null
+                    ))}
+                  </Section>
                   <Text style={styles.modalText}>{currentDrink["strInstructions"]}</Text>
                 </TableView>
               </ScrollView>
