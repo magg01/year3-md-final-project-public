@@ -20,20 +20,10 @@ export function FavouritesList(props) {
     )
   }
 
-  // if(props.favourites.drinks.length === 0){
-  //   return (
-  //     <View>
-  //       <View style={styles.headerContainer}>
-  //         <Title>Favourite cocktails</Title>
-  //       </View>
-  //       <Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>
-  //     </View>
-  //   )
-
   return (
     <View>
       <View style={styles.headerContainer}>
-        <Title>Favourite cocktails</Title>
+        <Title style={styles.headerText}>Favourite cocktails</Title>
       </View>
       <View style={styles.drinkContainer}>
         <FlatList
@@ -55,6 +45,8 @@ const styles = StyleSheet.create({
   drinkContainer: {
     flex: 5,
     padding: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     flexDirection: 'column',
     backgroundColor: '#cde',
     alignItems: 'center',
@@ -69,6 +61,8 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: "100%",
     maxHeight: "10%",
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
     backgroundColor: '#acd',
     alignItems: 'center',
     justifyContent: 'center',
@@ -77,5 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlignVertical: 'center',
     alignSelf: 'flex-start',
+    paddingLeft: 10
   },
 })

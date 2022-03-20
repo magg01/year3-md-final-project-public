@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useCallback } from 'react';
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, Title, IconButton } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, Text, KeyboardAvoidingView, Platform } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
 import { SuggestedCocktails } from './SuggestedCocktails';
@@ -60,6 +60,7 @@ export function MainScreen({navigation}) {
   }
 
   function refreshSuggestions(){
+    setRandomCocktail1(undefined)
     setShouldRefresh(!shouldRefresh)
   }
 
@@ -74,17 +75,27 @@ export function MainScreen({navigation}) {
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
         <View style={styles.suggestedCocktailsCardContainer}>
+          <View style={styles.headerContainer}>
+            <Title style={styles.headerText}>Suggested cocktails</Title>
+            <IconButton
+              style={styles.suggestedRefreshButton}
+              icon="refresh"
+              size={20}
+              onPress={() => refreshSuggestions()}
+            />
+          </View>
           {(randomCocktail1 && randomCocktail2) ?
             <SuggestedCocktails
               suggestedCocktails={[randomCocktail1,randomCocktail2]}
               navigation={navigation}
-              refreshSuggestions={() => refreshSuggestions()}
             />
           :
-            <LoadingAnimation
-              loadingMessage={"fetching suggestions"}
-              style={{width: 50, height: 50}}
-            />
+            <View style={{flex: 5}}>
+              <LoadingAnimation
+                loadingMessage={"fetching suggestions"}
+                style={{width: 50, height: 50}}
+              />
+            </View>
           }
         </View>
         <View style={styles.favouriteCocktailsCardContainer}>
@@ -136,9 +147,24 @@ const styles = StyleSheet.create({
   favouriteCocktailsCardContainer: {
     flex: 5.5,
     marginTop: 10,
+    borderRadius: 5,
     backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
+  },
+  headerContainer: {
+    flex: 1,
+    minWidth: "100%",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerText: {
+    alignSelf: 'flex-start',
+    paddingLeft: 10
+  },
+  suggestedRefreshButton: {
+    position: 'absolute',
+    alignSelf: 'flex-end'
   },
 });
