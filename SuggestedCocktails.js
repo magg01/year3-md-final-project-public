@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, FlatList  } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Title, IconButton } from 'react-native-paper';
 import { CocktailTile } from './CocktailTile';
 
 export function SuggestedCocktails(props){
@@ -24,6 +24,12 @@ export function SuggestedCocktails(props){
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Title>Suggested cocktails</Title>
+        <IconButton
+          style={styles.suggestedRefreshButton}
+          icon="refresh"
+          size={20}
+          onPress={() => props.refreshSuggestions()}
+        />
       </View>
       <View style={styles.drinkContainer}>
         <FlatList
@@ -60,5 +66,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#cde',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  suggestedRefreshButton: {
+    position: 'absolute',
+    alignSelf: 'flex-end'
   },
 })

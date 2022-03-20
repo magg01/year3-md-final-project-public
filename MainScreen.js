@@ -14,6 +14,7 @@ export function MainScreen({navigation}) {
   const [favouriteRecipes, setFavouriteRecipes] = useState(undefined)
   const [randomCocktail1, setRandomCocktail1] = useState(undefined)
   const [randomCocktail2, setRandomCocktail2] = useState(undefined)
+  const [shouldRefresh, setShouldRefresh] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -23,9 +24,21 @@ export function MainScreen({navigation}) {
     },[])
   )
 
-  useEffect(() => {
-    console.log("favourites are: " + JSON.stringify(favouriteRecipes))
-  }, [favouriteRecipes])
+  useEffect(async () => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    let json = await getRandomCocktailFromApi(signal);
+    setRandomCocktail1(json["drinks"][0]);
+    return () => abortController.abort();
+  },[shouldRefresh]);
+
+  useEffect(async () => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+    let json = await getRandomCocktailFromApi(signal);
+    setRandomCocktail2(json["drinks"][0])
+    return () => abortController.abort();
+  },[shouldRefresh]);
 
   async function getRandomCocktailFromApi(signal){
     try{
@@ -46,21 +59,9 @@ export function MainScreen({navigation}) {
     }
   }
 
-  useEffect(async () => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    let json = await getRandomCocktailFromApi(signal);
-    setRandomCocktail1(json["drinks"][0]);
-    return () => abortController.abort();
-  },[]);
-
-  useEffect(async () => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    let json = await getRandomCocktailFromApi(signal);
-    setRandomCocktail2(json["drinks"][0])
-    return () => abortController.abort();
-  },[]);
+  function refreshSuggestions(){
+    setShouldRefresh(!shouldRefresh)
+  }
 
   return (
     <View style={styles.container}>
@@ -77,6 +78,7 @@ export function MainScreen({navigation}) {
             <SuggestedCocktails
               suggestedCocktails={[randomCocktail1,randomCocktail2]}
               navigation={navigation}
+              refreshSuggestions={() => refreshSuggestions()}
             />
           :
             <LoadingAnimation
