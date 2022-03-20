@@ -13,7 +13,7 @@ export function FavouritesList(props) {
         moveable={false}
         image={item.strDrinkThumb}
         onPress={async () => {
-          props.navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", params:{drinkId: item.idDrink}})
+          props.navigation.navigate("RecipeBookScreenStack", {screen: "CocktailDetailRecipeBook", initial: false, params:{drinkId: item.idDrink}})
         }}
       />
     )
@@ -35,7 +35,6 @@ export function FavouritesList(props) {
 
 const styles = StyleSheet.create({
   drinkContainer: {
-    borderWidth: 1,
     flex: 5,
     padding: 5,
     flexDirection: 'column',
