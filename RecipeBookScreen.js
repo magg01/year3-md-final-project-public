@@ -63,6 +63,10 @@ export function RecipeBookScreen({navigation}){
     }, [])
   );
 
+  useEffect(() => {
+    console.log(recipeBook)
+  }, [recipeBook])
+
   const renderCocktailTile = ({item}) => {
     return (
       <CocktailTile
@@ -90,7 +94,7 @@ export function RecipeBookScreen({navigation}){
     );
   } else if (recipeBook.drinks.length === 0){
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <MaterialIcons name="import-contacts" size={50} color="black" />
           <Text>
@@ -102,7 +106,7 @@ export function RecipeBookScreen({navigation}){
     )
   } else if (recipeBook === "error"){
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <View style={styles.container}>
           <MaterialIcons name="error-outline" size={50} color="black" />
           <Text>
