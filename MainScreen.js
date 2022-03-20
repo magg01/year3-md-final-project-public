@@ -24,6 +24,14 @@ export function MainScreen({navigation}) {
     },[])
   )
 
+  //check the returned cocktails are not the same one otherwise refresh
+  useEffect(() => {
+    if(randomCocktail1 && randomCocktail2){
+      if(randomCocktail1.idDrink == randomCocktail2.idDrink)
+      refreshSuggestions();
+    }
+  },[randomCocktail1, randomCocktail2])
+
   useEffect(async () => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -155,6 +163,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     minWidth: "100%",
     alignItems: 'center',
     justifyContent: 'center',
