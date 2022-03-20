@@ -45,7 +45,6 @@ export default function App() {
   })
 
   function CustomNavigationBar({navigation, back, options, ...props}) {
-    console.log(options)
     return (
       <Appbar.Header>
         { back ?  <Appbar.BackAction onPress={navigation.goBack} /> : null}
@@ -174,7 +173,6 @@ export default function App() {
                   <MaterialIcons name="shopping-cart" size={24} color={color} />
                 )
               }}
-
             />
           </Tab.Navigator>
         </NavigationContainer>
