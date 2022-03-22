@@ -180,6 +180,7 @@ async function replaceImageForDrink(id, newImgCacheUri){
     let newPath = await copyImageFromCache(id, newImgCacheUri);
     let drink = await getFromRecipeBook(id);
     drink["strDrinkThumb"] = newPath
+    drink["strImageAttribution"] = null
     await updateRecipe(drink);
     return newPath;
   } catch (e) {
