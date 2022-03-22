@@ -115,7 +115,7 @@ export function CocktailTile(props){
                 defaultSource={require("./assets/cocktail-shaker.png")}
               />
               <Text
-                style={{color: colors.text}}
+                style={{color: colors.cocktailTileTitleTextColor}}
               >
                 {props.drink["strDrink"]}
               </Text>
@@ -137,7 +137,7 @@ export function CocktailTile(props){
               source={{uri:props.image}}
               defaultSource={require("./assets/cocktail-shaker.png")}
             />
-            <Text style={{color: colors.text}}>
+            <Text style={{color: colors.cocktailTileTitleTextColor}}>
             {props.drink["strDrink"]}
             </Text>
           </View>

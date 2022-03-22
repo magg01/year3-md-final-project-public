@@ -1,12 +1,13 @@
 import { useState, useRef } from 'react';
 import { Platform, View } from 'react-native';
-import { Appbar, Menu } from 'react-native-paper';
+import { Appbar, Menu, useTheme } from 'react-native-paper';
 import { addToShoppingList } from './ShoppingList';
 import { saveToRecipeBook, removeDrink, addToFavourites, removeFromFavourites, confirmRecipeRemoval } from './RecipeBook';
 
 export function CustomNavigationBar({navigation, back, options, ...props}) {
   const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
   const [menuVisible, setMenuVisible] = useState(false);
+  const { colors } = useTheme();
 
   async function recipeRemovalConfirmed(){
     await removeDrink(props.drink.idDrink)
@@ -54,7 +55,7 @@ export function CustomNavigationBar({navigation, back, options, ...props}) {
         <Menu
           visible={menuVisible}
           onDismiss={() => setMenuVisible(false)}
-          anchor={<Appbar.Action icon={MORE_ICON} onPress={() => setMenuVisible(!menuVisible)} />}
+          anchor={<Appbar.Action icon={MORE_ICON} color={colors.appbarIconColor} onPress={() => setMenuVisible(!menuVisible)} />}
         >
           <Menu.Item
             icon="camera"

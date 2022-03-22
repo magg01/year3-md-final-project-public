@@ -24,9 +24,11 @@ export const theme = {
   colors: {
     ...DefaultTheme.colors,
     background: 'white',
-    primary: '#22A2F2',
-    accent: '#F2CB05',
-    cardBackground: '#DCE8F2',
+    primary: '#2F44E6',
+    accent: 'black',
+    cardBackground: 'lightGray',
+    cocktailTileTitleTextColor: 'white',
+    appbarIconColor: 'white',
   },
 };
 
