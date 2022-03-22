@@ -23,7 +23,7 @@ export function FavouritesList(props) {
   return (
     <View>
       <View style={styles.headerContainer}>
-        <Title style={styles.headerText}>Favourite cocktails</Title>
+        <Text style={styles.headerText}>Favourite cocktails</Text>
       </View>
       <View style={styles.drinkContainer}>
         <FlatList

@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect, useCallback } from 'react';
-import { Searchbar, Title, IconButton } from 'react-native-paper';
+import { Searchbar, IconButton, Text, Surface } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
-import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, Text, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { CocktailTile } from './CocktailTile';
 import { FavouritesList } from './FavouritesList';
 import { SuggestedCocktails } from './SuggestedCocktails';
 import { LoadingAnimation } from './LoadingAnimation';
 import { getFavourites, isInRecipeBook } from './RecipeBook';
+import { useTheme } from 'react-native-paper';
 
 export function MainScreen({navigation}) {
   const [searchText, setSearchText] = useState('');
@@ -15,6 +16,7 @@ export function MainScreen({navigation}) {
   const [randomCocktail1, setRandomCocktail1] = useState(undefined)
   const [randomCocktail2, setRandomCocktail2] = useState(undefined)
   const [shouldRefresh, setShouldRefresh] = useState(false);
+  const { colors } = useTheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -74,7 +76,7 @@ export function MainScreen({navigation}) {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: colors.background}]}>
       <SafeAreaView>
         <Searchbar
           style={styles.searchbar}
@@ -83,9 +85,9 @@ export function MainScreen({navigation}) {
           value={searchText}
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
-        <View style={styles.suggestedCocktailsCardContainer}>
+        <Surface style={styles.suggestedCocktailsCardContainer}>
           <View style={styles.headerContainer}>
-            <Title style={styles.headerText}>Suggested cocktails</Title>
+            <Text style={styles.headerText}>Suggested cocktails</Text>
             <IconButton
               style={styles.suggestedRefreshButton}
               icon="refresh"
@@ -106,8 +108,8 @@ export function MainScreen({navigation}) {
               />
             </View>
           }
-        </View>
-        <View style={styles.favouriteCocktailsCardContainer}>
+        </Surface>
+        <Surface style={styles.favouriteCocktailsCardContainer}>
           {favouriteRecipes ?
             <FavouritesList
               favourites={favouriteRecipes}
@@ -119,7 +121,7 @@ export function MainScreen({navigation}) {
               style={{height:50, width: 50}}
             />
           }
-        </View>
+        </Surface>
         <StatusBar style="auto" />
       </SafeAreaView>
     </View>
@@ -130,14 +132,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: "2.5%",
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
   },
   searchbar: {
     flex: 1,
-    backgroundColor: "#bbb",
     maxHeight: "10%",
     flexShrink: 1,
   },
@@ -145,19 +145,19 @@ const styles = StyleSheet.create({
     flex: 3.5,
     marginTop: 10,
     borderRadius: 5,
-    backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
+    elevation: 4,
   },
   favouriteCocktailsCardContainer: {
     flex: 5.5,
     marginTop: 10,
     borderRadius: 5,
-    backgroundColor: '#bff',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexShrink: 1,
+    elevation: 4,
   },
   headerContainer: {
     flex: 1,

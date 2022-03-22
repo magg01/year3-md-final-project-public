@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
+import { Surface } from 'react-native-paper';
 import { saveToRecipeBook } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 
@@ -94,13 +95,13 @@ export function CocktailTile(props){
 
   if(props.moveable){
     return(
-      <View style={styles.cocktailTile}>
-        <Animated.View
-          style={{
-            transform:[{translateX: pan.x}, {translateY: pan.y}],
-          }}
-          {...panResponder.panHandlers}
-        >
+      <Animated.View
+        style={[styles.cocktailTile, {
+          transform:[{translateX: pan.x}, {translateY: pan.y}],
+        }]}
+        {...panResponder.panHandlers}
+      >
+        <Surface style={{borderRadius: 4}}>
           <TouchableHighlight
             style={styles.tileImageAndTitle}
             onPress={props.onPress}
@@ -119,12 +120,12 @@ export function CocktailTile(props){
               </Text>
             </View>
           </TouchableHighlight>
-        </Animated.View>
-      </View>
+        </Surface>
+      </Animated.View>
     )
   } else {
     return(
-      <View style={styles.cocktailTile}>
+      <Surface style={styles.cocktailTile}>
         <TouchableHighlight
           onPress={props.onPress}
           underlayColor={ 'transparent' }
@@ -140,7 +141,7 @@ export function CocktailTile(props){
             </Text>
           </View>
         </TouchableHighlight>
-      </View>
+      </Surface>
     );
   }
 }
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     borderRadius: 5,
+    elevation: 4,
   },
   tileImageAndTitle: {
     aspectRatio: 1,

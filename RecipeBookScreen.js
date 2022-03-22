@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, FlatList, Text, Animated, Dimensions} from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { useTheme } from 'react-native-paper'
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LoadingAnimation } from './LoadingAnimation';
@@ -18,6 +19,7 @@ export function RecipeBookScreen({navigation}){
   const vibratedRight = useRef(false);
   const inLeftZoneSwitch = useRef(false);
   const vibratedLeft = useRef(false);
+  const { colors } = useTheme();
 
   const listener = bucket.addListener((value) => {
     if(value.x > rightThird && value.y > bottomTenth){
@@ -62,10 +64,6 @@ export function RecipeBookScreen({navigation}){
       updateContentsOfBook();
     }, [])
   );
-
-  useEffect(() => {
-    console.log(recipeBook)
-  }, [recipeBook])
 
   const renderCocktailTile = ({item}) => {
     return (
@@ -118,7 +116,7 @@ export function RecipeBookScreen({navigation}){
     )
   } else {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
         <FlatList
           // need to ensure flatlist expands to bottom of screen even if there's
           // not enough data to fill it, otherwise animated cocktail tiles
