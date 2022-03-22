@@ -86,7 +86,7 @@ export function MainScreen({navigation}) {
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
         <Surface style={styles.suggestedCocktailsCardContainer}>
-          <View style={styles.headerContainer}>
+          <View style={[styles.headerContainer, {backgroundColor: colors.cardBackground}]}>
             <Text style={styles.headerText}>Suggested cocktails</Text>
             <IconButton
               style={styles.suggestedRefreshButton}
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 0.5,
     minWidth: "100%",
     alignItems: 'center',
     justifyContent: 'center',

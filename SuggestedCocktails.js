@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, FlatList  } from 'react-native';
-import { Title, IconButton } from 'react-native-paper';
+import { Title, IconButton, useTheme } from 'react-native-paper';
 import { CocktailTile } from './CocktailTile';
 
 export function SuggestedCocktails(props){
   const data = props.suggestedCocktails
+  const { colors } = useTheme();
 
   const renderCocktailTile = ({item}) => {
     return (
@@ -21,7 +22,7 @@ export function SuggestedCocktails(props){
   }
 
   return (
-    <View style={styles.drinkContainer}>
+    <View style={[styles.drinkContainer, {backgroundColor: colors.cardBackground}]}>
       <FlatList
         style={{width: "100%"}}
         horizontal={true}

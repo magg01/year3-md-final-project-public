@@ -1,12 +1,13 @@
 import { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
-import { Surface } from 'react-native-paper';
+import { Surface, useTheme } from 'react-native-paper';
 import { saveToRecipeBook } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 
 export function CocktailTile(props){
   const pan = props.moveable ? useRef(new Animated.ValueXY()).current : null
+  const { colors } = useTheme();
 
   const panResponder = pan === null ? null : useRef(
     PanResponder.create({
@@ -103,18 +104,18 @@ export function CocktailTile(props){
       >
         <Surface style={{borderRadius: 4}}>
           <TouchableHighlight
-            style={styles.tileImageAndTitle}
+            style={[styles.tileImageAndTitle, {backgroundColor: colors.accent} ]}
             onPress={props.onPress}
             underlayColor={ 'transparent' }
           >
-            <View style={styles.tileImageAndTitle}>
+            <View style={[styles.tileImageAndTitle, {backgroundColor: colors.accent}] }>
               <Image
                 style={styles.tileImage}
                 source={{uri:props.image}}
                 defaultSource={require("./assets/cocktail-shaker.png")}
               />
               <Text
-                style={styles.tileTitle}
+                style={{color: colors.text}}
               >
                 {props.drink["strDrink"]}
               </Text>
@@ -130,13 +131,13 @@ export function CocktailTile(props){
           onPress={props.onPress}
           underlayColor={ 'transparent' }
         >
-          <View style={styles.tileImageAndTitle}>
+          <View style={[styles.tileImageAndTitle, {backgroundColor: colors.accent}]}>
             <Image
               style={styles.tileImage}
               source={{uri:props.image}}
               defaultSource={require("./assets/cocktail-shaker.png")}
             />
-            <Text style={styles.tileTitle}>
+            <Text style={{color: colors.text}}>
             {props.drink["strDrink"]}
             </Text>
           </View>
@@ -150,22 +151,18 @@ const styles = StyleSheet.create({
   cocktailTile: {
     flex: 1,
     margin: 10,
-    borderRadius: 5,
+    borderRadius: 4,
     elevation: 4,
   },
   tileImageAndTitle: {
     aspectRatio: 1,
-    borderRadius: 5,
+    borderRadius: 4,
     alignItems: 'center',
-    backgroundColor: 'midnightblue',
   },
   tileImage: {
     flex: 1,
     height: "100%",
     width: "100%",
-    borderRadius: 5
+    borderRadius: 4
   },
-  tileTitle: {
-    color: 'white'
-  }
 })

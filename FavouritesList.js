@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, FlatList } from 'react-native';
-import { Title, Text } from 'react-native-paper';
+import { Title, Text, useTheme } from 'react-native-paper';
 import { CocktailTile } from './CocktailTile';
 
 export function FavouritesList(props) {
   const data = props.favourites.drinks
+  const { colors } = useTheme();
 
   const renderCocktailTile = ({item}) => {
     return (
@@ -22,10 +23,10 @@ export function FavouritesList(props) {
 
   return (
     <View>
-      <View style={styles.headerContainer}>
+      <View style={[styles.headerContainer, {backgroundColor: colors.cardBackground}]}>
         <Text style={styles.headerText}>Favourite cocktails</Text>
       </View>
-      <View style={styles.drinkContainer}>
+      <View style={[styles.drinkContainer, {backgroundColor: colors.cardBackground}]}>
         <FlatList
           ListEmptyComponent={<Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>}
           style={{width: "100%"}}
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: "100%",
     maxHeight: "10%",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 0.5,
     borderTopRightRadius: 5,
     borderTopLeftRadius: 5,
     alignItems: 'center',

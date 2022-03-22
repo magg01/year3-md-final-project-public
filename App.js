@@ -23,8 +23,10 @@ export const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
+    background: 'white',
+    primary: '#22A2F2',
+    accent: '#F2CB05',
+    cardBackground: '#DCE8F2',
   },
 };
 
