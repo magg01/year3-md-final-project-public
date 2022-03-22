@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { CocktailTile } from './CocktailTile';
 import { LoadingAnimation } from './LoadingAnimation';
 import { isInRecipeBook } from './RecipeBook';
+import { useTheme } from 'react-native-paper';
 
 export function SearchScreen({navigation, route}) {
   const [searchResults, setSearchResults] = useState(undefined);
@@ -19,6 +20,7 @@ export function SearchScreen({navigation, route}) {
   const vibratedRight = useRef(false);
   const inLeftZoneSwitch = useRef(false);
   const vibratedLeft = useRef(false);
+  const { colors } = useTheme();
 
   const listener = bucket.addListener((value) => {
     if(value.x > rightThird && value.y > bottomTenth){
@@ -130,7 +132,7 @@ export function SearchScreen({navigation, route}) {
     )
   } else {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
         <FlatList
           // need to ensure flatlist expands to bottom of screen even if there's
           // not enough data to fill it, otherwise animated cocktail tiles
