@@ -137,7 +137,7 @@ export default function App() {
             labeled={true}
             initialRouteName="MainScreenStack"
             backBehavior="initialRoute"
-            barStyle={{backgroundColor: '#694fad'}}
+            barStyle={{backgroundColor: theme.colors.primary}}
           >
             <Tab.Screen
               name="RecipeBookScreenStack"
