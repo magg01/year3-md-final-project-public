@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View, Image, TextInput, Dimensions} from 'react-native';
+import { SafeAreaView, ScrollView, KeyboardAvoidingView, StyleSheet, View, Image, TextInput, Dimensions} from 'react-native';
 import { Appbar, Modal, Portal, Text, Title, Provider } from 'react-native-paper';
 import { TableView, Section, Cell } from 'react-native-tableview-simple';
 import { useFocusEffect } from '@react-navigation/native'
@@ -102,6 +102,9 @@ export function CocktailDetailRecipeBook({navigation, route}){
   } else {
     return(
       <SafeAreaView>
+      <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <ScrollView>
           <View style={styles.container}>
             <Image
@@ -115,43 +118,57 @@ export function CocktailDetailRecipeBook({navigation, route}){
               null
             }
             <View style={styles.cocktailDetails}>
-              <TableView>
-                <Section header={"Overview"}>
-                  { currentDrink.strGlass ?
-                      <Cell cellStyle={"RightDetail"} title={currentDrink.strGlass} detail={"glass"} />
-                    :
-                      null
-                  }
-                  { currentDrink.strIBA ?
-                      <Cell cellStyle={"RightDetail"} title={currentDrink.strIBA} detail={"IBA category"} />
-                    :
-                      null
-                  }
-                  { currentDrink.strCategory ?
-                      <Cell cellStyle={"RightDetail"} title={currentDrink.strCategory} detail={"category"} />
-                    :
-                      null
-                  }
-                </Section>
-                <Section header={"Ingredients"}>
-                  {Object.keys(currentDrinkIngredients).map((ingredientKey) => (
-                      <Cell key={ingredientKey} cellStyle={"RightDetail"} title={currentDrinkIngredients[ingredientKey].ingredient} detail={currentDrinkIngredients[ingredientKey].measure} />
-                    :
-                      null
-                  ))}
-                </Section>
-                <Section header={"Directions"}>
-                <Cell
-                  onPress={() => showDirectionsModal()}
-                  contentContainerStyle={{ alignItems: 'flex-start', height: 60 }}
-                  cellContentView={
-                    <Text style={{ flex: 1, fontSize: 16 }}>
-                      {currentDrink["strInstructions"]}
-                    </Text>
-                  }
-                />
-                </Section>
-              </TableView>
+                <TableView>
+                  <Section header={"Overview"}>
+                    { currentDrink.strGlass ?
+                        <Cell cellStyle={"RightDetail"} title={currentDrink.strGlass} detail={"glass"} />
+                      :
+                        null
+                    }
+                    { currentDrink.strIBA ?
+                        <Cell cellStyle={"RightDetail"} title={currentDrink.strIBA} detail={"IBA category"} />
+                      :
+                        null
+                    }
+                    { currentDrink.strCategory ?
+                        <Cell cellStyle={"RightDetail"} title={currentDrink.strCategory} detail={"category"} />
+                      :
+                        null
+                    }
+                  </Section>
+                  <Section header={"Ingredients"}>
+                    {Object.keys(currentDrinkIngredients).map((ingredientKey) => (
+                        <Cell key={ingredientKey} cellStyle={"RightDetail"} title={currentDrinkIngredients[ingredientKey].ingredient} detail={currentDrinkIngredients[ingredientKey].measure} />
+                      :
+                        null
+                    ))}
+                  </Section>
+                  <Section header={"Directions"}>
+                  <Cell
+                    onPress={() => showDirectionsModal()}
+                    contentContainerStyle={{ alignItems: 'flex-start', height: 60 }}
+                    cellContentView={
+                      <Text style={{ flex: 1, fontSize: 16 }}>
+                        {currentDrink["strInstructions"]}
+                      </Text>
+                    }
+                  />
+                  </Section>
+                  <Section header={"Notes"}>
+                    <Cell
+                      contentContainerStyle={{ alignItems: 'flex-start'}}
+                      cellContentView={
+                        <TextInput
+                          placeholder="Add your own notes here."
+                          onChangeText={text => setNotesText(text)}
+                          defaultValue={currentDrink["strNotes"]}
+                          onBlur={() => saveNotes()}
+                          multiline={true}
+                        />
+                      }
+                    />
+                  </Section>
+                </TableView>
             </View>
           </View>
         </ScrollView>
@@ -181,6 +198,7 @@ export function CocktailDetailRecipeBook({navigation, route}){
             </Modal>
           </Portal>
         </Provider>
+      </KeyboardAvoidingView>
       </SafeAreaView>
     );
   };
