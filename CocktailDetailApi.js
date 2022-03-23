@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ScrollView, SafeAreaView, Image, Dimensions } from 'react-native';
-import { Appbar, Modal, Portal, Text, Title, Provider } from 'react-native-paper';
+import { StyleSheet, View, ScrollView, Text, SafeAreaView, Image, Dimensions } from 'react-native';
+import { Appbar, Modal, Portal, Title, Provider } from 'react-native-paper';
 import { TableView, Section, Cell } from 'react-native-tableview-simple';
 import { saveToRecipeBook, saveApiImageToFile } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
@@ -221,5 +221,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 50,
   }
-
 })

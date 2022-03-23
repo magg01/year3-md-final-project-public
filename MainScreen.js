@@ -80,6 +80,7 @@ export function MainScreen({navigation}) {
       <SafeAreaView>
         <Searchbar
           style={styles.searchbar}
+          inputStyle={{fontFamily: null}}
           placeholder={"Search"}
           onChangeText={text => setSearchText(text)}
           value={searchText}
