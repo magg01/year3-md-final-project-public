@@ -20,7 +20,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-const fontFamilyToUse = Platform.OS === 'ios' ? 'Chalkduster' : 'serif';
+const fontFamilyToUse = Platform.OS === 'ios' ? 'Chalkduster' : 'Roboto';
 
 export const theme = {
   ...DefaultTheme,

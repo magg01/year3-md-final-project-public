@@ -102,10 +102,10 @@ export function MainScreen({navigation}) {
               navigation={navigation}
             />
           :
-            <View style={{flex: 5}}>
+            <View style={{flex: 5, width: "100%", backgroundColor: colors.suggestedCocktailCard}}>
               <LoadingAnimation
                 loadingMessage={"fetching suggestions"}
-                style={{width: 50, height: 50}}
+                style={{width: 50, height: 50, backgroundColor: colors.suggestedCocktailCard}}
               />
             </View>
           }
