@@ -22,7 +22,7 @@ export function SuggestedCocktails(props){
   }
 
   return (
-    <View style={[styles.drinkContainer, {backgroundColor: colors.cardBackground}]}>
+    <View style={[styles.drinkContainer, {backgroundColor: colors.suggestedCocktailCard}]}>
       <FlatList
         style={{width: "100%"}}
         horizontal={true}

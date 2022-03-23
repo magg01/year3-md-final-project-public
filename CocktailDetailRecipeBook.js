@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
-import { SafeAreaView, ScrollView, KeyboardAvoidingView, StyleSheet, View, Image, TextInput, Dimensions} from 'react-native';
-import { Appbar, Modal, Portal, Text, Title, Provider } from 'react-native-paper';
+import { SafeAreaView, ScrollView, Text, KeyboardAvoidingView, StyleSheet, View, Image, TextInput, Dimensions} from 'react-native';
+import { Appbar, Modal, Portal,  Title, Provider } from 'react-native-paper';
 import { TableView, Section, Cell } from 'react-native-tableview-simple';
 import { useFocusEffect } from '@react-navigation/native'
 import {

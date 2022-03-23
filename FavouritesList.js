@@ -23,10 +23,10 @@ export function FavouritesList(props) {
 
   return (
     <View>
-      <View style={[styles.headerContainer, {backgroundColor: colors.cardBackground}]}>
+      <View style={[styles.headerContainer, {backgroundColor: colors.favouritesCard}]}>
         <Text style={styles.headerText}>Favourite cocktails</Text>
       </View>
-      <View style={[styles.drinkContainer, {backgroundColor: colors.cardBackground}]}>
+      <View style={[styles.drinkContainer, {backgroundColor: colors.favouritesCard}]}>
         <FlatList
           ListEmptyComponent={<Text style={styles.noFavouritesText}>Add favourites from your recipe book to see them appear here</Text>}
           style={{width: "100%"}}
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlignVertical: 'center',
     alignSelf: 'flex-start',
-    paddingLeft: 10
+    paddingLeft: 10,
   },
 })

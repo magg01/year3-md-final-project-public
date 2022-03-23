@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { Provider as PaperProvider, DefaultTheme, Appbar } from 'react-native-paper';
+import { Provider as PaperProvider, DefaultTheme, Appbar, configureFonts } from 'react-native-paper';
+import { Platform } from 'react-native';
 import { MainScreen } from './MainScreen';
 import { CocktailDetailApi } from './CocktailDetailApi';
 import { CocktailDetailRecipeBook } from './CocktailDetailRecipeBook';
@@ -19,17 +20,22 @@ import { MaterialIcons } from '@expo/vector-icons';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
+const fontFamilyToUse = Platform.OS === 'ios' ? 'Chalkduster' : 'serif';
+
 export const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: 'white',
-    primary: '#2F44E6',
+    background: 'lightGray',
+    primary: '#1D49F2',
     accent: 'black',
-    cardBackground: 'lightGray',
+    text: 'black',
     cocktailTileTitleTextColor: 'white',
+    favouritesCard: '#27B2E6',
+    suggestedCocktailCard: '#1DF2B7',
     appbarIconColor: 'white',
   },
+  fontFamily: {...DefaultTheme.fonts.regular.fontFamily = fontFamilyToUse}
 };
 
 export default function App() {

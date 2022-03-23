@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback} from 'react';
-import { StyleSheet, View, ScrollView, Text, InteractionManager } from 'react-native';
+import { StyleSheet, View, ScrollView, InteractionManager } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native'
 import { TableView, Section } from 'react-native-tableview-simple';
 import { FontAwesome } from '@expo/vector-icons';
@@ -10,6 +11,7 @@ import { CustomNavigationBar } from './CustomNavigationBar';
 
 export function ScreenShoppingList({navigation, route}){
   const [currentShoppingList, setCurrentShoppingList] = useState(undefined);
+  const {colors} = useTheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -52,7 +54,7 @@ export function ScreenShoppingList({navigation, route}){
     )
   } else if(Object.keys(currentShoppingList).length === 0 ) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: colors.background} ]}>
         <FontAwesome name="shopping-basket" size={50} color="black" />
         <Text>
           { "\n" }

@@ -83,10 +83,11 @@ export function MainScreen({navigation}) {
           placeholder={"Search"}
           onChangeText={text => setSearchText(text)}
           value={searchText}
+          iconColor={"grey"}
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
         <Surface style={styles.suggestedCocktailsCardContainer}>
-          <View style={[styles.headerContainer, {backgroundColor: colors.cardBackground}]}>
+          <View style={[styles.headerContainer, {backgroundColor: colors.suggestedCocktailCard}]}>
             <Text style={styles.headerText}>Suggested cocktails</Text>
             <IconButton
               style={styles.suggestedRefreshButton}
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     alignSelf: 'flex-start',
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   suggestedRefreshButton: {
     position: 'absolute',

@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
-import { StyleSheet, View, Animated, Text, Easing} from 'react-native';
+import { StyleSheet, View, Animated, Easing} from 'react-native';
+import { Text } from 'react-native-paper';
 
 export function LoadingAnimation(props){
   const shakerAngle = useRef(new Animated.Value(0)).current;

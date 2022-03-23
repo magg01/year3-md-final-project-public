@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import {StyleSheet, View, Image, Text, TouchableHighlight, Animated, PanResponder } from 'react-native';
-import { Surface, useTheme } from 'react-native-paper';
+import {StyleSheet, View, Image, TouchableHighlight, Animated, PanResponder } from 'react-native';
+import { Surface, Text, useTheme } from 'react-native-paper';
 import { saveToRecipeBook } from './RecipeBook';
 import { addToShoppingList } from './ShoppingList';
 
