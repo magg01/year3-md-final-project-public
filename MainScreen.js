@@ -86,7 +86,7 @@ export function MainScreen({navigation}) {
           iconColor={"grey"}
           onSubmitEditing={() => navigation.navigate("MainScreenStack", {screen: "SearchScreen", params: {searchText: searchText}})}
         />
-        <Surface style={styles.suggestedCocktailsCardContainer}>
+        <Surface style={[styles.suggestedCocktailsCardContainer, {backgroundColor: colors.suggestedCocktailCard}]}>
           <View style={[styles.headerContainer, {backgroundColor: colors.suggestedCocktailCard}]}>
             <Text style={styles.headerText}>Suggested cocktails</Text>
             <IconButton
@@ -110,7 +110,7 @@ export function MainScreen({navigation}) {
             </View>
           }
         </Surface>
-        <Surface style={styles.favouriteCocktailsCardContainer}>
+        <Surface style={[styles.favouriteCocktailsCardContainer, {backgroundColor: colors.favouritesCard}]}>
           {favouriteRecipes ?
             <FavouritesList
               favourites={favouriteRecipes}
@@ -163,6 +163,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     borderBottomWidth: 0.5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     minWidth: "100%",
     alignItems: 'center',
     justifyContent: 'center',
