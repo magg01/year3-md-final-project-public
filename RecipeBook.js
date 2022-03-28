@@ -4,14 +4,17 @@ import Toast from 'react-native-root-toast';
 import { Alert } from 'react-native';
 import { shoppingListKey } from './Constants';
 
+//show the saved recipe success toast
 const saveRecipeSuccessToast = (drinkName) => {
   Toast.show(`${drinkName} was added to your recipe book`, {duration: Toast.durations.SHORT});
 }
 
+//show the removed recipe success toast
 const removeRecipeSuccessToast = () => {
   Toast.show("Recipe removed from your recipe book", {duration: Toast.durations.SHORT});
 }
 
+//return true if recipe is in the recipe book, false otherwise
 async function isInRecipeBook(id){
   try{
     const exists = await AsyncStorage.getItem(id)
@@ -21,6 +24,7 @@ async function isInRecipeBook(id){
   }
 }
 
+//save a drink recipe to the recipe book
 async function saveToRecipeBook(drink) {
   try {
     const exists = await AsyncStorage.getItem(drink["idDrink"]);
@@ -42,6 +46,7 @@ async function saveToRecipeBook(drink) {
   }
 }
 
+//get a recipe from the recipe book by id
 async function getFromRecipeBook(id){
   try {
     const jsonValue = await AsyncStorage.getItem(id);
@@ -53,6 +58,7 @@ async function getFromRecipeBook(id){
   }
 }
 
+//get all the recipes from the recipe book
 async function getAllRecipes(){
   try{
     const keys = await AsyncStorage.getAllKeys()
@@ -72,6 +78,7 @@ async function getAllRecipes(){
   }
 }
 
+//confirm recipe removal with the user before proceeding
 async function confirmRecipeRemoval(){
   return new Promise ((resolve) => {
     Alert.alert(
@@ -93,6 +100,7 @@ async function confirmRecipeRemoval(){
   })
 }
 
+//confirm photo replacement before proceeding
 async function confirmPhotoReplacement(){
   return new Promise((resolve) => {
     Alert.alert(
@@ -114,12 +122,14 @@ async function confirmPhotoReplacement(){
   })
 }
 
+//remove a drink from the recipe book and its saved image from storage
 async function removeDrink(id){
   await removeSavedImageFromFile(id)
   await removeDrinkFromRecipeBook(id);
   removeRecipeSuccessToast()
 }
 
+//
 async function removeDrinkFromRecipeBook(id){
   try {
     await AsyncStorage.removeItem(id);

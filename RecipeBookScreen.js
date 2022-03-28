@@ -21,6 +21,8 @@ export function RecipeBookScreen({navigation}){
   const vibratedLeft = useRef(false);
   const { colors } = useTheme();
 
+  //listen to the animatedValue to gauge position of the cocktail tile under
+  //gesture and trigger the vibration events
   const listener = bucket.addListener((value) => {
     if(value.x > rightThird && value.y > bottomTenth){
       inRightZone()
@@ -65,6 +67,7 @@ export function RecipeBookScreen({navigation}){
     }, [])
   );
 
+  //render a cocktail tile to the flatlist
   const renderCocktailTile = ({item}) => {
     return (
       <CocktailTile
@@ -83,6 +86,7 @@ export function RecipeBookScreen({navigation}){
     )
   }
 
+  //conditionally render the recipe book based on contents
   if(recipeBook === undefined){
     return (
       <LoadingAnimation
