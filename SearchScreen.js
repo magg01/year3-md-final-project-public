@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Animated, Vibration, Dimensions, FlatList } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { MaterialIcons } from '@expo/vector-icons';

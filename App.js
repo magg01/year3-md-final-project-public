@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Provider as PaperProvider, DefaultTheme, Appbar, configureFonts } from 'react-native-paper';
 import { Platform } from 'react-native';
 import { MainScreen } from './MainScreen';

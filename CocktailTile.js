@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import {StyleSheet, View, Image, TouchableHighlight, Animated, PanResponder } from 'react-native';
 import { Surface, Text, useTheme } from 'react-native-paper';

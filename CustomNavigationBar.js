@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Platform, View } from 'react-native';
 import { Appbar, Menu, useTheme } from 'react-native-paper';
 import { addToShoppingList } from './ShoppingList';

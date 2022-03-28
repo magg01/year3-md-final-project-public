@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, FlatList, Text, Animated, Dimensions} from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { useTheme } from 'react-native-paper'

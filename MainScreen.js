@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Searchbar, IconButton, Text, Surface } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, TextInput, View, Button, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Cell } from 'react-native-tableview-simple';
 import { updateIsBoughtForIngredient } from './ShoppingList';
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Image, View, Button } from 'react-native'
 import { Text } from 'react-native-paper';
 import { confirmPhotoReplacement, replaceImageForDrink } from './RecipeBook';
