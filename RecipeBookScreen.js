@@ -130,12 +130,12 @@ export function RecipeBookScreen({navigation}){
         />
         <Animated.View style={{
           position: 'absolute',
-          top: 620,
-          right: -100,
+          bottom: - width / 3,
+          right: 0 - width / 6,
           transform: [
             {scaleX: bucket.x.interpolate({
               inputRange: [0, 400],
-              outputRange: [0, 1.5]
+              outputRange: [0, 3]
             })},
             {translateY: bucket.y.interpolate({
               inputRange: [0, 800],
@@ -143,7 +143,7 @@ export function RecipeBookScreen({navigation}){
             })}
           ]
         }}>
-          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
+          <View style={{backgroundColor: colors.primary, width: width / 3, height: width / 3, borderRadius: width /6, opacity: 0.8}}>
           </View>
         </Animated.View>
       </SafeAreaView>

@@ -13,6 +13,7 @@ export function SearchScreen({navigation, route}) {
   const signal = abortController.signal;
   const bucket = useRef(new Animated.ValueXY({x:1, y:1})).current;
   const {height, width} = Dimensions.get('window')
+  //zone thresholds for the vibration effect
   const rightThird = width / 3 * 2
   const leftThird = width / 3
   const bottomTenth = height / 10 * 9;
@@ -22,6 +23,9 @@ export function SearchScreen({navigation, route}) {
   const vibratedLeft = useRef(false);
   const { colors } = useTheme();
 
+  //listen to the 'bucket' animated value to listen for the screen posiiton
+  //of a cocktail tile under gesture. Trigger events when the gesture enters
+  //the respective zones
   const listener = bucket.addListener((value) => {
     if(value.x > rightThird && value.y > bottomTenth){
       inRightZone()
@@ -69,12 +73,11 @@ export function SearchScreen({navigation, route}) {
     }
   }
 
+  //get the search results from the api.
   useEffect(() => {
     (async () => {
       try{
-        //below for simulating network delay - REMOVE BEFORE SUBMISSION
-        const response = await fetch(`https://deelay.me/100/https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${route.params.searchText}`,{
-        //const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchText}`,{
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${route.params.searchText}`,{
           signal: signal,
           method: 'GET',
           headers: {
@@ -88,9 +91,11 @@ export function SearchScreen({navigation, route}) {
         console.log(`SearchScreen: useEffect fetch encountered an error -> ${e}`);
       }
     })();
+    //Abort the fetch request in the case that the component is no longer mounted
     return () => abortController.abort();
   },[]);
 
+  //render a cocktailTile to the flatlist of results
   const renderCocktailTile = ({item}) => {
     return (
       <CocktailTile
@@ -113,6 +118,7 @@ export function SearchScreen({navigation, route}) {
     )
   }
 
+  //conditionally render the search screen based on the results returned from the API
   if (searchResults === undefined){
     return (
       <LoadingAnimation
@@ -146,12 +152,12 @@ export function SearchScreen({navigation, route}) {
         />
         <Animated.View style={{
           position: 'absolute',
-          top: 620,
-          left: -100,
+          bottom: - width / 3,
+          left: 0 - width / 6,
           transform: [
             {scaleX: bucket.x.interpolate({
               inputRange: [0, 400],
-              outputRange: [1.5, 0]
+              outputRange: [3, 0]
             })},
             {translateY: bucket.y.interpolate({
               inputRange: [0, 800],
@@ -159,17 +165,17 @@ export function SearchScreen({navigation, route}) {
             })}
           ]
         }}>
-          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
+          <View style={{backgroundColor: colors.primary, width: width / 3, height: width / 3, borderRadius: width /6, opacity: 0.8}}>
           </View>
         </Animated.View>
         <Animated.View style={{
           position: 'absolute',
-          top: 620,
-          right: -100,
+          bottom: -width / 3,
+          right:  0 - width / 6,
           transform: [
             {scaleX: bucket.x.interpolate({
               inputRange: [0, 400],
-              outputRange: [0, 1.5]
+              outputRange: [0, 3]
             })},
             {translateY: bucket.y.interpolate({
               inputRange: [0, 800],
@@ -177,7 +183,7 @@ export function SearchScreen({navigation, route}) {
             })}
           ]
         }}>
-          <View style={{backgroundColor:'#694fad', width: 200, height: 200, borderRadius: 100, opacity: 0.8}}>
+          <View style={{backgroundColor: colors.primary, width: width / 3, height: width / 3, borderRadius: width /6, opacity: 0.8}}>
           </View>
         </Animated.View>
       </SafeAreaView>
