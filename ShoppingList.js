@@ -3,6 +3,7 @@ import Toast from 'react-native-root-toast';
 import { Alert } from 'react-native';
 import {shoppingListKey, ingredientListKeysFromApi, measureListKeysFromApi} from './Constants';
 
+//fetch the shopping list from storage or create a new blank list if it doesn't exist
 async function getOrCreateShoppingList(){
   try{
     let shoppingList = await AsyncStorage.getItem(shoppingListKey);
@@ -20,11 +21,13 @@ async function getOrCreateShoppingList(){
   }
 }
 
+//set the shopping list in storage
 async function setShoppingList(shoppingList){
   await AsyncStorage.removeItem(shoppingListKey);
   AsyncStorage.setItem(shoppingListKey, JSON.stringify(shoppingList));
 }
 
+//add a recipe to the shopping list
 async function addToShoppingList(recipe){
   try{
     let list = await getOrCreateShoppingList();
@@ -51,6 +54,7 @@ async function addToShoppingList(recipe){
   }
 }
 
+//update the isBought property for an ingredient in the shopping list
 async function updateIsBoughtForIngredient(recipe, ingredient, isBought){
   try{
     let list = await getOrCreateShoppingList();
@@ -69,6 +73,7 @@ async function updateIsBoughtForIngredient(recipe, ingredient, isBought){
   }
 }
 
+//clear the items from the shopping list whose isBought property is true
 async function clearBought(){
   let list = await getOrCreateShoppingList()
   Object.keys(list).map((recipe) => (
@@ -88,6 +93,7 @@ async function clearBought(){
   await setShoppingList(list);
 }
 
+//export shopping list functions
 export {
   shoppingListKey,
   getOrCreateShoppingList,

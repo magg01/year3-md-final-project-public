@@ -7,6 +7,7 @@ export function SuggestedCocktails(props){
   const data = props.suggestedCocktails
   const { colors } = useTheme();
 
+  //render a cocktail tile to the flatlist
   const renderCocktailTile = ({item}) => {
     return (
       <CocktailTile
@@ -21,6 +22,7 @@ export function SuggestedCocktails(props){
     )
   }
 
+  //return the view
   return (
     <View style={[styles.drinkContainer, {backgroundColor: colors.suggestedCocktailCard}]}>
       <FlatList
