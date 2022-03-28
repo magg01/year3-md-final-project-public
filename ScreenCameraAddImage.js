@@ -22,6 +22,8 @@ export function ScreenCameraAddImage({navigation, route}) {
     })();
   }, []);
 
+  //try to ascertain the best cameraRatio to use if 1:1 is not in the available
+  //ratios
   async function setBestRatio(){
     try{
       let ratios = await camera.current.getSupportedRatiosAsync();
@@ -54,6 +56,7 @@ export function ScreenCameraAddImage({navigation, route}) {
     }
   }
 
+  //build the CameraView with touchable opacity overlayed
   const CameraView = (props) => {
     const isFocused = useIsFocused();
     return (
@@ -63,7 +66,7 @@ export function ScreenCameraAddImage({navigation, route}) {
           style={styles.camera}
           type={cameraType}
           //ratio hard coded for my galaxyS20 - not ideal solution
-          ratio={"1:1"}
+          ratio={cameraRatio}
           onCameraReady={() => setCameraReady()}
           ref = {camera}
         >
